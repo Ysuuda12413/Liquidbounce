@@ -53,12 +53,14 @@ object Velocity : Module("Velocity", Category.COMBAT) {
             "Reverse", "SmoothReverse", "Jump", "Glitch", "Legit",
             "GhostBlock", "Vulcan", "S32Packet", "MatrixReduce",
             "IntaveReduce", "Delay", "GrimC03", "Hypixel", "HypixelAir",
-            "Click", "BlocksMC"
+            "Click", "BlocksMC","GrimBypass"
         ), "Simple"
     )
 
     private val horizontal by float("Horizontal", 0F, -1F..1F) { mode in arrayOf("Simple", "AAC", "Legit") }
     private val vertical by float("Vertical", 0F, -1F..1F) { mode in arrayOf("Simple", "Legit") }
+    private val grimBypassHorizontal by float("GrimBypassHorizontal", 0F, 0F..1F) { mode == "GrimBypass" }
+    private val grimBypassVertical by float("GrimBypassVertical", 0F, 0F..1F) { mode == "GrimBypass" }
 
     // Reverse
     private val reverseStrength by float("ReverseStrength", 1F, 0.1F..1F) { mode == "Reverse" }
@@ -108,7 +110,11 @@ object Velocity : Module("Velocity", Category.COMBAT) {
 
     private val pauseOnExplosion by boolean("PauseOnExplosion", true)
     private val ticksToPause by int("TicksToPause", 20, 1..50) { pauseOnExplosion }
-
+    // GrimBypass mode variables
+    private var shouldFakeVelocity = false
+    private var fakeVelocityX = 0.0
+    private var fakeVelocityY = 0.0
+    private var fakeVelocityZ = 0.0
     // TODO: Could this be useful in other modes? (Jump?)
     // Limits
     private val limitMaxMotionValue = boolean("LimitMaxMotion", false) { mode == "Simple" }
@@ -166,18 +172,25 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     private var pauseTicks = 0
 
     override val tag
-        get() = if (mode == "Simple" || mode == "Legit") {
-            val horizontalPercentage = (horizontal * 100).toInt()
-            val verticalPercentage = (vertical * 100).toInt()
-
-            "$horizontalPercentage% $verticalPercentage%"
-        } else mode
-
+        get() = when {
+            mode == "GrimBypass" -> {
+                val h = (grimBypassHorizontal * 100).toInt()
+                val v = (grimBypassVertical * 100).toInt()
+                "$h% $v%"
+            }
+            mode == "Simple" || mode == "Legit" -> {
+                val horizontalPercentage = (horizontal * 100).toInt()
+                val verticalPercentage = (vertical * 100).toInt()
+                "$horizontalPercentage% $verticalPercentage%"
+            }
+            else -> mode
+        }
     override fun onDisable() {
         pauseTicks = 0
         mc.thePlayer?.speedInAir = 0.02F
         timerTicks = 0
         reset()
+        shouldFakeVelocity = false
     }
 
     val onUpdate = handler<UpdateEvent> {
@@ -187,6 +200,18 @@ object Velocity : Module("Velocity", Category.COMBAT) {
             return@handler
 
         when (mode.lowercase()) {
+            "grimbypass" -> {
+                if (shouldFakeVelocity) {
+                    thePlayer.motionX = fakeVelocityX
+                    thePlayer.motionY = fakeVelocityY
+                    thePlayer.motionZ = fakeVelocityZ
+                    shouldFakeVelocity = false
+                } else {
+                    thePlayer.motionX = 0.0
+                    thePlayer.motionY = 0.0
+                    thePlayer.motionZ = 0.0
+                }
+            }
             "glitch" -> {
                 thePlayer.noClip = hasReceivedVelocity
 
@@ -479,7 +504,15 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                 "simple" -> handleVelocity(event)
 
                 "aac", "reverse", "smoothreverse", "aaczero", "ghostblock", "intavereduce" -> hasReceivedVelocity = true
-
+                "grimbypass" -> {
+                    shouldFakeVelocity = true
+                    val h = grimBypassHorizontal
+                    val v = grimBypassVertical
+                    fakeVelocityX = if (packet is S12PacketEntityVelocity) (packet.motionX / 8000.0) * h else 0.0
+                    fakeVelocityY = if (packet is S12PacketEntityVelocity) (packet.motionY / 8000.0) * v else 0.0
+                    fakeVelocityZ = if (packet is S12PacketEntityVelocity) (packet.motionZ / 8000.0) * h else 0.0
+                    event.cancelEvent()
+                }
                 "jump" -> {
                     // TODO: Recode and make all velocity modes support velocity direction checks
                     var packetDirection = 0.0
