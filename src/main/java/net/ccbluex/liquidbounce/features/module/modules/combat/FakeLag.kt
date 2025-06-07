@@ -42,7 +42,7 @@ import kotlin.math.min
 object  FakeLag : Module("FakeLag", Category.COMBAT, gameDetecting = false) {
 
     private val delay by int("Delay", 550, 0..1000)
-    private val recoilTime by int("RecoilTime", 750, 0..2000)
+    private val recoilTime by int("RecoilTime", 750, 0..200000)
 
     private val allowedDistToEnemy by floatRange("MinAllowedDistToEnemy", 1.5f..3.5f, 0f..6f)
 
