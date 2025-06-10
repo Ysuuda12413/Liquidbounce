@@ -40,7 +40,7 @@ import net.minecraft.util.AxisAlignedBB
 import net.minecraft.util.BlockPos
 import org.lwjgl.input.Keyboard
 import java.awt.Color
-
+import net.minecraft.network.play.client.C03PacketPlayer
 object Fly : Module("Fly", Category.MOVEMENT, Keyboard.KEY_F) {
     private val flyModes = arrayOf(
         Vanilla, SmoothVanilla,
@@ -101,7 +101,7 @@ object Fly : Module("Fly", Category.MOVEMENT, Keyboard.KEY_F) {
     }
 
     private var modesList = flyModes
-
+    private val spoofGround by boolean("SpoofGround", false)
     val modeValue = choices("Mode", modesList.map { it.modeName }.toTypedArray(), "Vanilla")
     val mode by modeValue
 
@@ -247,8 +247,10 @@ object Fly : Module("Fly", Category.MOVEMENT, Keyboard.KEY_F) {
     }
 
     val onPacket = handler<PacketEvent> { event ->
+        if (spoofGround && event.packet is C03PacketPlayer) {
+            event.packet.onGround = true
+        }
         mc.thePlayer ?: return@handler
-
         modeModule.onPacket(event)
     }
 

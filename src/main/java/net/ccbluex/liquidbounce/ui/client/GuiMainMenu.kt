@@ -45,12 +45,6 @@ class GuiMainMenu : AbstractScreen() {
 
     init {
         if (!popupOnce) {
-            javaVersion?.let {
-                when {
-                    it.major == 1 && it.minor == 8 && it.update < 100 -> showOutdatedJava8Warning()
-                    it.major > 8 -> showJava11Warning()
-                }
-            }
             when {
                 FileManager.firstStart -> showWelcomePopup()
                 hasUpdate() -> showUpdatePopup()
@@ -168,38 +162,6 @@ class GuiMainMenu : AbstractScreen() {
             }
         }
     }
-
-    private fun showOutdatedJava8Warning() {
-        popup = PopupScreen {
-            title("§c§lOutdated Java Runtime Environment")
-            message("""
-                §6§lYou are using an outdated version of Java 8 (${javaVersion!!.raw}).§r
-                
-                §fThis might cause unexpected §c§lBUGS§f.
-                Please update it to 8u101+, or get a new one from the Internet.
-            """.trimIndent())
-            button("§aDownload Java") { MiscUtils.showURL(JavaVersion.DOWNLOAD_PAGE) }
-            button("§eI realized")
-            onClose { popup = null }
-        }
-    }
-
-    private fun showJava11Warning() {
-        popup = PopupScreen {
-            title("§c§lInappropriate Java Runtime Environment")
-            message("""
-                §6§lThis version of $CLIENT_NAME is designed for Java 8 environment.§r
-                
-                §fHigher versions of Java might cause bug or crash.
-                You can get JRE 8 from the Internet.
-            """.trimIndent())
-            button("§aDownload Java") { MiscUtils.showURL(JavaVersion.DOWNLOAD_PAGE) }
-            button("§eI realized")
-            onClose { popup = null }
-        }
-    }
-
-
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
         drawBackground(0)
 
