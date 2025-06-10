@@ -1,8 +1,9 @@
-name: Build
+name: Build & Release
 
 on:
   push:
     branches: [ "main" ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,24 +19,31 @@ jobs:
           distribution: "adopt"
           java-version: 8
           cache: "gradle"
+
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
+
       - name: Build
         run: ./gradlew build
 
-      - name: Rename and prepare artifact
+      - name: Prepare artifact and get version
+        id: prep
         run: |
           cd build/libs
-          export JAR=$(find . -regex '.*liquidbounce-b[0-9|.]*\.jar')
-          export LB_VERSION=$(echo $JAR | sed -r 's/.\/liquidbounce-([a-zA-Z0-9.]+)\.jar/\1/')
-          export MINECRAFT_VERSION='1.8.9'
-          echo "Version: $LB_VERSION, Minecraft: $MINECRAFT_VERSION"
-
+          JAR=$(find . -regex '.*liquidbounce-b[0-9|.]*\.jar' | head -n1)
+          LB_VERSION=$(echo $JAR | sed -r 's/.\/liquidbounce-([a-zA-Z0-9.]+)\.jar/\1/')
+          MINECRAFT_VERSION='1.8.9'
+          ARTIFACT_NAME="liquidbounce-$LB_VERSION-mc$MINECRAFT_VERSION.jar"
           mkdir -p ../../artifacts
-          cp "$JAR" "../../artifacts/liquidbounce-$LB_VERSION-mc$MINECRAFT_VERSION.jar"
+          cp "$JAR" "../../artifacts/$ARTIFACT_NAME"
+          echo "jar_name=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+          echo "lb_version=$LB_VERSION" >> $GITHUB_OUTPUT
 
-      - name: Upload to GitHub Artifacts
-        uses: actions/upload-artifact@v4
+      - name: Create Release & Upload JAR
+        uses: softprops/action-gh-release@v2
         with:
-          name: liquidbounce-artifact
-          path: artifacts/*.jar
+          tag_name: ${{ steps.prep.outputs.lb_version }}
+          name: LiquidBounce ${{ steps.prep.outputs.lb_version }}
+          files: artifacts/${{ steps.prep.outputs.jar_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
