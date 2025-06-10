@@ -26,13 +26,12 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
-      - name: Read version from tag file
+      - name: Read version from version.txt file
         id: version
         run: |
-          LB_VERSION=$(cat tag | tr -d ' \n\r')
+          LB_VERSION=$(cat version.txt | tr -d ' \n\r')
           echo "LB_VERSION=$LB_VERSION" >> $GITHUB_ENV
           echo "LB_VERSION=$LB_VERSION" >> $GITHUB_OUTPUT
-
       - name: Build
         run: ./gradlew build
 
