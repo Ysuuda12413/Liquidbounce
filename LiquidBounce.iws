@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="59d2b7b0-8ff0-4d53-9c64-d598228b6776" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/ccbluex/liquidbounce/features/module/modules/movement/Fly.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/ccbluex/liquidbounce/features/module/modules/movement/Fly.kt" afterDir="false" />
-    </list>
+    <list default="true" id="59d2b7b0-8ff0-4d53-9c64-d598228b6776" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,7 +61,7 @@
     <option name="LAST_EDITED_TAB_NAME" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
