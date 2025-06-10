@@ -10,6 +10,7 @@ jobs:
     outputs:
       lb_version: ${{ steps.version.outputs.LB_VERSION }}
       jar_name: ${{ steps.prep.outputs.jar_name }}
+
     steps:
       - name: Checkout repository and submodules
         uses: actions/checkout@v4
@@ -19,7 +20,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: "adopt"
+          distribution: "temurin"
           java-version: 8
           cache: "gradle"
 
@@ -29,100 +30,101 @@ jobs:
       - name: Read version from version.txt file
         id: version
         run: |
-          LB_VERSION=$(cat version.txt | tr -d ' \n\r')
+          LB_VERSION=$(< version.txt)
+          LB_VERSION=$(echo "$LB_VERSION" | tr -d ' \n\r')
           echo "LB_VERSION=$LB_VERSION" >> $GITHUB_ENV
           echo "LB_VERSION=$LB_VERSION" >> $GITHUB_OUTPUT
 
-      - name: Build
+      - name: Build project
         run: ./gradlew build
 
       - name: Prepare artifact and get jar name
         id: prep
         run: |
           cd build/libs
-          JAR=$(find . -regex '.*liquidbounce-b[0-9|.]*\.jar' | head -n1)
+          JAR=$(find . -regex '.*liquidbounce-b[0-9.]*\.jar' | head -n1)
           if [ -z "$JAR" ]; then
             echo "No .jar file found! Build failed."
             exit 1
           fi
           MINECRAFT_VERSION='1.8.9'
-          ARTIFACT_NAME="liquidbounce-${{ env.LB_VERSION }}-mc$MINECRAFT_VERSION.jar"
+          ARTIFACT_NAME="liquidbounce-${LB_VERSION}-mc$MINECRAFT_VERSION.jar"
           mkdir -p ../../artifacts
           cp "$JAR" "../../artifacts/$ARTIFACT_NAME"
           echo "jar_name=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
 
-      - name: Upload artifact (download link)
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: LiquidBounce-JAR
+          name: LiquidBounce-${{ env.LB_VERSION }}
           path: artifacts/*.jar
 
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ needs.build.outputs.lb_version != '' }}
     steps:
-      - name: Checkout repository
+      - name: Checkout full repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup gh CLI
+      - name: Setup GitHub CLI
         run: |
           sudo apt update
           sudo apt install gh -y
 
-      - name: Download artifact from build job
+      - name: Download artifact from build
         uses: actions/download-artifact@v4
         with:
-          name: LiquidBounce-JAR
+          name: LiquidBounce-${{ needs.build.outputs.lb_version }}
           path: ./artifacts
 
-      - name: List downloaded files
+      - name: List artifact files
         run: ls -lh ./artifacts
 
-      - name: Check JAR file exists
-        run: |
-          if [ ! -f ./artifacts/liquidbounce-${{ needs.build.outputs.lb_version }}-mc1.8.9.jar ]; then
-            echo "JAR file not found!"
-            exit 1
-          fi
-
-      - name: Setup git user
+      - name: Setup git identity
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Fetch all tags
+      - name: Fetch tags
         run: git fetch --tags
 
-      - name: Delete existing tag and release if they exist
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check if tag exists
+        id: check_tag
         run: |
-          TAG_NAME=${{ needs.build.outputs.lb_version }}
-
-          if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
-            echo "Tag $TAG_NAME already exists. Deleting..."
-            git tag -d "$TAG_NAME"
-            git push origin :refs/tags/$TAG_NAME || true
+          TAG="${{ needs.build.outputs.lb_version }}"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
           fi
 
-          if gh release view "$TAG_NAME" >/dev/null 2>&1; then
-            echo "Release $TAG_NAME already exists. Deleting..."
-            gh release delete "$TAG_NAME" -y
-          fi
-
-      - name: Create new git tag
+      - name: Create git tag
+        if: steps.check_tag.outputs.exists == 'false'
         run: |
           git tag ${{ needs.build.outputs.lb_version }}
           git push origin ${{ needs.build.outputs.lb_version }}
 
-      - name: Create Release & Upload JAR
+      - name: Generate changelog
+        id: changelog
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=2 | tail -n1) 2>/dev/null || echo "")
+          if [ -n "$PREV_TAG" ]; then
+            CHANGELOG=$(git log $PREV_TAG..HEAD --pretty=format:"- %s")
+          else
+            CHANGELOG=$(git log --pretty=format:"- %s")
+          fi
+          echo "CHANGELOG<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.build.outputs.lb_version }}
           name: LiquidBounce ${{ needs.build.outputs.lb_version }}
+          body: ${{ steps.changelog.outputs.CHANGELOG }}
           files: ./artifacts/liquidbounce-${{ needs.build.outputs.lb_version }}-mc1.8.9.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
