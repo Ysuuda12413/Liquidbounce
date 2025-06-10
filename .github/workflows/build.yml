@@ -32,6 +32,10 @@ jobs:
           LB_VERSION=$(cat version.txt | tr -d ' \n\r')
           echo "LB_VERSION=$LB_VERSION" >> $GITHUB_ENV
           echo "LB_VERSION=$LB_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Debug LB_VERSION output
+        run: echo "Output: ${{ steps.version.outputs.LB_VERSION }}"
+
       - name: Build
         run: ./gradlew build
 
@@ -61,6 +65,9 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.build.outputs.lb_version != '' }}
     steps:
+      - name: Debug needs.build.outputs.lb_version
+        run: echo "Release version: ${{ needs.build.outputs.lb_version }}"
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
