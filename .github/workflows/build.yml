@@ -110,19 +110,28 @@ jobs:
           CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
           CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
           echo "CHANGELOG=$CHANGELOG" >> $GITHUB_OUTPUT
-      - name: Create Git tag if not exists
+
+      - name: Recreate Git tag
         run: |
           TAG=${{ needs.build.outputs.lb_version }}
-          if ! git rev-parse "$TAG" >/dev/null 2>&1; then
-            git tag "$TAG"
-            git push origin "$TAG"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            git tag -d "$TAG"
+            git push origin :refs/tags/$TAG
           fi
+          git tag "$TAG"
+          git push origin "$TAG"
 
-      - name: Create GitHub Release with GH CLI
+      - name: Create or Replace GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create ${{ needs.build.outputs.lb_version }} \
+          TAG=${{ needs.build.outputs.lb_version }}
+          if gh release view "$TAG" &>/dev/null; then
+            echo "Release $TAG already exists. Deleting..."
+            gh release delete "$TAG" -y
+          fi
+
+          gh release create "$TAG" \
             ./artifacts/liquidbounce-${{ needs.build.outputs.lb_version }}-mc1.8.9.jar \
-            --title "LiquidBounce ${{ needs.build.outputs.lb_version }}" \
+            --title "LiquidBounce $TAG" \
             --notes "${{ steps.changelog.outputs.CHANGELOG }}"
