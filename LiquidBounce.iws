@@ -99,6 +99,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.language.Kotlin&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\Desktop\LiquidBounce-b100\src\main\resources" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.Minecraft Client">
     <configuration default="true" factoryName="Applet" type="Applet">
       <module name="" />

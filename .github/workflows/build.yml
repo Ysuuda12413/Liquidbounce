@@ -24,10 +24,10 @@ jobs:
           java-version: 8
           cache: "gradle"
 
-      - name: Read version from version.txt
+      - name: Read version from src/main/resources/version.txt
         id: version
         run: |
-          LB_VERSION=$(cat version.txt | tr -d ' \n\r')
+          LB_VERSION=$(cat src/main/resources/version.txt | tr -d ' \n\r')
           echo "LB_VERSION=$LB_VERSION" >> $GITHUB_OUTPUT
           echo "LB_VERSION=$LB_VERSION" >> $GITHUB_ENV
 
