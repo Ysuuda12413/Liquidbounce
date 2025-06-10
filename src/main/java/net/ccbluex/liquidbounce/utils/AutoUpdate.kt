@@ -10,14 +10,16 @@ object AutoUpdate {
     private const val JAR_PREFIX = "liquidbounce-"
     private const val JAR_SUFFIX = ".jar"
     private const val MC_VERSION = "mc1.8.9"
-    val CURRENT_VERSION = File("version.txt").readText().trim()
+    val CURRENT_VERSION = try {
+        AutoUpdate::class.java.classLoader.getResourceAsStream("version.txt")?.bufferedReader()?.readText()?.trim() ?: "unknown"
+    } catch (e: Exception) { "unknown" }
 
     fun checkAndUpdate() {
         try {
             val json = URL(API_URL).readText()
             val release = JSONObject(json)
             val latestTag = release.getString("tag_name")
-            if (latestTag == CURRENT_VERSION) return // Đúng version rồi
+            if (latestTag == CURRENT_VERSION) return
 
             val assets = release.getJSONArray("assets")
             var downloadUrl: String? = null
@@ -57,7 +59,6 @@ object AutoUpdate {
                     null,
                     "Đã cập nhật thành công! Vui lòng khởi động lại LiquidBounce."
                 )
-                // Thoát game để user tự mở lại
                 System.exit(0)
             }
         } catch (ex: Exception) {
