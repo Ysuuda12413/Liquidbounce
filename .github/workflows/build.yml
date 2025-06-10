@@ -105,10 +105,11 @@ jobs:
           else
             git log --pretty=format:"- %s" > changelog.txt
           fi
-          echo "CHANGELOG<<EOF" >> $GITHUB_OUTPUT
-          cat changelog.txt >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
+          CHANGELOG=$(cat changelog.txt)
+          CHANGELOG="${CHANGELOG//'%'/'%25'}"
+          CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
+          CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
+          echo "CHANGELOG=$CHANGELOG" >> $GITHUB_OUTPUT
       - name: Create Git tag if not exists
         run: |
           TAG=${{ needs.build.outputs.lb_version }}
