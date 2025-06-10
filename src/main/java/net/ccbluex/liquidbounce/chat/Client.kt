@@ -60,6 +60,7 @@ abstract class Client : ClientListener, MinecraftInstance {
     /**
      * Connect websocket
      */
+
     fun connect() {
         onConnect()
 

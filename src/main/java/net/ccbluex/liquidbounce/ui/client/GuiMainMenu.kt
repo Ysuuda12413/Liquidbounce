@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.*
 import java.util.concurrent.TimeUnit
+import net.ccbluex.liquidbounce.utils.AutoUpdate
 
 class GuiMainMenu : AbstractScreen() {
 
@@ -75,6 +76,7 @@ class GuiMainMenu : AbstractScreen() {
 
         +GuiButton(0, baseCol1, defaultHeight + 24 * 4, 98, 20, I18n.format("menu.options"))
         +GuiButton(4, baseCol2, defaultHeight + 24 * 4, 98, 20, I18n.format("menu.quit"))
+        AutoUpdate.checkAndUpdate()
     }
 
     private fun showWelcomePopup() {

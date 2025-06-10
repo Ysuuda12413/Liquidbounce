@@ -11,7 +11,7 @@ object AutoUpdate {
     private const val JAR_SUFFIX = ".jar"
     private const val MC_VERSION = "mc1.8.9"
     val CURRENT_VERSION = File("version.txt").readText().trim()
-    // Gọi hàm này lúc start game hoặc ở nơi phù hợp
+
     fun checkAndUpdate() {
         try {
             val json = URL(API_URL).readText()
@@ -21,6 +21,7 @@ object AutoUpdate {
 
             val assets = release.getJSONArray("assets")
             var downloadUrl: String? = null
+
             for (i in 0 until assets.length()) {
                 val asset = assets.getJSONObject(i)
                 val name = asset.getString("name")
@@ -31,18 +32,32 @@ object AutoUpdate {
             }
             if (downloadUrl == null) return
 
-            // Thông báo cho user
-            val res = JOptionPane.showConfirmDialog(null, "Có bản cập nhật mới ($latestTag)! Bạn có muốn tải và restart?", "Auto Update", JOptionPane.YES_NO_OPTION)
+            val res = JOptionPane.showConfirmDialog(
+                null,
+                "Có bản cập nhật mới ($latestTag)! Bạn có muốn tải và ghi đè lên bản hiện tại không? (Yêu cầu restart)",
+                "Auto Update",
+                JOptionPane.YES_NO_OPTION
+            )
             if (res == JOptionPane.YES_OPTION) {
-                val newJar = File("LiquidBounce_Update.jar")
+                // Lấy đường dẫn file jar hiện tại
+                val jarPath = File(javaClass.protectionDomain.codeSource.location.toURI()).absolutePath
+                val tmpFile = File.createTempFile("liquidbounce_update", ".jar")
+
+                // Tải file mới về file tạm
                 URL(downloadUrl).openStream().use { input ->
-                    newJar.outputStream().use { output ->
+                    tmpFile.outputStream().use { output ->
                         input.copyTo(output)
                     }
                 }
-                // Tự restart (chạy file jar mới)
-                Runtime.getRuntime().exec("java -jar ${newJar.absolutePath}")
-                // Thoát game hiện tại
+                // Ghi đè file jar cũ bằng file mới
+                tmpFile.copyTo(File(jarPath), overwrite = true)
+                tmpFile.delete()
+
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Đã cập nhật thành công! Vui lòng khởi động lại LiquidBounce."
+                )
+                // Thoát game để user tự mở lại
                 System.exit(0)
             }
         } catch (ex: Exception) {
