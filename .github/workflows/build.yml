@@ -32,6 +32,7 @@ jobs:
           LB_VERSION=$(cat version.txt | tr -d ' \n\r')
           echo "LB_VERSION=$LB_VERSION" >> $GITHUB_ENV
           echo "LB_VERSION=$LB_VERSION" >> $GITHUB_OUTPUT
+
       - name: Build
         run: ./gradlew build
 
@@ -66,6 +67,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup gh CLI
+        run: |
+          sudo apt update
+          sudo apt install gh -y
+
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
@@ -90,15 +96,27 @@ jobs:
       - name: Fetch all tags
         run: git fetch --tags
 
-      - name: Create git tag if not exists
+      - name: Delete existing tag and release if they exist
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG_NAME=${{ needs.build.outputs.lb_version }}
+
           if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
-            echo "Tag $TAG_NAME already exists"
-          else
-            git tag "$TAG_NAME"
-            git push origin "$TAG_NAME"
+            echo "Tag $TAG_NAME already exists. Deleting..."
+            git tag -d "$TAG_NAME"
+            git push origin :refs/tags/$TAG_NAME || true
           fi
+
+          if gh release view "$TAG_NAME" >/dev/null 2>&1; then
+            echo "Release $TAG_NAME already exists. Deleting..."
+            gh release delete "$TAG_NAME" -y
+          fi
+
+      - name: Create new git tag
+        run: |
+          git tag ${{ needs.build.outputs.lb_version }}
+          git push origin ${{ needs.build.outputs.lb_version }}
 
       - name: Create Release & Upload JAR
         uses: softprops/action-gh-release@v2
