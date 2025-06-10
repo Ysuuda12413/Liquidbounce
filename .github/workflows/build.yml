@@ -31,6 +31,10 @@ jobs:
         run: |
           cd build/libs
           JAR=$(find . -regex '.*liquidbounce-b[0-9|.]*\.jar' | head -n1)
+          if [ -z "$JAR" ]; then
+            echo "No .jar file found! Build failed."
+            exit 1
+          fi
           LB_VERSION=$(echo $JAR | sed -r 's/.\/liquidbounce-([a-zA-Z0-9.]+)\.jar/\1/')
           MINECRAFT_VERSION='1.8.9'
           ARTIFACT_NAME="liquidbounce-$LB_VERSION-mc$MINECRAFT_VERSION.jar"
@@ -39,11 +43,33 @@ jobs:
           echo "jar_name=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
           echo "lb_version=$LB_VERSION" >> $GITHUB_OUTPUT
 
+      - name: Upload artifact (download link)
+        uses: actions/upload-artifact@v4
+        with:
+          name: LiquidBounce-JAR
+          path: artifacts/*.jar
+
+  # Separate job for release, only runs if build and upload artifact succeed
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: LiquidBounce-JAR
+          path: ./artifacts
+
+      - name: List downloaded files
+        run: ls -lh ./artifacts
+
       - name: Create Release & Upload JAR
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.prep.outputs.lb_version }}
-          name: LiquidBounce ${{ steps.prep.outputs.lb_version }}
-          files: artifacts/${{ steps.prep.outputs.jar_name }}
+          tag_name: ${{ needs.build.outputs.lb_version }}
+          name: LiquidBounce ${{ needs.build.outputs.lb_version }}
+          files: ./artifacts/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Chỉ upload nếu có file jar
+        if: success()
