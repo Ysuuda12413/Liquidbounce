@@ -35,7 +35,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build (no tests, parallel, daemon)
-        run: ./gradlew build --no-daemon --parallel -x test
+        run: ./gradlew build
 
       - name: Prepare artifact and get jar name
         id: prep
