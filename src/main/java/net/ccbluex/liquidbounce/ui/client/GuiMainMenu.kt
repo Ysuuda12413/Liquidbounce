@@ -153,7 +153,7 @@ class GuiMainMenu : AbstractScreen() {
                 - Auto config support will not be actively maintained.
                 - Unofficial forks of this version are discouraged as they lack the full feature set of Nextgen and cannot be trusted.
         
-                §9Upgrade to LiquidBounce Nextgen today for a better experience!§r
+                §9Upgrade to LiquiBounce Nextgen today for a better experience!§r
             """.trimIndent())
             button("§aDownload Nextgen") { MiscUtils.showURL("https://liquidbounce.net/download") }
             button("§eInstallation Tutorial") { MiscUtils.showURL("https://www.youtube.com/watch?v=i_r1i4m-NZc") }
