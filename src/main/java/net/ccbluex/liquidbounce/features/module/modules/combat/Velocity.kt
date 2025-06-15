@@ -515,14 +515,14 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                 "3FMC" -> {
                     val packet = event.packet
                     if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId && thePlayer.onGround) {
-                        hasReceivedVelocity = true
-                        event.cancelEvent()
+                        packet.motionX = 0
+                        packet.motionY = 0
+                        packet.motionZ = 0
                     }
                 }
                 "glitch" -> {
                     if (!thePlayer.onGround)
                         return@handler
-
                     hasReceivedVelocity = true
                     event.cancelEvent()
                 }
