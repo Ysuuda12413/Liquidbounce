@@ -76,7 +76,7 @@ object LiquidBounce {
     const val CLIENT_GITHUB = "https://github.com/CCBlueX/LiquidBounce"
 
     const val MINECRAFT_VERSION = "1.8.9"
-    
+    const 
     val clientVersionText: String = try {
     val stream = object {}.javaClass.getResourceAsStream("/version.txt")
     stream?.bufferedReader()?.use { it.readText().trim() } ?: "unknown"} catch (e: Exception) {"unknown"}
@@ -87,7 +87,7 @@ object LiquidBounce {
      * Defines if the client is in development mode.
      * This will enable update checking on commit time instead of regular legacy versioning.
      */
-
+    const val IN_DEV = false	
     val clientTitle = CLIENT_NAME + " Legacy " + clientVersionText
 
     var isStarting = true

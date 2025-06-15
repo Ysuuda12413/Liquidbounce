@@ -1,8 +1,18 @@
-# IntelliJ IDEA
+# IntelliJ IDEA project files
 .idea/
 *.iml
+*.iws
+*.ipr
 
-# Build output directories
+# IntelliJ caches (redundant if .idea/ is ignored, but kept for safety)
+.idea/modules.xml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/dictionaries/
+.idea/shelf/
+
+# Build output
 /build/
 /out/
 /bin/
@@ -15,31 +25,21 @@
 # Kotlin
 .kotlin/
 
-# Eclipse/Other IDEs
+# Eclipse and other IDEs
 .settings/
 
 # OS-specific files
 .DS_Store
 Thumbs.db
 
-# Log files
-*.log
-
-# Java class files
+# Java compiled class files
 *.class
 
-# Temporary files
+# Temporary or swap files
+*.log
 *.tmp
 *.swp
 *~
 
-# IntelliJ caches
-.idea/modules.xml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/usage.statistics.xml
-.idea/dictionaries/
-.idea/shelf/
-
-# Optional: ignore generated files
+# Optional: ignore generated sources directory
 gen/
