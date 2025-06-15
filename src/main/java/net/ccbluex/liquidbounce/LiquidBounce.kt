@@ -80,6 +80,7 @@ object LiquidBounce {
     val clientVersionText: String = try {
     val stream = object {}.javaClass.getResourceAsStream("/version.txt")
     stream?.bufferedReader()?.use { it.readText().trim() } ?: "unknown"} catch (e: Exception) {"unknown"}
+    val clientVersionNumber = clientVersionText.substring(1).toIntOrNull() ?: 0 // version format: "b<VERSION>" on legacy
     val clientCommit = gitInfo["git.commit.id.abbrev"]?.let { "git-$it" } ?: "unknown"
     val clientBranch = gitInfo["git.branch"]?.toString() ?: "unknown"
 
