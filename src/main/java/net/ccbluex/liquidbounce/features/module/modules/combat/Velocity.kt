@@ -91,7 +91,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     { jumpCooldownMode == "Ticks" && mode == "Jump" }
     private val hitsUntilJump by int("ReceivedHitsUntilJump", 2, 0..5)
     { jumpCooldownMode == "ReceivedHits" && mode == "Jump" }
-
+    private val debug3FMC by boolean("Debug3FMC", false) { mode == "3FMC" }
     // Ghost Block
     private val hurtTimeRange by intRange("HurtTime", 1..9, 1..10) {
         mode == "GhostBlock"
@@ -514,10 +514,22 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                 }
                 "3FMC" -> {
                     val packet = event.packet
-                    if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId && thePlayer.onGround) {
-                        packet.motionX = 0
-                        packet.motionY = 0
-                        packet.motionZ = 0
+                    if (packet is S12PacketEntityVelocity) {
+                        if (debug3FMC) {
+                            println("[DEBUG] Nhận S12PacketEntityVelocity: entityID=${packet.entityID}, motionX=${packet.motionX}, motionY=${packet.motionY}, motionZ=${packet.motionZ}, player.entityId=${thePlayer.entityId}, onGround=${thePlayer.onGround}")
+                            ClientUtils.displayChatMessage("[DEBUG] S12PacketEntityVelocity: entityID=${packet.entityID}, motionX=${packet.motionX}, motionY=${packet.motionY}, motionZ=${packet.motionZ}, onGround=${thePlayer.onGround}")
+                        }
+                        if (packet.entityID == mc.thePlayer.entityId && mc.thePlayer.onGround) {
+                            packet.motionX = 0
+                            packet.motionY = 0
+                            packet.motionZ = 0
+                        }
+                    }
+                    if (packet is S27PacketExplosion) {
+                        if (debug3FMC) {
+                            println("[DEBUG] Nhận S27PacketExplosion: motionX=${packet.field_149152_f}, motionY=${packet.field_149153_g}, motionZ=${packet.field_149159_h}")
+                            ClientUtils.displayChatMessage("[DEBUG] S27PacketExplosion: motionX=${packet.field_149152_f}, motionY=${packet.field_149153_g}, motionZ=${packet.field_149159_h}")
+                        }
                     }
                 }
                 "glitch" -> {
