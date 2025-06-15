@@ -136,7 +136,7 @@ object KillAura : Module("KillAura", Category.COMBAT, Keyboard.KEY_R) {
     private val onDestroyBlock by boolean("OnDestroyBlock", false)
 
     // AutoBlock
-    val autoBlock by choices("AutoBlock", arrayOf("Off", "Packet", "Fake"), "Packet")
+    val autoBlock by choices("AutoBlock", arrayOf("Off", "Packet", "Fake","Aftertick"), "Packet")
     private val blockMaxRange by float("BlockMaxRange", 3f, 0f..8f) { autoBlock == "Packet" }
     private val unblockMode by choices(
         "UnblockMode", arrayOf("Stop", "Switch", "Empty"), "Stop"
@@ -423,6 +423,10 @@ object KillAura : Module("KillAura", Category.COMBAT, Keyboard.KEY_R) {
             clicks = 0
             stopBlocking()
             return@handler
+        }
+        // AutoBlock AfterTick logic
+        if (autoBlock == "Aftertick" && target != null && !blockStatus) {
+            startBlocking(target!!, interactAutoBlock, false)
         }
 
         if (cancelRun) {
@@ -1038,7 +1042,11 @@ object KillAura : Module("KillAura", Category.COMBAT, Keyboard.KEY_R) {
         val player = mc.thePlayer ?: return
 
         if (blockStatus && (!uncpAutoBlock || !blinkAutoBlock) || shouldPrioritize()) return
-
+        if (!blockStatus && mc.thePlayer.heldItem?.item is ItemSword) {
+            mc.netHandler.addToSendQueue(C08PacketPlayerBlockPlacement(mc.thePlayer.inventory.getCurrentItem()))
+            blockStatus = true
+            renderBlocking = true
+        }
         if (mc.thePlayer.isBlocking) {
             blockStatus = true
             renderBlocking = true

@@ -71,7 +71,6 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     private val maxAngleDifference by float("MaxAngleDifference", 45.0f, 5.0f..90f) {
         onLook && mode in arrayOf("Reverse", "SmoothReverse")
     }
-    private val onAir by boolean("OnAir", true) { mode == "3FMC"}
     // AAC Push
     private val aacPushXZReducer by float("AACPushXZReducer", 2F, 1F..3F) { mode == "AACPush" }
     private val aacPushYReducer by boolean("AACPushYReducer", true) { mode == "AACPush" }
@@ -514,8 +513,9 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                         hasReceivedVelocity = true
                 }
                 "3FMC" -> {
-                    if (packet is S12PacketEntityVelocity && ((onAir) || mc.thePlayer?.onGround == true)) {
-                        mc.thePlayer?.onGround = true
+                    val packet = event.packet
+                    if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId && thePlayer.onGround) {
+                        hasReceivedVelocity = true
                         event.cancelEvent()
                     }
                 }
@@ -551,7 +551,6 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                 }
 
                 "grimc03" -> {
-                    // Checks to prevent from getting flagged (BadPacketsE)
                     if (thePlayer.isMoving) {
                         hasReceivedVelocity = true
                         event.cancelEvent()
@@ -775,7 +774,6 @@ object Velocity : Module("Velocity", Category.COMBAT) {
         val packet = event.packet
 
         if (packet is S12PacketEntityVelocity) {
-            // Always cancel event and handle motion from here
             event.cancelEvent()
 
             if (horizontal == 0f && vertical == 0f)

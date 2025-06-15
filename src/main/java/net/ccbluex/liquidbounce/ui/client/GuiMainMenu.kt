@@ -7,17 +7,10 @@ package net.ccbluex.liquidbounce.ui.client
 
 import net.ccbluex.liquidbounce.LiquidBounce.CLIENT_NAME
 import net.ccbluex.liquidbounce.LiquidBounce.clientVersionText
-import net.ccbluex.liquidbounce.api.ClientUpdate
-import net.ccbluex.liquidbounce.api.ClientUpdate.hasUpdate
-import net.ccbluex.liquidbounce.file.FileManager
-import net.ccbluex.liquidbounce.file.FileManager.valuesConfig
 import net.ccbluex.liquidbounce.lang.translationMenu
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
 import net.ccbluex.liquidbounce.ui.client.fontmanager.GuiFontManager
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.client.JavaVersion
-import net.ccbluex.liquidbounce.utils.client.javaVersion
-import net.ccbluex.liquidbounce.utils.io.MiscUtils
 import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawRoundedBorderRect
 import net.ccbluex.liquidbounce.utils.ui.AbstractScreen
 import net.minecraft.client.gui.GuiButton
@@ -26,39 +19,15 @@ import net.minecraft.client.gui.GuiOptions
 import net.minecraft.client.gui.GuiSelectWorld
 import net.minecraft.client.resources.I18n
 import org.lwjgl.input.Mouse
-import java.text.SimpleDateFormat
-import java.time.Instant
-import java.util.*
-import java.util.concurrent.TimeUnit
 
 class GuiMainMenu : AbstractScreen() {
 
     private var popup: PopupScreen? = null
 
     companion object {
-        private var popupOnce = false
         var lastWarningTime: Long? = null
-        private val warningInterval = TimeUnit.DAYS.toMillis(7)
-
-        fun shouldShowWarning() = lastWarningTime == null || Instant.now().toEpochMilli() - lastWarningTime!! > warningInterval
     }
 
-    init {
-        if (!popupOnce) {
-            javaVersion?.let {
-                when {
-                    it.major == 1 && it.minor == 8 && it.update < 100 -> showOutdatedJava8Warning()
-                    it.major > 8 -> showJava11Warning()
-                }
-            }
-            when {
-                FileManager.firstStart -> showWelcomePopup()
-                hasUpdate() -> showUpdatePopup()
-                shouldShowWarning() -> showDiscontinuedWarning()
-            }
-            popupOnce = true
-        }
-    }
 
     override fun initGui() {
         val defaultHeight = height / 4 + 48
@@ -104,97 +73,6 @@ class GuiMainMenu : AbstractScreen() {
                 - §fForum: §9https://forums.ccbluex.net/
             """.trimIndent())
             button("§aOK")
-            onClose { popup = null }
-        }
-    }
-
-    private fun showUpdatePopup() {
-        val newestVersion = ClientUpdate.newestVersion ?: return
-
-        val isReleaseBuild = newestVersion.release
-        val updateType = if (isReleaseBuild) "version" else "development build"
-
-        val dateFormatter = SimpleDateFormat("EEEE, MMMM dd, yyyy, h a z", Locale.ENGLISH)
-        val newestVersionDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(newestVersion.date)
-        val formattedNewestDate = dateFormatter.format(newestVersionDate)
-
-        popup = PopupScreen {
-            title("§bNew Update Available!")
-            message("""
-                §eA new $updateType of LiquidBounce is available!
-        
-                - ${if (isReleaseBuild) "§aVersion" else "§aBuild ID"}:§r ${if (isReleaseBuild) newestVersion.lbVersion else newestVersion.buildId}
-                - §aMinecraft Version:§r ${newestVersion.mcVersion}
-                - §aBranch:§r ${newestVersion.branch}
-                - §aDate:§r $formattedNewestDate
-        
-                §6Changes:§r
-                ${newestVersion.message}
-        
-                §bUpgrade now to enjoy the latest features and improvements!§r
-            """.trimIndent())
-            button("§aDownload") { MiscUtils.showURL(newestVersion.url) }
-            onClose { popup = null }
-        }
-    }
-
-    private fun showDiscontinuedWarning() {
-        popup = PopupScreen {
-            title("§c§lUnsupported version")
-            message("""
-                §6§lThis version is discontinued and unsupported.§r
-                
-                §eWe strongly recommend switching to §bLiquidBounce Nextgen§e, 
-                which offers the following benefits:
-                
-                §a- §fSupports all Minecraft versions from §71.7§f to §71.21+§f.
-                §a- §fFrequent updates with the latest bypasses and features.
-                §a- §fActive development and official support.
-                §a- §fImproved performance and compatibility.
-                
-                §cWhy upgrade?§r
-                - No new bypasses or features will be introduced in this version.
-                - Auto config support will not be actively maintained.
-                - Unofficial forks of this version are discouraged as they lack the full feature set of Nextgen and cannot be trusted.
-        
-                §9Upgrade to LiquidBounce Nextgen today for a better experience!§r
-            """.trimIndent())
-            button("§aDownload Nextgen") { MiscUtils.showURL("https://liquidbounce.net/download") }
-            button("§eInstallation Tutorial") { MiscUtils.showURL("https://www.youtube.com/watch?v=i_r1i4m-NZc") }
-            onClose {
-                popup = null
-                lastWarningTime = Instant.now().toEpochMilli()
-                FileManager.saveConfig(valuesConfig)
-            }
-        }
-    }
-
-    private fun showOutdatedJava8Warning() {
-        popup = PopupScreen {
-            title("§c§lOutdated Java Runtime Environment")
-            message("""
-                §6§lYou are using an outdated version of Java 8 (${javaVersion!!.raw}).§r
-                
-                §fThis might cause unexpected §c§lBUGS§f.
-                Please update it to 8u101+, or get a new one from the Internet.
-            """.trimIndent())
-            button("§aDownload Java") { MiscUtils.showURL(JavaVersion.DOWNLOAD_PAGE) }
-            button("§eI realized")
-            onClose { popup = null }
-        }
-    }
-
-    private fun showJava11Warning() {
-        popup = PopupScreen {
-            title("§c§lInappropriate Java Runtime Environment")
-            message("""
-                §6§lThis version of $CLIENT_NAME is designed for Java 8 environment.§r
-                
-                §fHigher versions of Java might cause bug or crash.
-                You can get JRE 8 from the Internet.
-            """.trimIndent())
-            button("§aDownload Java") { MiscUtils.showURL(JavaVersion.DOWNLOAD_PAGE) }
-            button("§eI realized")
             onClose { popup = null }
         }
     }
