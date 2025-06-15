@@ -53,7 +53,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
             "Reverse", "SmoothReverse", "Jump", "Glitch", "Legit",
             "GhostBlock", "Vulcan", "S32Packet", "MatrixReduce",
             "IntaveReduce", "Delay", "GrimC03", "Hypixel", "HypixelAir",
-            "Click", "BlocksMC"
+            "Click", "BlocksMC","3FMC"
         ), "Simple"
     )
 
@@ -71,7 +71,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     private val maxAngleDifference by float("MaxAngleDifference", 45.0f, 5.0f..90f) {
         onLook && mode in arrayOf("Reverse", "SmoothReverse")
     }
-
+    private val onAir by boolean("OnAir", true) { mode == "3FMC"}
     // AAC Push
     private val aacPushXZReducer by float("AACPushXZReducer", 2F, 1F..3F) { mode == "AACPush" }
     private val aacPushYReducer by boolean("AACPushYReducer", true) { mode == "AACPush" }
@@ -179,7 +179,11 @@ object Velocity : Module("Velocity", Category.COMBAT) {
         timerTicks = 0
         reset()
     }
-
+    override fun onEnable() {
+        if (mode.equals("3FMC")) {
+            ClientUtils.displayChatMessage("[Velocity] mode 3FMC đang trong quá trình thử nghiệm, vui lòng dùng cẩn thận.")
+        }
+    }
     val onUpdate = handler<UpdateEvent> {
         val thePlayer = mc.thePlayer ?: return@handler
 
@@ -509,7 +513,12 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                     if (inRange)
                         hasReceivedVelocity = true
                 }
-
+                "3FMC" -> {
+                    if (packet is S12PacketEntityVelocity && ((onAir) || mc.thePlayer?.onGround == true)) {
+                        mc.thePlayer?.onGround = true
+                        event.cancelEvent()
+                    }
+                }
                 "glitch" -> {
                     if (!thePlayer.onGround)
                         return@handler

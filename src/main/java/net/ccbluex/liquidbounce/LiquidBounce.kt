@@ -76,11 +76,12 @@ object LiquidBounce {
     const val CLIENT_GITHUB = "https://github.com/CCBlueX/LiquidBounce"
 
     const val MINECRAFT_VERSION = "1.8.9"
-    const 
-    val clientVersionText: String = try {
-    val stream = object {}.javaClass.getResourceAsStream("/version.txt")
-    stream?.bufferedReader()?.use { it.readText().trim() } ?: "unknown"} catch (e: Exception) {"unknown"}
-    val clientVersionNumber = clientVersionText.substring(1).toIntOrNull() ?: 0 // version format: "b<VERSION>" on legacy
+    val clientVersionText = runCatching {
+        object {}.javaClass.getResourceAsStream("/version.txt")
+            ?.bufferedReader()
+            ?.use { it.readText().trim() }
+    }.getOrElse { "unknown" } ?: "unknown"
+    val clientVersionNumber = clientVersionText.substring(1).toIntOrNull() ?: 0
     val clientCommit = gitInfo["git.commit.id.abbrev"]?.let { "git-$it" } ?: "unknown"
     val clientBranch = gitInfo["git.branch"]?.toString() ?: "unknown"
 
