@@ -1,0 +1,45 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Build output directories
+/build/
+/out/
+/bin/
+/run/
+/logs/
+
+# Gradle
+.gradle/
+
+# Kotlin
+.kotlin/
+
+# Eclipse/Other IDEs
+.settings/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Java class files
+*.class
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# IntelliJ caches
+.idea/modules.xml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/dictionaries/
+.idea/shelf/
+
+# Optional: ignore generated files
+gen/
