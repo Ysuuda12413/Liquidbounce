@@ -513,22 +513,18 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                         hasReceivedVelocity = true
                 }
                 "3FMC" -> {
-                    val packet = event.packet
-                    if (packet is S12PacketEntityVelocity) {
-                        if (debug3FMC) {
-                            println("[DEBUG] Nhận S12PacketEntityVelocity: entityID=${packet.entityID}, motionX=${packet.motionX}, motionY=${packet.motionY}, motionZ=${packet.motionZ}, player.entityId=${thePlayer.entityId}, onGround=${thePlayer.onGround}")
-                            ClientUtils.displayChatMessage("[DEBUG] S12PacketEntityVelocity: entityID=${packet.entityID}, motionX=${packet.motionX}, motionY=${packet.motionY}, motionZ=${packet.motionZ}, onGround=${thePlayer.onGround}")
-                        }
-                        if (packet.entityID == mc.thePlayer.entityId && mc.thePlayer.onGround) {
+                    when (packet) {
+                        is S12PacketEntityVelocity ->
+                        {if (packet.entityID == thePlayer.entityId && thePlayer.onGround) {
                             packet.motionX = 0
                             packet.motionY = 0
                             packet.motionZ = 0
-                        }
+                        }}
+
                     }
-                    if (packet is S27PacketExplosion) {
+                    if (packet is S12PacketEntityVelocity) {
                         if (debug3FMC) {
-                            println("[DEBUG] Nhận S27PacketExplosion: motionX=${packet.field_149152_f}, motionY=${packet.field_149153_g}, motionZ=${packet.field_149159_h}")
-                            ClientUtils.displayChatMessage("[DEBUG] S27PacketExplosion: motionX=${packet.field_149152_f}, motionY=${packet.field_149153_g}, motionZ=${packet.field_149159_h}")
+                            ClientUtils.displayChatMessage("[DEBUG] S12: motionX=${packet.motionX}, motionY=${packet.motionY}, motionZ=${packet.motionZ}")
                         }
                     }
                 }
