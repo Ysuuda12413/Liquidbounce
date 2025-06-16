@@ -53,7 +53,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
             "Reverse", "SmoothReverse", "Jump", "Glitch", "Legit",
             "GhostBlock", "Vulcan", "S32Packet", "MatrixReduce",
             "IntaveReduce", "Delay", "GrimC03", "Hypixel", "HypixelAir",
-            "Click", "BlocksMC","3FMC","3FMC2"
+            "Click", "BlocksMC","3FMC"
         ), "Simple"
     )
 
@@ -84,7 +84,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     // Chance
     private val chance by int("Chance", 100, 0..100) { mode == "Jump" || mode == "Legit" }
     //3fmc
-    private val onAir by boolean("OnAir", true) { mode in arrayOf("3FMC", "3FMC2") }
+    private val onAir by boolean("OnAir", true) { mode == "3FMC" }
     // Jump
     private val jumpCooldownMode by choices("JumpCooldownMode", arrayOf("Ticks", "ReceivedHits"), "Ticks")
     { mode == "Jump" }
@@ -92,7 +92,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     { jumpCooldownMode == "Ticks" && mode == "Jump" }
     private val hitsUntilJump by int("ReceivedHitsUntilJump", 2, 0..5)
     { jumpCooldownMode == "ReceivedHits" && mode == "Jump" }
-    private val debug3FMC by boolean("Debug3FMC", false) { mode in arrayOf("3FMC", "3FMC2") }
+    private val debug3FMC by boolean("Debug3FMC", false) { mode == "3FMC" }
     // Ghost Block
     private val hurtTimeRange by intRange("HurtTime", 1..9, 1..10) {
         mode == "GhostBlock"
@@ -514,7 +514,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                         hasReceivedVelocity = true
                 }
                 "3fmc" -> {
-                    if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId && thePlayer.onGround) {
+                    if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId && thePlayer.onGround && thePlayer.isBlocking) {
                         packet.motionX = 0
                         packet.motionY = 0
                         packet.motionZ = 0
