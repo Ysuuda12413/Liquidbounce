@@ -53,7 +53,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
             "Reverse", "SmoothReverse", "Jump", "Glitch", "Legit",
             "GhostBlock", "Vulcan", "S32Packet", "MatrixReduce",
             "IntaveReduce", "Delay", "GrimC03", "Hypixel", "HypixelAir",
-            "Click", "BlocksMC","3FMC"
+            "Click", "BlocksMC","3FMC","3FMC2"
         ), "Simple"
     )
 
@@ -83,7 +83,8 @@ object Velocity : Module("Velocity", Category.COMBAT) {
 
     // Chance
     private val chance by int("Chance", 100, 0..100) { mode == "Jump" || mode == "Legit" }
-
+    //3fmc
+    private val onAir by boolean("OnAir", true) { mode in arrayOf("3FMC", "3FMC2") }
     // Jump
     private val jumpCooldownMode by choices("JumpCooldownMode", arrayOf("Ticks", "ReceivedHits"), "Ticks")
     { mode == "Jump" }
@@ -91,7 +92,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     { jumpCooldownMode == "Ticks" && mode == "Jump" }
     private val hitsUntilJump by int("ReceivedHitsUntilJump", 2, 0..5)
     { jumpCooldownMode == "ReceivedHits" && mode == "Jump" }
-    private val debug3FMC by boolean("Debug3FMC", false) { mode == "3FMC" }
+    private val debug3FMC by boolean("Debug3FMC", false) { mode in arrayOf("3FMC", "3FMC2") }
     // Ghost Block
     private val hurtTimeRange by intRange("HurtTime", 1..9, 1..10) {
         mode == "GhostBlock"
@@ -512,19 +513,26 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                     if (inRange)
                         hasReceivedVelocity = true
                 }
-                "3FMC" -> {
-                    when (packet) {
-                        is S12PacketEntityVelocity ->
-                        {if (packet.entityID == thePlayer.entityId && thePlayer.onGround) {
+                "3fmc" -> {
+                    if (packet is S12PacketEntityVelocity && ((onAir) || mc.thePlayer?.onGround == true)) {
+                        mc.thePlayer?.onGround = true
+                        packet.motionX = 0
+                        packet.motionY = 0
+                        packet.motionZ = 0
+                        if (debug3FMC) {
+                            ClientUtils.displayChatMessage("[DEBUG] S12: motionX=${packet.motionX}, motionY=${packet.motionY}, motionZ=${packet.motionZ}, blocking=${thePlayer.isBlocking}, onGround=${thePlayer.onGround}")
+                        }
+                    }
+                }
+                "3fmc2" -> {
+                    if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId) {
+                        if (thePlayer.onGround) {
                             packet.motionX = 0
                             packet.motionY = 0
                             packet.motionZ = 0
-                        }}
-
-                    }
-                    if (packet is S12PacketEntityVelocity) {
+                        }
                         if (debug3FMC) {
-                            ClientUtils.displayChatMessage("[DEBUG] S12: motionX=${packet.motionX}, motionY=${packet.motionY}, motionZ=${packet.motionZ}")
+                            ClientUtils.displayChatMessage("[DEBUG] S12: motionX=${packet.motionX}, motionY=${packet.motionY}, motionZ=${packet.motionZ}, blocking=${thePlayer.isBlocking}, onGround=${thePlayer.onGround}")
                         }
                     }
                 }
