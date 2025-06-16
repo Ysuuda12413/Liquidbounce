@@ -514,23 +514,10 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                         hasReceivedVelocity = true
                 }
                 "3fmc" -> {
-                    if (packet is S12PacketEntityVelocity && ((onAir) || mc.thePlayer?.onGround == true)) {
-                        mc.thePlayer?.onGround = true
+                    if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId && thePlayer.onGround) {
                         packet.motionX = 0
                         packet.motionY = 0
                         packet.motionZ = 0
-                        if (debug3FMC) {
-                            ClientUtils.displayChatMessage("[DEBUG] S12: motionX=${packet.motionX}, motionY=${packet.motionY}, motionZ=${packet.motionZ}, blocking=${thePlayer.isBlocking}, onGround=${thePlayer.onGround}")
-                        }
-                    }
-                }
-                "3fmc2" -> {
-                    if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId) {
-                        if (thePlayer.onGround) {
-                            packet.motionX = 0
-                            packet.motionY = 0
-                            packet.motionZ = 0
-                        }
                         if (debug3FMC) {
                             ClientUtils.displayChatMessage("[DEBUG] S12: motionX=${packet.motionX}, motionY=${packet.motionY}, motionZ=${packet.motionZ}, blocking=${thePlayer.isBlocking}, onGround=${thePlayer.onGround}")
                         }

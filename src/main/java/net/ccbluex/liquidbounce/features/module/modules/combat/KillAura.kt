@@ -136,7 +136,7 @@ object KillAura : Module("KillAura", Category.COMBAT, Keyboard.KEY_R) {
     private val onDestroyBlock by boolean("OnDestroyBlock", false)
 
     // AutoBlock
-    val autoBlock by choices("AutoBlock", arrayOf("Off", "Packet", "Fake","Aftertick"), "Packet")
+    val autoBlock by choices("AutoBlock", arrayOf("Off", "Packet", "Fake","HoldKey"), "Packet")
     private val blockMaxRange by float("BlockMaxRange", 3f, 0f..8f) { autoBlock == "Packet" }
     private val unblockMode by choices(
         "UnblockMode", arrayOf("Stop", "Switch", "Empty"), "Stop"
@@ -354,7 +354,9 @@ object KillAura : Module("KillAura", Category.COMBAT, Keyboard.KEY_R) {
         attackTickTimes.clear()
         attackTimer.reset()
         clicks = 0
-
+        if (autoBlock == "HoldKey") {
+            mc.gameSettings.keyBindUseItem.pressed = false
+        }
         if (blinkAutoBlock) {
             BlinkUtils.unblink()
             blinked = false
@@ -424,10 +426,6 @@ object KillAura : Module("KillAura", Category.COMBAT, Keyboard.KEY_R) {
             stopBlocking()
             return@handler
         }
-        // AutoBlock AfterTick logic
-        if (autoBlock == "Aftertick" && target != null && !blockStatus) {
-            startBlocking(target!!, interactAutoBlock, false)
-        }
 
         if (cancelRun) {
             target = null
@@ -477,7 +475,16 @@ object KillAura : Module("KillAura", Category.COMBAT, Keyboard.KEY_R) {
                 }
             }
         }
-
+        if (autoBlock == "HoldKey") {
+            val localTarget = target
+            if (localTarget != null
+                && player.heldItem?.item is ItemSword
+                && player.getDistanceToEntityBox(localTarget) <= blockMaxRange) {
+                mc.gameSettings.keyBindUseItem.pressed = true
+            } else {
+                mc.gameSettings.keyBindUseItem.pressed = false
+            }
+        }
         if (target != null) {
             if (player.getDistanceToEntityBox(target!!) > blockMaxRange && blockStatus) {
                 stopBlocking(true)
@@ -825,6 +832,9 @@ object KillAura : Module("KillAura", Category.COMBAT, Keyboard.KEY_R) {
         val thePlayer = mc.thePlayer
 
         if (shouldPrioritize()) return
+        if (autoBlock == "HoldKey") {
+            mc.gameSettings.keyBindUseItem.pressed = false
+        }
 
         if (thePlayer.isBlocking && (autoBlock == "Off" && blockStatus || autoBlock == "Packet" && releaseAutoBlock)) {
             stopBlocking()
@@ -843,7 +853,11 @@ object KillAura : Module("KillAura", Category.COMBAT, Keyboard.KEY_R) {
             val affectSprint = false.takeIf { KeepSprint.handleEvents() || keepSprint }
 
             thePlayer.attackEntityWithModifiedSprint(entity, affectSprint) { if (swing) thePlayer.swingItem() }
-
+            if (autoBlock == "HoldKey"
+                && thePlayer.heldItem?.item is ItemSword
+                && thePlayer.getDistanceToEntityBox(entity) <= blockMaxRange) {
+                mc.gameSettings.keyBindUseItem.pressed = true
+            }
             // Apply enchantment critical effect if FakeSharp is enabled
             if (EnchantmentHelper.getModifierForCreature(
                     thePlayer.heldItem, entity.creatureAttribute
