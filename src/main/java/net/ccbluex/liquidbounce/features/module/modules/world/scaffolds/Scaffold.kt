@@ -308,7 +308,7 @@ object Scaffold : Module("Scaffold", Category.WORLD, Keyboard.KEY_I) {
         if (shouldGoDown) {
             mc.gameSettings.keyBindSneak.pressed = false
         }
-        if (autoJump && player.onGround) {
+        if (autoJump && player.onGround && player.isMoving) {
             player.jump()
         }
         if (slow) {

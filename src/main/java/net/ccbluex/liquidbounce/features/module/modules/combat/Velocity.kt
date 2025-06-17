@@ -139,6 +139,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     //3fmc
     private val delayCancelTimer = MSTimer()
     private var waitingDelayCancel = false
+    private var zeroMotionS12Count = 0
     // SmoothReverse
     private var reverseHurt = false
 
@@ -518,11 +519,25 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                 }
                 "3fmc" -> {
                     if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId) {
+                        val isZeroMotion = packet.motionX == 0 && packet.motionY == 0 && packet.motionZ == 0
+                        if (isZeroMotion) {
+                            zeroMotionS12Count++
+                            if (zeroMotionS12Count >= 2) {
+                                event.cancelEvent()
+                                if (debug3FMC) {
+                                    ClientUtils.displayChatMessage("[DEBUG] Đã cancel packet (anticheat flag)")
+                                }
+                                return@handler
+                            }
+                        } else {
+                            zeroMotionS12Count = 0
+                        }
+
                         if (enableDelayCancel) {
                             if (waitingDelayCancel) {
                                 if (!delayCancelTimer.hasTimePassed(delayCancel.toLong())) {
                                     if (debug3FMC) {
-                                        ClientUtils.displayChatMessage("[DEBUG] Đang countdown, giữ nguyên motionXYZ")
+                                        ClientUtils.displayChatMessage("[DEBUG] Đang countdown")
                                     }
                                     return@handler
                                 } else {
@@ -545,7 +560,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                                 packet.motionY = 0
                                 packet.motionZ = 0
                                 if (debug3FMC) {
-                                    ClientUtils.displayChatMessage("[DEBUG] Đặt motionXYZ = 0 (không countdown)")
+                                    ClientUtils.displayChatMessage("[DEBUG] Đặt motionXYZ = 0")
                                 }
                             }
                         }
