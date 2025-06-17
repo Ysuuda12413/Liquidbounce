@@ -84,7 +84,8 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     // Chance
     private val chance by int("Chance", 100, 0..100) { mode == "Jump" || mode == "Legit" }
     //3fmc
-    private val onAir by boolean("OnAir", true) { mode == "3FMC" }
+    private val enableDelayCancel by boolean("EnableDelayCancel", true) { mode == "3FMC" }
+    private val delayCancel by int("DelayCancel", 500, 200..2000) { mode == "3FMC" && enableDelayCancel }
     // Jump
     private val jumpCooldownMode by choices("JumpCooldownMode", arrayOf("Ticks", "ReceivedHits"), "Ticks")
     { mode == "Jump" }
@@ -135,7 +136,9 @@ object Velocity : Module("Velocity", Category.COMBAT) {
      */
     private val velocityTimer = MSTimer()
     private var hasReceivedVelocity = false
-
+    //3fmc
+    private val delayCancelTimer = MSTimer()
+    private var waitingDelayCancel = false
     // SmoothReverse
     private var reverseHurt = false
 
@@ -513,13 +516,38 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                     if (inRange)
                         hasReceivedVelocity = true
                 }
-                "3fmc" -> {
-                    if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId && thePlayer.onGround && thePlayer.isBlocking) {
-                        packet.motionX = 0
-                        packet.motionY = 0
-                        packet.motionZ = 0
-                        if (debug3FMC) {
-                            ClientUtils.displayChatMessage("[DEBUG] S12: motionX=${packet.motionX}, motionY=${packet.motionY}, motionZ=${packet.motionZ}, blocking=${thePlayer.isBlocking}, onGround=${thePlayer.onGround}")
+                "3FMC" -> {
+                    if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId) {
+                        if (enableDelayCancel) {
+                            if (waitingDelayCancel) {
+                                if (!delayCancelTimer.hasTimePassed(delayCancel.toLong())) {
+                                    if (debug3FMC) {
+                                        ClientUtils.displayChatMessage("[DEBUG] Đang countdown, giữ nguyên motionXYZ")
+                                    }
+                                    return@handler
+                                } else {
+                                    waitingDelayCancel = false
+                                }
+                            }
+                            if (!waitingDelayCancel && thePlayer.onGround && thePlayer.isBlocking) {
+                                packet.motionX = 0
+                                packet.motionY = 0
+                                packet.motionZ = 0
+                                waitingDelayCancel = true
+                                delayCancelTimer.reset()
+                                if (debug3FMC) {
+                                    ClientUtils.displayChatMessage("[DEBUG] Đặt motionXYZ = 0 + countdown")
+                                }
+                            }
+                        } else {
+                            if (thePlayer.onGround && thePlayer.isBlocking) {
+                                packet.motionX = 0
+                                packet.motionY = 0
+                                packet.motionZ = 0
+                                if (debug3FMC) {
+                                    ClientUtils.displayChatMessage("[DEBUG] Đặt motionXYZ = 0 (không countdown)")
+                                }
+                            }
                         }
                     }
                 }
