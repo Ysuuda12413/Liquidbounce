@@ -516,7 +516,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                     if (inRange)
                         hasReceivedVelocity = true
                 }
-                "3FMC" -> {
+                "3fmc" -> {
                     if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId) {
                         if (enableDelayCancel) {
                             if (waitingDelayCancel) {
