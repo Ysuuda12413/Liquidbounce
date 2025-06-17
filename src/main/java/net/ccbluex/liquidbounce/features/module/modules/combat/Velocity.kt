@@ -53,7 +53,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
             "Reverse", "SmoothReverse", "Jump", "Glitch", "Legit",
             "GhostBlock", "Vulcan", "S32Packet", "MatrixReduce",
             "IntaveReduce", "Delay", "GrimC03", "Hypixel", "HypixelAir",
-            "Click", "BlocksMC","3FMC"
+            "Click", "BlocksMC","3FMC","3FMC2"
         ), "Simple"
     )
 
@@ -94,6 +94,11 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     private val hitsUntilJump by int("ReceivedHitsUntilJump", 2, 0..5)
     { jumpCooldownMode == "ReceivedHits" && mode == "Jump" }
     private val debug3FMC by boolean("Debug3FMC", false) { mode == "3FMC" }
+    private val enableDelayCancel2 by boolean("EnableDelayCancel2", true) { mode == "3FMC2" }
+    private val minDelayCancel2 by int("MinDelayCancel2", 400, 100..1000) { mode == "3FMC2" && enableDelayCancel2 }
+    private val maxDelayCancel2 by int("MaxDelayCancel2", 700, 200..2000) { mode == "3FMC2" && enableDelayCancel2 }
+    private val debug3FMC2 by boolean("Debug3FMC2", false) { mode == "3FMC2" }
+
     // Ghost Block
     private val hurtTimeRange by intRange("HurtTime", 1..9, 1..10) {
         mode == "GhostBlock"
@@ -140,6 +145,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     private val delayCancelTimer = MSTimer()
     private var waitingDelayCancel = false
     private var zeroMotionS12Count = 0
+    private var lastCancelTime = 0L
     // SmoothReverse
     private var reverseHurt = false
 
@@ -563,6 +569,20 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                                     ClientUtils.displayChatMessage("[DEBUG] Đặt motionXYZ = 0")
                                 }
                             }
+                        }
+                    }
+                }
+                "3fmc2" -> {
+                    if (event.packet is S12PacketEntityVelocity && event.packet.entityID == mc.thePlayer?.entityId) {
+                        val cancelDelay = (minDelayCancel2..maxDelayCancel2).random()
+                        if (System.currentTimeMillis() - lastCancelTime > cancelDelay) {
+                            event.packet.motionX = (event.packet.motionX * 0.01 + (-10..10).random()).toInt()
+                            event.packet.motionY = (event.packet.motionY * 0.01 + (-10..10).random()).toInt()
+                            event.packet.motionZ = (event.packet.motionZ * 0.01 + (-10..10).random()).toInt()
+                            lastCancelTime = System.currentTimeMillis()
+                            if (debug3FMC2) ClientUtils.displayChatMessage("[3FMC2] Cancelled KB with delay $cancelDelay ms")
+                        } else {
+                            if (debug3FMC2) ClientUtils.displayChatMessage("[3FMC2] Legit KB to avoid pattern!")
                         }
                     }
                 }
