@@ -41,7 +41,7 @@ import kotlin.collections.set
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.sqrt
-
+import kotlin.random.Random
 object Velocity : Module("Velocity", Category.COMBAT) {
 
     /**
@@ -569,10 +569,15 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                     }
                 }
                 "3fmc2" -> {
-                    if(packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId && thePlayer.onGround) {
-                        packet.motionX = (0..1360).random()
-                        packet.motionY = (0..1360).random()
-                        packet.motionZ = (0..1360).random()
+                    if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId) {
+                        if (thePlayer.onGround && thePlayer.isBlocking) {
+                            val minFactor = 0.01f
+                            val maxFactor = 0.05f
+                            val randomXZ = minFactor + Math.random().toFloat() * (maxFactor - minFactor)
+                            packet.motionX = (packet.motionX * randomXZ).toInt()
+                            packet.motionY = 0
+                            packet.motionZ = (packet.motionZ * randomXZ).toInt()
+                        }
                     }
                 }
                 "glitch" -> {
