@@ -311,6 +311,9 @@ object Scaffold : Module("Scaffold", Category.WORLD, Keyboard.KEY_I) {
         if (autoJump && player.onGround && player.isMoving) {
             player.jump()
         }
+        if (sprint && player.isMoving && !player.isSprinting) {
+            player.isSprinting = true
+        }
         if (slow) {
             if (!slowGround || slowGround && player.onGround) {
                 player.motionX *= slowSpeed
