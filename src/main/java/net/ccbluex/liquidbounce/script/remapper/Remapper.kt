@@ -76,11 +76,7 @@ object Remapper {
             return false
         }
 
-        // Generate SHA-256 hash of file content
         val hash = srgFile.sha256()
-
-        // sha265sum mcp-stable_22.srg
-        // -> a8486671a5e85153773eaac313f8babd1913b41524b45e92d42e6cf019e658eb  mcp-stable_22.srg
         val sha256 = sha256File.readText().substringBefore(' ')
 
         return sha256 == hash
@@ -91,7 +87,7 @@ object Remapper {
             val args = it.split(' ')
 
             when {
-                it.startsWith("FD:") -> {
+                it.startsWith("FD:") && args.size >= 3 -> {
                     val name = args[1]
                     val srg = args[2]
 
@@ -102,7 +98,7 @@ object Remapper {
                     fields.getOrPut(className, ::HashMap)[fieldSrg] = fieldName
                 }
 
-                it.startsWith("MD:") -> {
+                it.startsWith("MD:") && args.size >= 4 -> {
                     val name = args[1]
                     val desc = args[2]
                     val srg = args[3]
@@ -113,6 +109,11 @@ object Remapper {
 
                     methods.getOrPut(className, ::HashMap)[methodSrg + desc] = methodName
                 }
+
+                else -> {
+                    if (it.isNotBlank())
+                        LOGGER.warn("[Remapper] Skipped invalid SRG line: $it")
+                }
             }
         }
     }
@@ -120,12 +121,12 @@ object Remapper {
     /**
      * Remap field
      */
-    fun remapField(clazz : Class<*>, name : String) =
+    fun remapField(clazz: Class<*>, name: String) =
         fields[clazz.name]?.get(name) ?: name
 
     /**
      * Remap method
      */
-    fun remapMethod(clazz : Class<*>, name : String, desc : String) =
+    fun remapMethod(clazz: Class<*>, name: String, desc: String) =
         methods[clazz.name]?.get(name + desc) ?: name
 }
