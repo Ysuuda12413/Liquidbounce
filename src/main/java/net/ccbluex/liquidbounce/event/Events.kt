@@ -129,7 +129,7 @@ class MoveEvent(var x: Double, var y: Double, var z: Double) : CancellableEvent(
 /**
  * Called when receive or send a packet
  */
-class PacketEvent(val packet: Packet<*>, val eventType: EventState) : CancellableEvent()
+class PacketEvent(var packet: Packet<*>, val eventType: EventState) : CancellableEvent()
 
 /**
  * Called when a block tries to push you
