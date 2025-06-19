@@ -86,6 +86,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     //3fmc
     private val enableDelayCancel by boolean("EnableDelayCancel", true) { mode == "3FMC" }
     private val delayCancel by int("DelayCancel", 500, 200..2000) { mode == "3FMC" && enableDelayCancel }
+    private val chanceWork by int("ChanceWork", 97, 0..100) { mode == "3FMC2" }
     // Jump
     private val jumpCooldownMode by choices("JumpCooldownMode", arrayOf("Ticks", "ReceivedHits"), "Ticks")
     { mode == "Jump" }
@@ -570,16 +571,25 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                 }
                 "3fmc2" -> {
                     if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId) {
-                        val randomXZ = (0.01 + Math.random() * 0.07)
-                        val randomY = (0.01 + Math.random() * 0.07)
-                        packet.motionX = (packet.getMotionX() * randomXZ).toInt()
-                        packet.motionY = (packet.getMotionY() * randomY).toInt()
-                        packet.motionZ = (packet.getMotionZ() * randomXZ).toInt()
-                    }
-                    if (thePlayer.hurtTime in 1..3) {
-                        thePlayer.motionX *= 0.05
-                        thePlayer.motionZ *= 0.05
-                        thePlayer.motionY *= 0.05
+                        if (thePlayer.hurtTime > 0 && (packet.motionX != 0 || packet.motionZ != 0)) {
+                            val doBypass = (Math.random() * 100) < chanceWork
+                            if (doBypass) {
+                                val minXZ = 0.03
+                                val maxXZ = 0.09
+                                val minY = 0.01
+                                val maxY = 0.07
+
+                                val randomXZ = minXZ + Math.random() * (maxXZ - minXZ)
+                                val randomY = minY + Math.random() * (maxY - minY)
+
+                                val signX = if (Math.random() > 0.5) 1 else -1
+                                val signZ = if (Math.random() > 0.5) 1 else -1
+
+                                packet.motionX = (randomXZ * 8000 * signX).toInt()
+                                packet.motionZ = (randomXZ * 8000 * signZ).toInt()
+                                packet.motionY = (randomY * 8000).toInt()
+                            }
+                        }
                     }
                 }
                 "glitch" -> {
