@@ -569,20 +569,17 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                     }
                 }
                 "3fmc2" -> {
-                    val yaw = Math.toRadians(thePlayer.rotationYaw.toDouble())
-                    val pitch = Math.toRadians(thePlayer.rotationPitch.toDouble())
-                    val xOffset = -Math.sin(yaw) * Math.cos(pitch)
-                    val yOffset = -Math.sin(pitch)
-                    val zOffset = Math.cos(yaw) * Math.cos(pitch)
-                    val newX = thePlayer.posX + xOffset
-                    val newZ = thePlayer.posZ + zOffset
                     if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId) {
-                        if (thePlayer.onGround && thePlayer.isBlocking) {
-                            sendPacket(C03PacketPlayer.C04PacketPlayerPosition(newX,thePlayer.posY,newZ,true))
-                            packet.motionX = 0
-                            packet.motionY = 0
-                            packet.motionZ = 0
-                        }
+                        val randomXZ = (0.01 + Math.random() * 0.07)
+                        val randomY = (0.01 + Math.random() * 0.07)
+                        packet.motionX = (packet.getMotionX() * randomXZ).toInt()
+                        packet.motionY = (packet.getMotionY() * randomY).toInt()
+                        packet.motionZ = (packet.getMotionZ() * randomXZ).toInt()
+                    }
+                    if (thePlayer.hurtTime in 1..3) {
+                        thePlayer.motionX *= 0.05
+                        thePlayer.motionZ *= 0.05
+                        thePlayer.motionY *= 0.05
                     }
                 }
                 "glitch" -> {
