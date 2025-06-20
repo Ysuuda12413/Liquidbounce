@@ -1,4 +1,4 @@
-package net.ccbluex.liquidbounce.ui.elements
+package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
