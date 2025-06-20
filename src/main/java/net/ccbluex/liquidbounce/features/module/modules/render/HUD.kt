@@ -7,18 +7,17 @@ package net.ccbluex.liquidbounce.features.module.modules.render
 
 import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.LiquidBounce.CLIENT_NAME
+import net.ccbluex.liquidbounce.LiquidBounce.hud
 import net.ccbluex.liquidbounce.event.*
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
+import net.ccbluex.liquidbounce.ui.client.hud.element.Element.Companion.MAX_GRADIENT_COLORS
 import net.ccbluex.liquidbounce.utils.render.ColorSettingsFloat
 import net.ccbluex.liquidbounce.utils.render.ColorSettingsInteger
 import net.minecraft.client.gui.GuiChat
 import net.minecraft.util.ResourceLocation
-import net.ccbluex.liquidbounce.ui.client.hud.ModernStatusBar
-import net.minecraftforge.client.event.RenderGameOverlayEvent
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraft.client.gui.ScaledResolution   // THÊM DÒNG NÀY
+import net.ccbluex.liquidbounce.ui.elements.ModernStatusBar
 
 object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState = true, defaultHidden = true) {
     val customHotbar by boolean("CustomHotbar", true)
@@ -33,7 +32,7 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     { customHotbar && hotbarMode == "Custom" }.with(a = 190)
     val gradientHotbarSpeed by float("Hotbar-Gradient-Speed", 1f, 0.5f..10f)
     { customHotbar && hotbarMode == "Gradient" }
-    val maxHotbarGradientColors by int("Max-Hotbar-Gradient-Colors", 4, 1..net.ccbluex.liquidbounce.ui.client.hud.element.Element.Companion.MAX_GRADIENT_COLORS)
+    val maxHotbarGradientColors by int("Max-Hotbar-Gradient-Colors", 4, 1..MAX_GRADIENT_COLORS)
     { customHotbar && hotbarMode == "Gradient" }
     val bgGradColors = ColorSettingsFloat.create(this, "Hotbar-Gradient")
     { customHotbar && hotbarMode == "Gradient" && it <= maxHotbarGradientColors }
@@ -52,9 +51,7 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     val inventoryParticle by boolean("InventoryParticle", false)
     private val blur by boolean("Blur", false)
     private val fontChat by boolean("FontChat", false)
-
     val hud = LiquidBounce.hud
-
     val onRender2D = handler<Render2DEvent> {
         if (mc.currentScreen is GuiHudDesigner)
             return@handler
@@ -63,13 +60,20 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     }
 
     val onUpdate = handler<UpdateEvent> {
+        val hud = LiquidBounce.hud
+        if (modernHud) {
+            if (hud.elements.none { it is ModernStatusBar }) {
+                hud.elements.add(ModernStatusBar.default())
+            }
+        } else {
+            hud.elements.removeAll { it is ModernStatusBar }
+        }
         hud.update()
     }
 
     val onKey = handler<KeyEvent> { event ->
         hud.handleKey('a', event.key)
     }
-
 
     val onScreen = handler<ScreenEvent>(always = true) { event ->
         if (mc.theWorld == null || mc.thePlayer == null) return@handler
@@ -81,53 +85,18 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
             "liquidbounce/blur.json" in mc.entityRenderer.shaderGroup.shaderGroupName
         ) mc.entityRenderer.stopUseShader()
     }
-    /**
-     * Xác định vị trí mặc định của các thanh trạng thái Minecraft vanilla.
-     * Trả về cặp (x, y) cho thanh máu, giáp, thức ăn.
-     */
-    private fun getVanillaStatusBarPos(mc: net.minecraft.client.Minecraft): Triple<Pair<Int, Int>, Pair<Int, Int>, Pair<Int, Int>> {
-        val sr = ScaledResolution(mc)
-        val width = sr.scaledWidth
-        val height = sr.scaledHeight
-        val baseX = 49
-        val baseY = height - 39
-        val barSpacing = 10 + 9
-
-        val healthPos: Pair<Int, Int> = Pair(baseX, baseY)
-        val armorPos: Pair<Int, Int> = Pair(baseX, baseY - barSpacing)
-        val foodPos: Pair<Int, Int>  = Pair(baseX, baseY + barSpacing)
-
-        return Triple<Pair<Int, Int>, Pair<Int, Int>, Pair<Int, Int>>(healthPos, armorPos, foodPos)
-    }
-    private fun drawModernStatusBar(mc: net.minecraft.client.Minecraft) {
-        val (healthPos, armorPos, foodPos) = getVanillaStatusBarPos(mc)
-        ModernStatusBar.drawAtPositions(mc, healthPos, armorPos, foodPos)
-    }
-    @SubscribeEvent
-    fun onRenderGameOverlayPre(event: RenderGameOverlayEvent.Pre) {
-        if (modernHud) {
-            if (
-                event.type == RenderGameOverlayEvent.ElementType.HEALTH ||
-                event.type == RenderGameOverlayEvent.ElementType.FOOD ||
-                event.type == RenderGameOverlayEvent.ElementType.ARMOR
-            ) {
-                event.isCanceled = true
+    override fun onEnable() {
+        if(modernHud) {
+            val hud = LiquidBounce.hud
+            if (hud.elements.none { it is ModernStatusBar }) {
+                hud.elements.add(ModernStatusBar.default())
             }
         }
     }
-
-    @SubscribeEvent
-    fun onRenderGameOverlayPost(event: RenderGameOverlayEvent.Post) {
-        if (modernHud) {
-            if (
-                event.type == RenderGameOverlayEvent.ElementType.HEALTH ||
-                event.type == RenderGameOverlayEvent.ElementType.FOOD ||
-                event.type == RenderGameOverlayEvent.ElementType.ARMOR ||
-                event.type == RenderGameOverlayEvent.ElementType.ALL
-            ) {
-                drawModernStatusBar(mc)
-            }
-        }
+    override fun onDisable() {
+        val hud = LiquidBounce.hud
+        hud.elements.removeAll { it is ModernStatusBar }
     }
+
     fun shouldModifyChatFont() = handleEvents() && fontChat
 }
