@@ -86,8 +86,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     //3fmc
     private val enableDelayCancel by boolean("EnableDelayCancel", true) { mode == "3FMC" }
     private val delayCancel by int("DelayCancel", 500, 200..2000) { mode == "3FMC" && enableDelayCancel }
-    private val fakeMotionTicksValue by int("FakeMotionTicks", 3, 1..10) { mode == "3FMC2" }
-    private val fakeMotionMultiplierValue by float("FakeMotion", 0.22F,  0.05F..0.5F) { mode == "3FMC2" }
+    private val debug3FMC by boolean("Debug3FMC", false) { mode == "3FMC" }
 
     // Jump
     private val jumpCooldownMode by choices("JumpCooldownMode", arrayOf("Ticks", "ReceivedHits"), "Ticks")
@@ -96,7 +95,6 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     { jumpCooldownMode == "Ticks" && mode == "Jump" }
     private val hitsUntilJump by int("ReceivedHitsUntilJump", 2, 0..5)
     { jumpCooldownMode == "ReceivedHits" && mode == "Jump" }
-    private val debug3FMC by boolean("Debug3FMC", false) { mode == "3FMC" }
 
     // Ghost Block
     private val hurtTimeRange by intRange("HurtTime", 1..9, 1..10) {
@@ -144,8 +142,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
     private val delayCancelTimer = MSTimer()
     private var waitingDelayCancel = false
     private var zeroMotionS12Count = 0
-    var fakeMotionTicks = 0
-    var lastFakeMotion = Triple(0.0, 0.0, 0.0)
+    private var fmcStage = 0
     // SmoothReverse
     private var reverseHurt = false
 
@@ -225,28 +222,6 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                         speed *= reverseStrength
                     } else if (velocityTimer.hasTimePassed(80))
                         hasReceivedVelocity = false
-                }
-            }
-            "3fmc2" -> {
-                if (fakeMotionTicks > 0) {
-                    thePlayer.motionX = lastFakeMotion.first * 0.95 + Random.nextDouble(-0.01, 0.01)
-                    thePlayer.motionY = lastFakeMotion.second * 0.95 + Random.nextDouble(-0.01, 0.01)
-                    thePlayer.motionZ = lastFakeMotion.third * 0.95 + Random.nextDouble(-0.01, 0.01)
-                    mc.thePlayer.sendQueue.addToSendQueue(
-                        C03PacketPlayer.C04PacketPlayerPosition(
-                            thePlayer.posX + thePlayer.motionX * 0.44,
-                            thePlayer.posY + thePlayer.motionY * 0.44,
-                            thePlayer.posZ + thePlayer.motionZ * 0.44,
-                            thePlayer.onGround
-                        )
-                    )
-
-                    fakeMotionTicks--
-                    if (fakeMotionTicks == 0) {
-                        thePlayer.motionX = 0.0
-                        thePlayer.motionY = 0.0
-                        thePlayer.motionZ = 0.0
-                    }
                 }
             }
             "smoothreverse" -> {
@@ -594,22 +569,23 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                     }
                 }
                 "3fmc2" -> {
-                    if (packet is S12PacketEntityVelocity && packet.entityID == mc.thePlayer.entityId) {
-                        val fx = packet.motionX / 8000.0
-                        val fy = packet.motionY / 8000.0
-                        val fz = packet.motionZ / 8000.0
-                        if (abs(fx) > 0.05 || abs(fz) > 0.05 || abs(fy) > 0.05) {
-                            packet.motionX = (packet.motionX * (0.01 + Random.nextDouble(0.01, 0.025))).toInt()
-                            packet.motionY = (packet.motionY * (0.01 + Random.nextDouble(0.01, 0.025))).toInt()
-                            packet.motionZ = (packet.motionZ * (0.01 + Random.nextDouble(0.01, 0.025))).toInt()
-                            val multiplier = fakeMotionMultiplierValue.coerceIn(0.01F, 0.5F)
-                            lastFakeMotion = Triple(
-                                fx * (multiplier + Random.nextDouble(0.01, 0.05)),
-                                fy * (multiplier + Random.nextDouble(0.01, 0.06)),
-                                fz * (multiplier + Random.nextDouble(0.01, 0.05))
-                            )
-                            fakeMotionTicks = fakeMotionTicksValue.coerceIn(1, 10)
+                    if (event.packet is S12PacketEntityVelocity && event.packet.entityID == mc.thePlayer?.entityId) {
+                        when (fmcStage) {
+                            0, 2 -> {
+                                event.packet.motionX = 0
+                                event.packet.motionY = 0
+                                event.packet.motionZ = 0
+                            }
+                            1 -> {
+                                val reduceHorizontal = 0.5
+                                val reduceVertical = 0.4
+
+                                event.packet.motionX = (event.packet.motionX * reduceHorizontal).toInt()
+                                event.packet.motionY = (event.packet.motionY * reduceVertical).toInt()
+                                event.packet.motionZ = (event.packet.motionZ * reduceHorizontal).toInt()
+                            }
                         }
+                        fmcStage = (fmcStage + 1) % 3
                     }
                 }
                 "glitch" -> {
