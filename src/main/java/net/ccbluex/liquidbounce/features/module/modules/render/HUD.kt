@@ -18,6 +18,7 @@ import net.minecraft.util.ResourceLocation
 import net.ccbluex.liquidbounce.ui.client.hud.ModernStatusBar
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraft.client.gui.ScaledResolution   // THÊM DÒNG NÀY
 
 object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState = true, defaultHidden = true) {
     val customHotbar by boolean("CustomHotbar", true)
@@ -92,11 +93,11 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
         val baseY = height - 39
         val barSpacing = 10 + 9
 
-        val healthPos = Pair(baseX, baseY)
-        val armorPos = Pair(baseX, baseY - barSpacing)
-        val foodPos  = Pair(baseX, baseY + barSpacing)
+        val healthPos: Pair<Int, Int> = Pair(baseX, baseY)
+        val armorPos: Pair<Int, Int> = Pair(baseX, baseY - barSpacing)
+        val foodPos: Pair<Int, Int>  = Pair(baseX, baseY + barSpacing)
 
-        return Triple(healthPos, armorPos, foodPos)
+        return Triple<Pair<Int, Int>, Pair<Int, Int>, Pair<Int, Int>>(healthPos, armorPos, foodPos)
     }
     private fun drawModernStatusBar(mc: net.minecraft.client.Minecraft) {
         val (healthPos, armorPos, foodPos) = getVanillaStatusBarPos(mc)
