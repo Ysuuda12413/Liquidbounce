@@ -80,17 +80,52 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
             "liquidbounce/blur.json" in mc.entityRenderer.shaderGroup.shaderGroupName
         ) mc.entityRenderer.stopUseShader()
     }
+    /**
+     * Xác định vị trí mặc định của các thanh trạng thái Minecraft vanilla.
+     * Trả về cặp (x, y) cho thanh máu, giáp, thức ăn.
+     */
+    private fun getVanillaStatusBarPos(mc: net.minecraft.client.Minecraft): Triple<Pair<Int, Int>, Pair<Int, Int>, Pair<Int, Int>> {
+        val sr = ScaledResolution(mc)
+        val width = sr.scaledWidth
+        val height = sr.scaledHeight
+        val baseX = 49
+        val baseY = height - 39
+        val barSpacing = 10 + 9
+
+        val healthPos = Pair(baseX, baseY)
+        val armorPos = Pair(baseX, baseY - barSpacing)
+        val foodPos  = Pair(baseX, baseY + barSpacing)
+
+        return Triple(healthPos, armorPos, foodPos)
+    }
+    private fun drawModernStatusBar(mc: net.minecraft.client.Minecraft) {
+        val (healthPos, armorPos, foodPos) = getVanillaStatusBarPos(mc)
+        ModernStatusBar.drawAtPositions(mc, healthPos, armorPos, foodPos)
+    }
     @SubscribeEvent
-    fun onRenderGameOverlay(event: RenderGameOverlayEvent.Pre) {
-        if (modernHud && (
-                    event.type == RenderGameOverlayEvent.ElementType.HEALTH ||
-                            event.type == RenderGameOverlayEvent.ElementType.FOOD ||
-                            event.type == RenderGameOverlayEvent.ElementType.ARMOR
-                    )) {
-            event.isCanceled = true
+    fun onRenderGameOverlayPre(event: RenderGameOverlayEvent.Pre) {
+        if (modernHud) {
+            if (
+                event.type == RenderGameOverlayEvent.ElementType.HEALTH ||
+                event.type == RenderGameOverlayEvent.ElementType.FOOD ||
+                event.type == RenderGameOverlayEvent.ElementType.ARMOR
+            ) {
+                event.isCanceled = true
+            }
         }
-        if (modernHud && event.type == RenderGameOverlayEvent.ElementType.ALL) {
-            ModernStatusBar.draw(mc)
+    }
+
+    @SubscribeEvent
+    fun onRenderGameOverlayPost(event: RenderGameOverlayEvent.Post) {
+        if (modernHud) {
+            if (
+                event.type == RenderGameOverlayEvent.ElementType.HEALTH ||
+                event.type == RenderGameOverlayEvent.ElementType.FOOD ||
+                event.type == RenderGameOverlayEvent.ElementType.ARMOR ||
+                event.type == RenderGameOverlayEvent.ElementType.ALL
+            ) {
+                drawModernStatusBar(mc)
+            }
         }
     }
     fun shouldModifyChatFont() = handleEvents() && fontChat
