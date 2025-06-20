@@ -43,7 +43,6 @@ object HUD : MinecraftInstance {
         Cooldown::class.java,
         Taco::class.java,
         Keystrokes::class.java,
-        ModernStatusBar::class.java
     )
 
     val ELEMENTS = ALL_ELEMENT_CLASSES.associateWithTo(IdentityHashMap(ALL_ELEMENT_CLASSES.size)) {

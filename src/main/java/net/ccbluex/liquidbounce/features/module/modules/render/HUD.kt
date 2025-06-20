@@ -11,12 +11,11 @@ import net.ccbluex.liquidbounce.event.*
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
-import net.ccbluex.liquidbounce.ui.client.hud.element.Element.Companion.MAX_GRADIENT_COLORS
 import net.ccbluex.liquidbounce.utils.render.ColorSettingsFloat
 import net.ccbluex.liquidbounce.utils.render.ColorSettingsInteger
 import net.minecraft.client.gui.GuiChat
 import net.minecraft.util.ResourceLocation
-import net.ccbluex.liquidbounce.ui.client.hud.element.elements.ModernStatusBar
+import net.ccbluex.liquidbounce.ui.client.hud.ModernStatusBar
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
@@ -33,7 +32,7 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     { customHotbar && hotbarMode == "Custom" }.with(a = 190)
     val gradientHotbarSpeed by float("Hotbar-Gradient-Speed", 1f, 0.5f..10f)
     { customHotbar && hotbarMode == "Gradient" }
-    val maxHotbarGradientColors by int("Max-Hotbar-Gradient-Colors", 4, 1..MAX_GRADIENT_COLORS)
+    val maxHotbarGradientColors by int("Max-Hotbar-Gradient-Colors", 4, 1..net.ccbluex.liquidbounce.ui.client.hud.element.Element.Companion.MAX_GRADIENT_COLORS)
     { customHotbar && hotbarMode == "Gradient" }
     val bgGradColors = ColorSettingsFloat.create(this, "Hotbar-Gradient")
     { customHotbar && hotbarMode == "Gradient" && it <= maxHotbarGradientColors }
@@ -52,7 +51,9 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     val inventoryParticle by boolean("InventoryParticle", false)
     private val blur by boolean("Blur", false)
     private val fontChat by boolean("FontChat", false)
+
     val hud = LiquidBounce.hud
+
     val onRender2D = handler<Render2DEvent> {
         if (mc.currentScreen is GuiHudDesigner)
             return@handler
@@ -61,20 +62,13 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     }
 
     val onUpdate = handler<UpdateEvent> {
-        val hud = LiquidBounce.hud
-        if (modernHud) {
-            hud.elements.removeAll { it is ModernStatusBar }
-            hud.elements.add(ModernStatusBar())
-        } else {
-            hud.elements.removeAll { it is ModernStatusBar }
-        }
-        hud.update()
         hud.update()
     }
 
     val onKey = handler<KeyEvent> { event ->
         hud.handleKey('a', event.key)
     }
+
     @SubscribeEvent
     fun onRenderGameOverlay(event: RenderGameOverlayEvent.Pre) {
         if (modernHud && (
@@ -84,7 +78,13 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
                     )) {
             event.isCanceled = true
         }
+
+        // Vẽ ModernStatusBar thay thế thanh trạng thái mặc định
+        if (modernHud && event.type == RenderGameOverlayEvent.ElementType.ALL) {
+            ModernStatusBar.draw(mc)
+        }
     }
+
     val onScreen = handler<ScreenEvent>(always = true) { event ->
         if (mc.theWorld == null || mc.thePlayer == null) return@handler
         if (state && blur && !mc.entityRenderer.isShaderActive && event.guiScreen != null &&
@@ -95,16 +95,9 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
             "liquidbounce/blur.json" in mc.entityRenderer.shaderGroup.shaderGroupName
         ) mc.entityRenderer.stopUseShader()
     }
-    override fun onEnable() {
-        if (modernHud) {
-            hud.elements.removeAll { it is ModernStatusBar }
-            hud.elements.add(ModernStatusBar())
-        }
-    }
 
-    override fun onDisable() {
-        hud.elements.removeAll { it is ModernStatusBar }
-    }
+    override fun onEnable() {}
+    override fun onDisable() {}
 
     fun shouldModifyChatFont() = handleEvents() && fontChat
 }
