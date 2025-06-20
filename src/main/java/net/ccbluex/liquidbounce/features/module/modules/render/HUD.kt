@@ -64,7 +64,7 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
         val hud = LiquidBounce.hud
         if (modernHud) {
             hud.elements.removeAll { it is ModernStatusBar }
-            hud.elements.add(ModernStatusBar.default())
+            hud.elements.add(ModernStatusBar())
         } else {
             hud.elements.removeAll { it is ModernStatusBar }
         }
@@ -98,9 +98,10 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     override fun onEnable() {
         if (modernHud) {
             hud.elements.removeAll { it is ModernStatusBar }
-            hud.elements.add(ModernStatusBar.default())
+            hud.elements.add(ModernStatusBar())
         }
     }
+
     override fun onDisable() {
         hud.elements.removeAll { it is ModernStatusBar }
     }

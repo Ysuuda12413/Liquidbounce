@@ -3,7 +3,6 @@ package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
-import net.ccbluex.liquidbounce.ui.client.hud.element.Side
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
@@ -12,10 +11,8 @@ import java.awt.Color
 import kotlin.math.abs
 
 @ElementInfo(name = "ModernStatusBar")
-class ModernStatusBar(
-    x: Double = 0.0, y: Double = 0.0, scale: Float = 1F,
-    side: Side = Side(Side.Horizontal.LEFT, Side.Vertical.DOWN)
-) : Element("ModernStatusBar", x, y, scale, side) {
+class ModernStatusBar : Element("ModernStatusBar", 300.0, 300.0, 1F) {
+    // KHÔNG cho chỉnh x, y, scale, v.v.
 
     private val barWidth by int("Width", 110, 50..300)
     private val barHeight by int("Height", 12, 6..20)
@@ -50,12 +47,11 @@ class ModernStatusBar(
         renderFood = animate(renderFood, food, animateSpeed)
         renderArmor = animate(renderArmor, armor, animateSpeed)
 
-        // Tổng chiều rộng
         val barCount = 3
-        val barSpacing = spacing // spacing custom
+        val barSpacing = spacing
         val barTotalWidth = width * barCount + barSpacing * (barCount - 1)
         val xBase = (sr.scaledWidth / 2) - (barTotalWidth / 2)
-        val yBase = sr.scaledHeight - height - 10 // sát đáy
+        val yBase = sr.scaledHeight - height - 10
 
         // Health
         val healthPercent = renderHealth / player.maxHealth
@@ -129,9 +125,5 @@ class ModernStatusBar(
         GlStateManager.color(1f, 1f, 1f, 1f)
         GlStateManager.disableAlpha()
         GlStateManager.disableBlend()
-    }
-
-    companion object {
-        fun default(): ModernStatusBar = ModernStatusBar(x = 0.0, y = 0.0, scale = 1F)
     }
 }
