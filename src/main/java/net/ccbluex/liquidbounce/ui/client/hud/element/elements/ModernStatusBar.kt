@@ -20,7 +20,7 @@ class ModernStatusBar(
     private val barWidth by int("Width", 110, 50..300)
     private val barHeight by int("Height", 12, 6..20)
     private val barRadius by float("Radius", 7f, 2f..10f)
-    private val spacing by int("Spacing", 24, 10..40)
+    private val spacing by int("Spacing", 34, 10..40)
     private val iconSize by int("IconSize", 15, 8..20)
     private val barAlpha by int("Alpha", 180, 50..255)
     private val animateSpeed by float("AnimSpeed", 0.14f, 0.01f..0.5f)
@@ -52,10 +52,10 @@ class ModernStatusBar(
 
         // Tổng chiều rộng
         val barCount = 3
-        val barSpacing = 34
+        val barSpacing = spacing // spacing custom
         val barTotalWidth = width * barCount + barSpacing * (barCount - 1)
         val xBase = (sr.scaledWidth / 2) - (barTotalWidth / 2)
-        val yBase = sr.scaledHeight - height - 10
+        val yBase = sr.scaledHeight - height - 10 // sát đáy
 
         // Health
         val healthPercent = renderHealth / player.maxHealth
@@ -132,6 +132,6 @@ class ModernStatusBar(
     }
 
     companion object {
-        fun default(): ModernStatusBar = ModernStatusBar()
+        fun default(): ModernStatusBar = ModernStatusBar(x = 0.0, y = 0.0, scale = 1F)
     }
 }

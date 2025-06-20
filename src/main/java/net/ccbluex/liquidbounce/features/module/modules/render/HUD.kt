@@ -17,6 +17,8 @@ import net.ccbluex.liquidbounce.utils.render.ColorSettingsInteger
 import net.minecraft.client.gui.GuiChat
 import net.minecraft.util.ResourceLocation
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.ModernStatusBar
+import net.minecraftforge.client.event.RenderGameOverlayEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState = true, defaultHidden = true) {
     val customHotbar by boolean("CustomHotbar", true)
@@ -61,19 +63,28 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     val onUpdate = handler<UpdateEvent> {
         val hud = LiquidBounce.hud
         if (modernHud) {
-            if (hud.elements.none { it is ModernStatusBar }) {
-                hud.elements.add(ModernStatusBar.default())
-            }
+            hud.elements.removeAll { it is ModernStatusBar }
+            hud.elements.add(ModernStatusBar.default())
         } else {
             hud.elements.removeAll { it is ModernStatusBar }
         }
+        hud.update()
         hud.update()
     }
 
     val onKey = handler<KeyEvent> { event ->
         hud.handleKey('a', event.key)
     }
-
+    @SubscribeEvent
+    fun onRenderGameOverlay(event: RenderGameOverlayEvent.Pre) {
+        if (modernHud && (
+                    event.type == RenderGameOverlayEvent.ElementType.HEALTH ||
+                            event.type == RenderGameOverlayEvent.ElementType.FOOD ||
+                            event.type == RenderGameOverlayEvent.ElementType.ARMOR
+                    )) {
+            event.isCanceled = true
+        }
+    }
     val onScreen = handler<ScreenEvent>(always = true) { event ->
         if (mc.theWorld == null || mc.thePlayer == null) return@handler
         if (state && blur && !mc.entityRenderer.isShaderActive && event.guiScreen != null &&
@@ -85,15 +96,12 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
         ) mc.entityRenderer.stopUseShader()
     }
     override fun onEnable() {
-        if(modernHud) {
-            val hud = LiquidBounce.hud
-            if (hud.elements.none { it is ModernStatusBar }) {
-                hud.elements.add(ModernStatusBar.default())
-            }
+        if (modernHud) {
+            hud.elements.removeAll { it is ModernStatusBar }
+            hud.elements.add(ModernStatusBar.default())
         }
     }
     override fun onDisable() {
-        val hud = LiquidBounce.hud
         hud.elements.removeAll { it is ModernStatusBar }
     }
 
