@@ -5,6 +5,7 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.render
 
+import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.LiquidBounce.CLIENT_NAME
 import net.ccbluex.liquidbounce.LiquidBounce.hud
 import net.ccbluex.liquidbounce.event.*
@@ -16,12 +17,12 @@ import net.ccbluex.liquidbounce.utils.render.ColorSettingsFloat
 import net.ccbluex.liquidbounce.utils.render.ColorSettingsInteger
 import net.minecraft.client.gui.GuiChat
 import net.minecraft.util.ResourceLocation
+import net.ccbluex.liquidbounce.ui.elements.ModernStatusBar
 
 object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState = true, defaultHidden = true) {
     val customHotbar by boolean("CustomHotbar", true)
-
     val smoothHotbarSlot by boolean("SmoothHotbarSlot", true) { customHotbar }
-
+    val modernHud by boolean("ModernHud", false)
     val roundedHotbarRadius by float("RoundedHotbar-Radius", 3F, 0F..5F) { customHotbar }
 
     val hotbarMode by choices("Hotbar-Color", arrayOf("Custom", "Rainbow", "Gradient"), "Custom") { customHotbar }
@@ -50,7 +51,7 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     val inventoryParticle by boolean("InventoryParticle", false)
     private val blur by boolean("Blur", false)
     private val fontChat by boolean("FontChat", false)
-
+    val hud = LiquidBounce.hud
     val onRender2D = handler<Render2DEvent> {
         if (mc.currentScreen is GuiHudDesigner)
             return@handler
@@ -59,6 +60,14 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     }
 
     val onUpdate = handler<UpdateEvent> {
+        val hud = LiquidBounce.hud
+        if (modernHud) {
+            if (hud.elements.none { it is ModernStatusBar }) {
+                hud.elements.add(ModernStatusBar.default())
+            }
+        } else {
+            hud.elements.removeAll { it is ModernStatusBar }
+        }
         hud.update()
     }
 
@@ -75,6 +84,18 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
         ) else if (mc.entityRenderer.shaderGroup != null &&
             "liquidbounce/blur.json" in mc.entityRenderer.shaderGroup.shaderGroupName
         ) mc.entityRenderer.stopUseShader()
+    }
+    override fun onEnable() {
+        if(modernHud) {
+            val hud = LiquidBounce.hud
+            if (hud.elements.none { it is ModernStatusBar }) {
+                hud.elements.add(ModernStatusBar.default())
+            }
+        }
+    }
+    override fun onDisable() {
+        val hud = LiquidBounce.hud
+        hud.elements.removeAll { it is ModernStatusBar }
     }
 
     fun shouldModifyChatFont() = handleEvents() && fontChat
