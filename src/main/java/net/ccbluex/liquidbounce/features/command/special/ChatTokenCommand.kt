@@ -4,8 +4,8 @@ import net.ccbluex.liquidbounce.LiquidBounce.commandManager
 import net.ccbluex.liquidbounce.chat.packet.packets.ServerRequestJWTPacket
 import net.ccbluex.liquidbounce.features.command.Command
 import net.ccbluex.liquidbounce.features.module.modules.misc.LiquidChat
-import net.ccbluex.liquidbounce.utils.io.MiscUtils
-import net.ccbluex.liquidbounce.utils.kotlin.StringUtils
+import net.ccbluex.liquidbounce.ui.utils.io.MiscUtils
+import net.ccbluex.liquidbounce.ui.utils.kotlin.StringUtils
 
 object ChatTokenCommand : Command("chattoken") {
 

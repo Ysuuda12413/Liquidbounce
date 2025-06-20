@@ -16,13 +16,13 @@ import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
 import net.ccbluex.liquidbounce.ui.client.hud.element.Side
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification.Companion.maxTextLength
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.client.ClientUtils
-import net.ccbluex.liquidbounce.utils.extensions.lerpWith
-import net.ccbluex.liquidbounce.utils.render.ColorUtils.withAlpha
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
-import net.ccbluex.liquidbounce.utils.render.RenderUtils.deltaTime
-import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawRoundedBorder
-import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawRoundedRect
+import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils
+import net.ccbluex.liquidbounce.ui.utils.extensions.lerpWith
+import net.ccbluex.liquidbounce.ui.utils.render.ColorUtils.withAlpha
+import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils
+import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.deltaTime
+import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawRoundedBorder
+import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawRoundedRect
 import net.minecraft.util.ResourceLocation
 import java.awt.Color
 

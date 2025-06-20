@@ -15,13 +15,13 @@ import net.ccbluex.liquidbounce.features.module.modules.world.FastPlace;
 import net.ccbluex.liquidbounce.file.configs.models.ClientConfiguration;
 import net.ccbluex.liquidbounce.injection.forge.SplashProgressLock;
 import net.ccbluex.liquidbounce.ui.client.GuiMainMenu;
-import net.ccbluex.liquidbounce.utils.attack.CPSCounter;
-import net.ccbluex.liquidbounce.utils.client.ClientUtils;
-import net.ccbluex.liquidbounce.utils.inventory.SilentHotbar;
-import net.ccbluex.liquidbounce.utils.io.MiscUtils;
-import net.ccbluex.liquidbounce.utils.render.IconUtils;
-import net.ccbluex.liquidbounce.utils.render.MiniMapRegister;
-import net.ccbluex.liquidbounce.utils.render.RenderUtils;
+import net.ccbluex.liquidbounce.ui.utils.attack.CPSCounter;
+import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils;
+import net.ccbluex.liquidbounce.ui.utils.inventory.SilentHotbar;
+import net.ccbluex.liquidbounce.ui.utils.io.MiscUtils;
+import net.ccbluex.liquidbounce.ui.utils.render.IconUtils;
+import net.ccbluex.liquidbounce.ui.utils.render.MiniMapRegister;
+import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -53,7 +53,7 @@ import java.util.Queue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import static net.ccbluex.liquidbounce.utils.client.MinecraftInstance.mc;
+import static net.ccbluex.liquidbounce.ui.utils.client.MinecraftInstance.mc;
 
 @Mixin(Minecraft.class)
 @SideOnly(Side.CLIENT)

@@ -12,10 +12,10 @@ import net.ccbluex.liquidbounce.event.async.loopSequence
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.utils.block.BlockUtils.searchBlocks
-import net.ccbluex.liquidbounce.utils.block.block
-import net.ccbluex.liquidbounce.utils.block.id
-import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawBlockBox
+import net.ccbluex.liquidbounce.ui.utils.block.BlockUtils.searchBlocks
+import net.ccbluex.liquidbounce.ui.utils.block.block
+import net.ccbluex.liquidbounce.ui.utils.block.id
+import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawBlockBox
 import net.minecraft.block.Block
 import net.minecraft.init.Blocks.*
 import net.minecraft.util.BlockPos

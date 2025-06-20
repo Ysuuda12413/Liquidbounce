@@ -11,8 +11,8 @@ import net.ccbluex.liquidbounce.event.UpdateEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.utils.block.block
-import net.ccbluex.liquidbounce.utils.movement.MovementUtils.strafe
+import net.ccbluex.liquidbounce.ui.utils.block.block
+import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils.strafe
 import net.minecraft.block.BlockPane
 import net.minecraft.util.BlockPos
 

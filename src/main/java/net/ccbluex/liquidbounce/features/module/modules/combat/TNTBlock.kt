@@ -9,7 +9,7 @@ import net.ccbluex.liquidbounce.event.MotionEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.utils.client.EntityLookup
+import net.ccbluex.liquidbounce.ui.utils.client.EntityLookup
 import net.minecraft.client.settings.GameSettings
 import net.minecraft.entity.item.EntityTNTPrimed
 import net.minecraft.item.ItemSword

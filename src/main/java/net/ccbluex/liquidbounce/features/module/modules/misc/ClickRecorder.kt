@@ -10,10 +10,10 @@ import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.file.FileManager
-import net.ccbluex.liquidbounce.utils.attack.CPSCounter
-import net.ccbluex.liquidbounce.utils.client.ClientUtils.runTimeTicks
-import net.ccbluex.liquidbounce.utils.client.chat
-import net.ccbluex.liquidbounce.utils.timing.TickedActions.nextTick
+import net.ccbluex.liquidbounce.ui.utils.attack.CPSCounter
+import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.runTimeTicks
+import net.ccbluex.liquidbounce.ui.utils.client.chat
+import net.ccbluex.liquidbounce.ui.utils.timing.TickedActions.nextTick
 import org.knowm.xchart.BitmapEncoder
 import org.knowm.xchart.XYChart
 import org.knowm.xchart.XYSeries

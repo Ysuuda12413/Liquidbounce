@@ -10,10 +10,10 @@ import net.ccbluex.liquidbounce.event.Render2DEvent
 import net.ccbluex.liquidbounce.event.UpdateEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.command.Command
-import net.ccbluex.liquidbounce.utils.extensions.component1
-import net.ccbluex.liquidbounce.utils.extensions.component2
-import net.ccbluex.liquidbounce.utils.render.RenderUtils.deltaTime
-import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawImage
+import net.ccbluex.liquidbounce.ui.utils.extensions.component1
+import net.ccbluex.liquidbounce.ui.utils.extensions.component2
+import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.deltaTime
+import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawImage
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.util.ResourceLocation
 

@@ -7,17 +7,18 @@ package net.ccbluex.liquidbounce.features.module.modules.render
 
 import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.LiquidBounce.CLIENT_NAME
-import net.ccbluex.liquidbounce.LiquidBounce.hud
+import net.ccbluex.liquidbounce.ui.client.hud.ModernHUD
 import net.ccbluex.liquidbounce.event.*
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element.Companion.MAX_GRADIENT_COLORS
-import net.ccbluex.liquidbounce.utils.render.ColorSettingsFloat
-import net.ccbluex.liquidbounce.utils.render.ColorSettingsInteger
+import net.ccbluex.liquidbounce.ui.utils.render.ColorSettingsFloat
+import net.ccbluex.liquidbounce.ui.utils.render.ColorSettingsInteger
 import net.minecraft.client.gui.GuiChat
 import net.minecraft.util.ResourceLocation
-import net.ccbluex.liquidbounce.ui.elements.ModernStatusBar
+import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.ScaledResolution
 
 object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState = true, defaultHidden = true) {
     val customHotbar by boolean("CustomHotbar", true)
@@ -47,27 +48,66 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     val rainbowY by float("Rainbow-Y", -1000F, -2000F..2000F) { customHotbar && hotbarMode == "Rainbow" }
     val gradientX by float("Gradient-X", -1000F, -2000F..2000F) { customHotbar && hotbarMode == "Gradient" }
     val gradientY by float("Gradient-Y", -1000F, -2000F..2000F) { customHotbar && hotbarMode == "Gradient" }
-
     val inventoryParticle by boolean("InventoryParticle", false)
     private val blur by boolean("Blur", false)
     private val fontChat by boolean("FontChat", false)
     val hud = LiquidBounce.hud
+
+    val barWidth by int("BarWidth", 86, 40..200) { modernHud }
+    val barHeight by int("BarHeight", 9, 4..30) { modernHud }
+    val barRadius by float("BarRadius", 5f, 0f..20f) { modernHud }
+    val barAlpha by int("BarAlpha", 180, 0..255) { modernHud }
+    val iconSize by int("IconSize", 13, 8..40) { modernHud }
+
+    // Khi tạo ModernHUD, truyền setting động
+    private val modernHud_render: ModernHUD
+        get() = ModernHUD(
+            barWidth = barWidth,
+            barHeight = barHeight,
+            barRadius = barRadius,
+            barAlpha = barAlpha,
+            iconSize = iconSize
+        )
+
     val onRender2D = handler<Render2DEvent> {
         if (mc.currentScreen is GuiHudDesigner)
             return@handler
+        val mc = Minecraft.getMinecraft()
+        val sr = ScaledResolution(mc)
+        val screenWidth = sr.scaledWidth
+        val screenHeight = sr.scaledHeight
+        val margin = 10
+        // Health: bottom left
+        val healthX = margin
+        val healthY = screenHeight - margin - modernHud_render.iconSize - modernHud_render.barHeight
 
+        // Armor: just above health
+        val armorX = margin
+        val armorY = healthY - modernHud_render.iconSize - modernHud_render.barHeight - 2
+
+        // Food: bottom right
+        val foodX = screenWidth - margin - modernHud_render.barWidth
+        val foodY = screenHeight - margin - modernHud_render.iconSize - modernHud_render.barHeight
+
+        // Exp: above armor
+        val expX = margin
+        val expY = armorY - modernHud_render.iconSize - modernHud_render.barHeight - 2
+
+        // Air: above food (when underwater)
+        val airX = foodX
+        val airY = foodY - modernHud_render.iconSize - modernHud_render.barHeight - 2
+        if (modernHud) {
+            modernHud_render.drawHealthBar(healthX, healthY)
+            modernHud_render.drawArmorBar(armorX, armorY)
+            modernHud_render.drawFoodBar(foodX, foodY)
+            modernHud_render.drawExpBar(expX, expY)
+            modernHud_render.drawAirBar(airX, airY)
+        }
         hud.render(false)
     }
 
     val onUpdate = handler<UpdateEvent> {
         val hud = LiquidBounce.hud
-        if (modernHud) {
-            if (hud.elements.none { it is ModernStatusBar }) {
-                hud.elements.add(ModernStatusBar.default())
-            }
-        } else {
-            hud.elements.removeAll { it is ModernStatusBar }
-        }
         hud.update()
     }
 
@@ -84,18 +124,6 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
         ) else if (mc.entityRenderer.shaderGroup != null &&
             "liquidbounce/blur.json" in mc.entityRenderer.shaderGroup.shaderGroupName
         ) mc.entityRenderer.stopUseShader()
-    }
-    override fun onEnable() {
-        if(modernHud) {
-            val hud = LiquidBounce.hud
-            if (hud.elements.none { it is ModernStatusBar }) {
-                hud.elements.add(ModernStatusBar.default())
-            }
-        }
-    }
-    override fun onDisable() {
-        val hud = LiquidBounce.hud
-        hud.elements.removeAll { it is ModernStatusBar }
     }
 
     fun shouldModifyChatFont() = handleEvents() && fontChat

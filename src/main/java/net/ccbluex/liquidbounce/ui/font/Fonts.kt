@@ -8,10 +8,10 @@ package net.ccbluex.liquidbounce.ui.font
 import com.google.gson.JsonObject
 import net.ccbluex.liquidbounce.LiquidBounce.CLIENT_CLOUD
 import net.ccbluex.liquidbounce.file.FileManager.fontsDir
-import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
-import net.ccbluex.liquidbounce.utils.client.MinecraftInstance
-import net.ccbluex.liquidbounce.utils.io.*
-import net.ccbluex.liquidbounce.utils.io.Downloader
+import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.ui.utils.client.MinecraftInstance
+import net.ccbluex.liquidbounce.ui.utils.io.*
+import net.ccbluex.liquidbounce.ui.utils.io.Downloader
 import net.minecraft.client.gui.FontRenderer
 import java.awt.Font
 import java.io.File

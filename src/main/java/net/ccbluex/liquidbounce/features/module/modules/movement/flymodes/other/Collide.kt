@@ -7,8 +7,8 @@ package net.ccbluex.liquidbounce.features.module.modules.movement.flymodes.other
 
 import net.ccbluex.liquidbounce.event.BlockBBEvent
 import net.ccbluex.liquidbounce.features.module.modules.movement.flymodes.FlyMode
-import net.ccbluex.liquidbounce.utils.client.pos
-import net.ccbluex.liquidbounce.utils.extensions.offset
+import net.ccbluex.liquidbounce.ui.utils.client.pos
+import net.ccbluex.liquidbounce.ui.utils.extensions.offset
 import net.minecraft.block.BlockLadder
 import net.minecraft.block.material.Material
 import net.minecraft.util.AxisAlignedBB

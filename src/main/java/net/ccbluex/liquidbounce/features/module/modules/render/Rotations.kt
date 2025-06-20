@@ -11,9 +11,9 @@ import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.modules.`fun`.Derp
-import net.ccbluex.liquidbounce.utils.rotation.Rotation
-import net.ccbluex.liquidbounce.utils.rotation.RotationUtils.currentRotation
-import net.ccbluex.liquidbounce.utils.rotation.RotationUtils.serverRotation
+import net.ccbluex.liquidbounce.ui.utils.rotation.Rotation
+import net.ccbluex.liquidbounce.ui.utils.rotation.RotationUtils.currentRotation
+import net.ccbluex.liquidbounce.ui.utils.rotation.RotationUtils.serverRotation
 
 object Rotations : Module("Rotations", Category.RENDER, gameDetecting = false) {
 

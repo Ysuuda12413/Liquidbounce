@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.event
 
-import net.ccbluex.liquidbounce.utils.client.ClientUtils
+import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils
 
 class EventHook<T : Event>(
     val owner: Listenable,

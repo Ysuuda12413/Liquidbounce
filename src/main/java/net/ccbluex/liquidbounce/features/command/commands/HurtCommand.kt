@@ -6,11 +6,11 @@
 package net.ccbluex.liquidbounce.features.command.commands
 
 import net.ccbluex.liquidbounce.features.command.Command
-import net.ccbluex.liquidbounce.utils.client.PacketUtils.sendPacket
-import net.ccbluex.liquidbounce.utils.client.PacketUtils.sendPackets
-import net.ccbluex.liquidbounce.utils.extensions.component1
-import net.ccbluex.liquidbounce.utils.extensions.component2
-import net.ccbluex.liquidbounce.utils.extensions.component3
+import net.ccbluex.liquidbounce.ui.utils.client.PacketUtils.sendPacket
+import net.ccbluex.liquidbounce.ui.utils.client.PacketUtils.sendPackets
+import net.ccbluex.liquidbounce.ui.utils.extensions.component1
+import net.ccbluex.liquidbounce.ui.utils.extensions.component2
+import net.ccbluex.liquidbounce.ui.utils.extensions.component3
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 
 object HurtCommand : Command("hurt") {

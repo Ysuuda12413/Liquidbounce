@@ -8,10 +8,10 @@ package net.ccbluex.liquidbounce.features.module.modules.movement.speedmodes.mat
 import net.ccbluex.liquidbounce.features.module.modules.movement.Speed
 import net.ccbluex.liquidbounce.features.module.modules.movement.speedmodes.SpeedMode
 import net.ccbluex.liquidbounce.features.module.modules.world.scaffolds.Scaffold
-import net.ccbluex.liquidbounce.utils.extensions.isInLiquid
-import net.ccbluex.liquidbounce.utils.extensions.isMoving
-import net.ccbluex.liquidbounce.utils.movement.MovementUtils.speed
-import net.ccbluex.liquidbounce.utils.movement.MovementUtils.strafe
+import net.ccbluex.liquidbounce.ui.utils.extensions.isInLiquid
+import net.ccbluex.liquidbounce.ui.utils.extensions.isMoving
+import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils.speed
+import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils.strafe
 
 /*
 * Working on Matrix: 7.11.8

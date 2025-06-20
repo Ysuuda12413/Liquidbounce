@@ -9,8 +9,8 @@ import net.ccbluex.liquidbounce.event.MoveEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.utils.block.block
-import net.ccbluex.liquidbounce.utils.movement.FallingPlayer
+import net.ccbluex.liquidbounce.ui.utils.block.block
+import net.ccbluex.liquidbounce.ui.utils.movement.FallingPlayer
 import net.minecraft.block.BlockAir
 import net.minecraft.util.BlockPos
 

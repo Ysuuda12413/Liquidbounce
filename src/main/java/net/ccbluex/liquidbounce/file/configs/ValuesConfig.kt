@@ -19,8 +19,8 @@ import net.ccbluex.liquidbounce.file.FileManager.PRETTY_GSON
 import net.ccbluex.liquidbounce.file.configs.models.ClientConfiguration
 import net.ccbluex.liquidbounce.ui.client.GuiMainMenu
 import net.ccbluex.liquidbounce.ui.client.altmanager.menus.altgenerator.GuiTheAltening.Companion.apiKey
-import net.ccbluex.liquidbounce.utils.attack.EntityUtils.Targets
-import net.ccbluex.liquidbounce.utils.io.readJson
+import net.ccbluex.liquidbounce.ui.utils.attack.EntityUtils.Targets
+import net.ccbluex.liquidbounce.ui.utils.io.readJson
 import java.io.*
 
 class ValuesConfig(file: File) : FileConfig(file) {

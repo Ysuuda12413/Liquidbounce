@@ -9,11 +9,11 @@ import net.ccbluex.liquidbounce.event.Render3DEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.utils.extensions.interpolatedPosition
-import net.ccbluex.liquidbounce.utils.extensions.prevPos
-import net.ccbluex.liquidbounce.utils.render.ColorSettingsInteger
-import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawDome
-import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawEntityBox
+import net.ccbluex.liquidbounce.ui.utils.extensions.interpolatedPosition
+import net.ccbluex.liquidbounce.ui.utils.extensions.prevPos
+import net.ccbluex.liquidbounce.ui.utils.render.ColorSettingsInteger
+import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawDome
+import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawEntityBox
 import net.minecraft.entity.item.EntityTNTPrimed
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color

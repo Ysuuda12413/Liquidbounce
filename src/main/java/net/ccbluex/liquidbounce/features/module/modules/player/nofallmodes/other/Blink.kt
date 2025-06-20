@@ -15,13 +15,13 @@ import net.ccbluex.liquidbounce.features.module.modules.player.NoFall.simulateDe
 import net.ccbluex.liquidbounce.features.module.modules.player.NoFall.state
 import net.ccbluex.liquidbounce.features.module.modules.player.nofallmodes.NoFallMode
 import net.ccbluex.liquidbounce.injection.implementations.IMixinEntity
-import net.ccbluex.liquidbounce.utils.client.BlinkUtils
-import net.ccbluex.liquidbounce.utils.client.chat
-import net.ccbluex.liquidbounce.utils.extensions.*
-import net.ccbluex.liquidbounce.utils.movement.FallingPlayer
-import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawBacktrackBox
-import net.ccbluex.liquidbounce.utils.simulation.SimulatedPlayer
-import net.ccbluex.liquidbounce.utils.timing.TickTimer
+import net.ccbluex.liquidbounce.ui.utils.client.BlinkUtils
+import net.ccbluex.liquidbounce.ui.utils.client.chat
+import net.ccbluex.liquidbounce.ui.utils.extensions.*
+import net.ccbluex.liquidbounce.ui.utils.movement.FallingPlayer
+import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawBacktrackBox
+import net.ccbluex.liquidbounce.ui.utils.simulation.SimulatedPlayer
+import net.ccbluex.liquidbounce.ui.utils.timing.TickTimer
 import net.minecraft.network.play.client.C03PacketPlayer
 import java.awt.Color
 

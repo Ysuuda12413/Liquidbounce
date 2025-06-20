@@ -11,7 +11,7 @@ import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.file.FileManager.friendsConfig
-import net.ccbluex.liquidbounce.utils.render.ColorUtils.translateAlternateColorCodes
+import net.ccbluex.liquidbounce.ui.utils.render.ColorUtils.translateAlternateColorCodes
 import net.minecraft.network.play.server.S01PacketJoinGame
 import net.minecraft.network.play.server.S40PacketDisconnect
 import java.util.*

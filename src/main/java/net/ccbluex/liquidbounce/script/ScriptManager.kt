@@ -7,7 +7,7 @@ package net.ccbluex.liquidbounce.script
 
 import net.ccbluex.liquidbounce.file.FileManager.dir
 import net.ccbluex.liquidbounce.script.remapper.Remapper
-import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
 import java.io.File
 import java.io.FileFilter
 

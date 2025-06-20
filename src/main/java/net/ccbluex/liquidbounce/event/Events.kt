@@ -6,7 +6,7 @@
 package net.ccbluex.liquidbounce.event
 
 import net.ccbluex.liquidbounce.features.module.modules.render.FreeCam
-import net.ccbluex.liquidbounce.utils.extensions.withY
+import net.ccbluex.liquidbounce.ui.utils.extensions.withY
 import net.minecraft.block.Block
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.multiplayer.WorldClient

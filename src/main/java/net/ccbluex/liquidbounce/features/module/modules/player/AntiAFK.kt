@@ -9,12 +9,12 @@ import net.ccbluex.liquidbounce.event.UpdateEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.utils.extensions.fixedSensitivityPitch
-import net.ccbluex.liquidbounce.utils.extensions.fixedSensitivityYaw
-import net.ccbluex.liquidbounce.utils.extensions.tryJump
-import net.ccbluex.liquidbounce.utils.kotlin.RandomUtils.nextFloat
-import net.ccbluex.liquidbounce.utils.kotlin.RandomUtils.nextInt
-import net.ccbluex.liquidbounce.utils.timing.MSTimer
+import net.ccbluex.liquidbounce.ui.utils.extensions.fixedSensitivityPitch
+import net.ccbluex.liquidbounce.ui.utils.extensions.fixedSensitivityYaw
+import net.ccbluex.liquidbounce.ui.utils.extensions.tryJump
+import net.ccbluex.liquidbounce.ui.utils.kotlin.RandomUtils.nextFloat
+import net.ccbluex.liquidbounce.ui.utils.kotlin.RandomUtils.nextInt
+import net.ccbluex.liquidbounce.ui.utils.timing.MSTimer
 import net.minecraft.client.settings.GameSettings
 
 object AntiAFK : Module("AntiAFK", Category.PLAYER, gameDetecting = false) {

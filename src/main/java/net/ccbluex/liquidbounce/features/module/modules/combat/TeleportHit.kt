@@ -10,11 +10,11 @@ import net.ccbluex.liquidbounce.event.MotionEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.utils.attack.EntityUtils.isSelected
-import net.ccbluex.liquidbounce.utils.client.PacketUtils.sendPacket
-import net.ccbluex.liquidbounce.utils.pathfinding.PathUtils.findPath
-import net.ccbluex.liquidbounce.utils.rotation.RaycastUtils
-import net.ccbluex.liquidbounce.utils.rotation.RotationUtils
+import net.ccbluex.liquidbounce.ui.utils.attack.EntityUtils.isSelected
+import net.ccbluex.liquidbounce.ui.utils.client.PacketUtils.sendPacket
+import net.ccbluex.liquidbounce.ui.utils.pathfinding.PathUtils.findPath
+import net.ccbluex.liquidbounce.ui.utils.rotation.RaycastUtils
+import net.ccbluex.liquidbounce.ui.utils.rotation.RotationUtils
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.network.play.client.C02PacketUseEntity

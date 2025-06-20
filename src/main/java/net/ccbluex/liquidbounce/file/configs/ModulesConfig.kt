@@ -9,8 +9,8 @@ import com.google.gson.JsonObject
 import net.ccbluex.liquidbounce.LiquidBounce.moduleManager
 import net.ccbluex.liquidbounce.file.FileConfig
 import net.ccbluex.liquidbounce.file.FileManager.PRETTY_GSON
-import net.ccbluex.liquidbounce.utils.io.json
-import net.ccbluex.liquidbounce.utils.io.readJson
+import net.ccbluex.liquidbounce.ui.utils.io.json
+import net.ccbluex.liquidbounce.ui.utils.io.readJson
 import java.io.*
 
 class ModulesConfig(file: File) : FileConfig(file) {

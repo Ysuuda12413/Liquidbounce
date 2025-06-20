@@ -9,12 +9,12 @@ import net.ccbluex.liquidbounce.LiquidBounce.moduleManager
 import net.ccbluex.liquidbounce.api.ClientApi
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.file.FileManager
-import net.ccbluex.liquidbounce.utils.attack.EntityUtils.Targets
-import net.ccbluex.liquidbounce.utils.client.chat
-import net.ccbluex.liquidbounce.utils.io.HttpClient
-import net.ccbluex.liquidbounce.utils.io.get
-import net.ccbluex.liquidbounce.utils.kotlin.StringUtils
-import net.ccbluex.liquidbounce.utils.render.ColorUtils.translateAlternateColorCodes
+import net.ccbluex.liquidbounce.ui.utils.attack.EntityUtils.Targets
+import net.ccbluex.liquidbounce.ui.utils.client.chat
+import net.ccbluex.liquidbounce.ui.utils.io.HttpClient
+import net.ccbluex.liquidbounce.ui.utils.io.get
+import net.ccbluex.liquidbounce.ui.utils.kotlin.StringUtils
+import net.ccbluex.liquidbounce.ui.utils.render.ColorUtils.translateAlternateColorCodes
 import org.lwjgl.input.Keyboard
 import kotlin.reflect.KMutableProperty0
 

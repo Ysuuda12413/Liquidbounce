@@ -14,7 +14,7 @@ import me.liuli.elixir.manage.AccountSerializer.fromJson
 import me.liuli.elixir.manage.AccountSerializer.toJson
 import net.ccbluex.liquidbounce.file.FileConfig
 import net.ccbluex.liquidbounce.file.FileManager.PRETTY_GSON
-import net.ccbluex.liquidbounce.utils.io.readJson
+import net.ccbluex.liquidbounce.ui.utils.io.readJson
 import java.io.*
 
 class AccountsConfig(file: File) : FileConfig(file) {

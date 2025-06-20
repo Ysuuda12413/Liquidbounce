@@ -10,9 +10,9 @@ import net.ccbluex.liquidbounce.event.MoveEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.utils.block.BlockUtils.collideBlockIntersects
-import net.ccbluex.liquidbounce.utils.block.block
-import net.ccbluex.liquidbounce.utils.client.PacketUtils.sendPacket
+import net.ccbluex.liquidbounce.ui.utils.block.BlockUtils.collideBlockIntersects
+import net.ccbluex.liquidbounce.ui.utils.block.block
+import net.ccbluex.liquidbounce.ui.utils.client.PacketUtils.sendPacket
 import net.minecraft.block.BlockLadder
 import net.minecraft.block.BlockVine
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition

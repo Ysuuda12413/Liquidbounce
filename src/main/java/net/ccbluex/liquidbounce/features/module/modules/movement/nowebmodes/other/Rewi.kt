@@ -6,7 +6,7 @@
 package net.ccbluex.liquidbounce.features.module.modules.movement.nowebmodes.other
 
 import net.ccbluex.liquidbounce.features.module.modules.movement.nowebmodes.NoWebMode
-import net.ccbluex.liquidbounce.utils.extensions.tryJump
+import net.ccbluex.liquidbounce.ui.utils.extensions.tryJump
 
 object Rewi : NoWebMode("Rewi") {
     override fun onUpdate() {
