@@ -5,123 +5,117 @@ import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
 import net.ccbluex.liquidbounce.ui.client.hud.element.Side
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
+import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.ResourceLocation
 import java.awt.Color
+import kotlin.math.abs
 
 @ElementInfo(name = "ModernStatusBar")
 class ModernStatusBar(
-    x: Double = 20.0, y: Double = 32.0, scale: Float = 1F,
+    x: Double = 0.0, y: Double = 0.0, scale: Float = 1F,
     side: Side = Side(Side.Horizontal.LEFT, Side.Vertical.DOWN)
 ) : Element("ModernStatusBar", x, y, scale, side) {
 
-    private val barWidth by int("Width", 86, 40..200)
-    private val barHeight by int("Height", 9, 5..20)
-    private val barRadius by float("Radius", 5f, 2f..8f)
+    private val barWidth by int("Width", 110, 50..300)
+    private val barHeight by int("Height", 12, 6..20)
+    private val barRadius by float("Radius", 7f, 2f..10f)
+    private val spacing by int("Spacing", 24, 10..40)
+    private val iconSize by int("IconSize", 15, 8..20)
     private val barAlpha by int("Alpha", 180, 50..255)
-    private val spacing by int("Spacing", 13, 4..20)
-    private val iconSize by int("IconSize", 13, 8..18)
-
-    private val showAbsorption by boolean("Absorption", true)
-    private val showArmor by boolean("Armor", true)
-    private val showExp by boolean("Exp", true)
-    private val showFood by boolean("Food", true)
-    private val showAir by boolean("Air", true)
+    private val animateSpeed by float("AnimSpeed", 0.14f, 0.01f..0.5f)
 
     private val ICON_HEART = ResourceLocation("liquidbounce/hud/icon-heart.png")
-    private val ICON_SHIELD = ResourceLocation("liquidbounce/hud/icon-shield.png")
     private val ICON_FOOD = ResourceLocation("liquidbounce/hud/icon-food.png")
+    private val ICON_SHIELD = ResourceLocation("liquidbounce/hud/icon-shield.png")
+    // Animation value
+    private var renderHealth = 20f
+    private var renderFood = 20f
+    private var renderArmor = 20f
 
     override fun drawElement(): Border? {
         val player = mc.thePlayer ?: return Border(0f, 0f, 0f, 0f)
+        val sr = ScaledResolution(mc)
         val width = barWidth
         val height = barHeight
         val radius = barRadius
-        val sp = spacing
         val iconS = iconSize
         val alpha = barAlpha
 
-        var yOffset = 0
+        // Animation mượt
+        val health = player.health.coerceAtMost(player.maxHealth)
+        val food = player.foodStats.foodLevel.toFloat()
+        val armor = player.totalArmorValue.toFloat().coerceAtMost(20f)
+        renderHealth = animate(renderHealth, health, animateSpeed)
+        renderFood = animate(renderFood, food, animateSpeed)
+        renderArmor = animate(renderArmor, armor, animateSpeed)
+
+        // Tổng chiều rộng
+        val barCount = 3
+        val barSpacing = 34
+        val barTotalWidth = width * barCount + barSpacing * (barCount - 1)
+        val xBase = (sr.scaledWidth / 2) - (barTotalWidth / 2)
+        val yBase = sr.scaledHeight - height - 10
 
         // Health
-        drawIcon(ICON_HEART, 0, yOffset + (height - iconS) / 2, iconS, iconS)
-        drawRoundedBar(iconS + 4, yOffset, width, height, player.health / player.maxHealth, Color(252, 65, 48, alpha), radius)
-        yOffset -= sp
-
-        // Absorption
-        if (showAbsorption) {
-            val absorption = player.absorptionAmount
-            if (absorption > 0) {
-                drawIcon(ICON_HEART, 0, yOffset + (height - iconS) / 2, iconS, iconS, Color(212, 175, 55, alpha))
-                drawRoundedBar(iconS + 4, yOffset, width, height, absorption.coerceAtMost(player.maxHealth) / player.maxHealth, Color(212, 175, 55, alpha), radius)
-                yOffset -= sp
-            }
-        }
-
-        // Armor
-        if (showArmor) {
-            val armor = player.totalArmorValue
-            if (armor > 0) {
-                drawIcon(ICON_SHIELD, 0, yOffset + (height - iconS) / 2, iconS, iconS)
-                drawRoundedBar(iconS + 4, yOffset, width, height, armor / 20.0f, Color(73, 234, 214, alpha), radius)
-                yOffset -= sp
-            }
-        }
-
-        // Exp
-        if (showExp) {
-            val expLevel = player.experienceLevel
-            val expProgress = player.experience
-            if (expLevel > 0) {
-                drawIcon(ICON_SHIELD, 0, yOffset + (height - iconS) / 2, iconS, iconS, Color(136, 198, 87, alpha))
-                drawRoundedBar(iconS + 4, yOffset, width, height, expProgress, Color(136, 198, 87, alpha), radius)
-                mc.fontRendererObj.drawStringWithShadow(
-                    expLevel.toString(), (iconS + width + 10).toFloat(), (yOffset + 1).toFloat(), Color(136, 198, 87).rgb
-                )
-                yOffset -= sp
-            }
-        }
-
-        // Food (right)
-        if (showFood) {
-            drawIcon(ICON_FOOD, width + 30, 0, iconS, iconS)
-            val food = player.foodStats.foodLevel
-            drawRoundedBar(width + iconS + 34, 0, width, height, food / 20.0f, Color(184, 132, 88, alpha), radius)
-        }
-
-        // Air (right, above food)
-        if (showAir) {
-            val air = player.air
-            val maxAir = 300
-            if (air < maxAir) {
-                drawIcon(ICON_FOOD, width + 30, -sp, iconS, iconS, Color(170, 193, 227, alpha))
-                drawRoundedBar(width + iconS + 34, -sp, width, height, air / maxAir.toFloat(), Color(170, 193, 227, alpha), radius)
-            }
-        }
-
-        // Designer border
-        return Border(0f, yOffset.toFloat(), (width * 2 + 80).toFloat(), height.toFloat())
-    }
-
-    private fun drawRoundedBar(x: Int, y: Int, width: Int, height: Int, percent: Float, color: Color, radius: Float) {
+        val healthPercent = renderHealth / player.maxHealth
+        val healthX = xBase
         RenderUtils.drawRoundedRect2(
-            x.toFloat(), y.toFloat(), x + width.toFloat(), y + height.toFloat(),
+            healthX.toFloat(), yBase.toFloat(),
+            (healthX + width).toFloat(), (yBase + height).toFloat(),
             Color(0, 0, 0, 90), radius
         )
         RenderUtils.drawRoundedRect2(
-            x.toFloat(), y.toFloat(), x + (width * percent).toFloat(), y + height.toFloat(),
-            color, radius
+            healthX.toFloat(), yBase.toFloat(),
+            (healthX + (width * healthPercent)).toFloat(), (yBase + height).toFloat(),
+            Color(252, 65, 48, alpha), radius
+        )
+        drawIcon(ICON_HEART, healthX + 4, yBase + (height - iconS) / 2, iconS, iconS)
+
+        // Armor
+        val armorPercent = renderArmor / 20f
+        val armorX = healthX + width + barSpacing
+        RenderUtils.drawRoundedRect2(
+            armorX.toFloat(), yBase.toFloat(),
+            (armorX + width).toFloat(), (yBase + height).toFloat(),
+            Color(0, 0, 0, 90), radius
+        )
+        RenderUtils.drawRoundedRect2(
+            armorX.toFloat(), yBase.toFloat(),
+            (armorX + (width * armorPercent)).toFloat(), (yBase + height).toFloat(),
+            Color(73, 234, 214, alpha), radius
+        )
+        drawIcon(ICON_SHIELD, armorX + 4, yBase + (height - iconS) / 2, iconS, iconS)
+
+        // Food
+        val foodPercent = renderFood / 20f
+        val foodX = armorX + width + barSpacing
+        RenderUtils.drawRoundedRect2(
+            foodX.toFloat(), yBase.toFloat(),
+            (foodX + width).toFloat(), (yBase + height).toFloat(),
+            Color(0, 0, 0, 90), radius
+        )
+        RenderUtils.drawRoundedRect2(
+            foodX.toFloat(), yBase.toFloat(),
+            (foodX + (width * foodPercent)).toFloat(), (yBase + height).toFloat(),
+            Color(184, 132, 88, alpha), radius
+        )
+        drawIcon(ICON_FOOD, foodX + 4, yBase + (height - iconS) / 2, iconS, iconS)
+
+        return Border(
+            healthX.toFloat(),
+            yBase.toFloat(),
+            (foodX + width - healthX).toFloat(),
+            height.toFloat()
         )
     }
 
-    private fun drawIcon(
-        resource: ResourceLocation,
-        x: Int,
-        y: Int,
-        w: Int,
-        h: Int,
-        color: Color = Color(255,255,255,255)
-    ) {
+    private fun animate(current: Float, target: Float, speed: Float): Float {
+        return if (abs(current - target) < 0.01f) target
+        else current + (target - current) * speed
+    }
+
+    private fun drawIcon(resource: ResourceLocation, x: Int, y: Int, w: Int, h: Int, color: Color = Color(255,255,255,255)) {
         GlStateManager.enableBlend()
         GlStateManager.enableAlpha()
         GlStateManager.color(
