@@ -69,21 +69,6 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
         hud.handleKey('a', event.key)
     }
 
-    @SubscribeEvent
-    fun onRenderGameOverlay(event: RenderGameOverlayEvent.Pre) {
-        if (modernHud && (
-                    event.type == RenderGameOverlayEvent.ElementType.HEALTH ||
-                            event.type == RenderGameOverlayEvent.ElementType.FOOD ||
-                            event.type == RenderGameOverlayEvent.ElementType.ARMOR
-                    )) {
-            event.isCanceled = true
-        }
-
-        // Vẽ ModernStatusBar thay thế thanh trạng thái mặc định
-        if (modernHud && event.type == RenderGameOverlayEvent.ElementType.ALL) {
-            ModernStatusBar.draw(mc)
-        }
-    }
 
     val onScreen = handler<ScreenEvent>(always = true) { event ->
         if (mc.theWorld == null || mc.thePlayer == null) return@handler
@@ -95,9 +80,18 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
             "liquidbounce/blur.json" in mc.entityRenderer.shaderGroup.shaderGroupName
         ) mc.entityRenderer.stopUseShader()
     }
-
-    override fun onEnable() {}
-    override fun onDisable() {}
-
+    @SubscribeEvent
+    fun onRenderGameOverlay(event: RenderGameOverlayEvent.Pre) {
+        if (modernHud && (
+                    event.type == RenderGameOverlayEvent.ElementType.HEALTH ||
+                            event.type == RenderGameOverlayEvent.ElementType.FOOD ||
+                            event.type == RenderGameOverlayEvent.ElementType.ARMOR
+                    )) {
+            event.isCanceled = true
+        }
+        if (modernHud && event.type == RenderGameOverlayEvent.ElementType.ALL) {
+            ModernStatusBar.draw(mc)
+        }
+    }
     fun shouldModifyChatFont() = handleEvents() && fontChat
 }

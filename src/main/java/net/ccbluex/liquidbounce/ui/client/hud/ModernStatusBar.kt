@@ -27,7 +27,6 @@ object ModernStatusBar {
         val barAlpha = 180
         val spacing = 34
 
-        // Animation mượt
         val health = player.health.coerceAtMost(player.maxHealth)
         val food = player.foodStats.foodLevel.toFloat()
         val armor = player.totalArmorValue.toFloat().coerceAtMost(20f)
