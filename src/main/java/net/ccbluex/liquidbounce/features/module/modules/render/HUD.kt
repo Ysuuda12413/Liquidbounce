@@ -23,6 +23,7 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     val smoothHotbarSlot by boolean("SmoothHotbarSlot", true) { customHotbar }
     val modernHud by boolean("ModernHud", true)
     val modernHudDetail by boolean("ModernHud-Detail", true) { modernHud } // Setting mới
+    val barSpacing by int("BarSpacing", 4, 0..20) { modernHud }
 
     val roundedHotbarRadius by float("RoundedHotbar-Radius", 3F, 0F..5F) { customHotbar }
 
@@ -98,14 +99,15 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
         val airY = foodY - bar.iconSize - bar.barHeight - 2
 
         // Exp (trên armor)
-        val expX = armorX
-        val expY = armorY - bar.iconSize - bar.barHeight - 2
+        val expBarX = healthX
+        val expBarY = baseY + bar.barHeight + barSpacing
+        val expBarWidth = (foodX + bar.barWidth) - healthX
 
         if (modernHud) {
             bar.drawHealthBar(healthX, healthY)
             bar.drawArmorBar(armorX, armorY)
             bar.drawFoodBar(foodX, foodY)
-            bar.drawExpBar(expX, expY)
+            bar.drawExpBar(expBarX, expBarY, expBarWidth)
             bar.drawAirBar(airX, airY)
             bar.drawAbsorptionBar(healthX, healthY - bar.barHeight - 2)
             hud.render(false)

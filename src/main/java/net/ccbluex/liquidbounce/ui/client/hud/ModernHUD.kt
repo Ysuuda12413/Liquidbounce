@@ -66,11 +66,11 @@ class ModernHUD(
         }
     }
 
-    fun drawExpBar(x: Int, y: Int) {
+    fun drawExpBar(x: Int, y: Int,width: Int) {
         val player = mc.thePlayer ?: return
         if (player.experienceLevel <= 0) return
         displayExp = lerp(displayExp, player.experience, 0.15f)
-        drawRoundedBar(x, y, barWidth, barHeight, displayExp.coerceIn(0f, 1f), Color(136, 198, 87, barAlpha), barRadius)
+        drawRoundedBar(x, y, width, barHeight, displayExp.coerceIn(0f, 1f), Color(136, 198, 87, barAlpha), barRadius)
         drawIcon(ICON_SHIELD, x + 2, y + (barHeight - iconSize) / 2, iconSize, iconSize, Color(136, 198, 87, barAlpha))
         if (detail) {
             val text = "${(displayExp * 100).toInt()}% | Lv.${player.experienceLevel}"
