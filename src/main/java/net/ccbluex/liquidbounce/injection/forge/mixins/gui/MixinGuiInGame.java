@@ -54,14 +54,6 @@ public abstract class MixinGuiInGame extends Gui {
     @Final
     protected Minecraft mc;
 
-    // Hide classic health/armor/food/exp bar when ModernHUD is enabled
-    @Inject(method = "renderPlayerStats", at = @At("HEAD"), cancellable = true)
-    private void onRenderPlayerStats(ScaledResolution sr, CallbackInfo ci) {
-        if (HUD.INSTANCE.getModernHud()) {
-            ci.cancel();
-        }
-    }
-
     @Inject(method = "renderScoreboard", at = @At("HEAD"), cancellable = true)
     private void renderScoreboard(CallbackInfo callbackInfo) {
         if (HUD.INSTANCE.handleEvents())

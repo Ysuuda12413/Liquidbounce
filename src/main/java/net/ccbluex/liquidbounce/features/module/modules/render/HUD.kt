@@ -19,7 +19,7 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     val customHotbar by boolean("CustomHotbar", true)
     val smoothHotbarSlot by boolean("SmoothHotbarSlot", true) { customHotbar }
     val modernHud by boolean("ModernHud", false)
-    val modernHudDetail by boolean("ModernHud-Detail", false) { modernHud } // Setting mới
+    val modernHudDetail by boolean("ModernHud-Detail", false) { modernHud }
 
     val roundedHotbarRadius by float("RoundedHotbar-Radius", 3F, 0F..5F) { customHotbar }
 
@@ -69,37 +69,43 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     val onRender2D = handler<Render2DEvent> {
         if (mc.currentScreen is GuiHudDesigner)
             return@handler
+
         val mc = Minecraft.getMinecraft()
         val sr = ScaledResolution(mc)
         val screenWidth = sr.scaledWidth
         val screenHeight = sr.scaledHeight
-        val margin = 10
-        // Health: bottom left
-        val healthX = margin
-        val healthY = screenHeight - margin - modernHud_render.iconSize - modernHud_render.barHeight
 
-        // Armor: just above health
-        val armorX = margin
-        val armorY = healthY - modernHud_render.iconSize - modernHud_render.barHeight - 2
+        val bar = modernHud_render
 
-        // Food: bottom right
-        val foodX = screenWidth - margin - modernHud_render.barWidth
-        val foodY = screenHeight - margin - modernHud_render.iconSize - modernHud_render.barHeight
+        val centerX = screenWidth / 2
+        val baseY = screenHeight - 39 // đúng vị trí mặc định của thanh máu trong Minecraft gốc
 
-        // Exp: above armor
-        val expX = margin
-        val expY = armorY - modernHud_render.iconSize - modernHud_render.barHeight - 2
+        // Health (trái)
+        val healthX = centerX - 91
+        val healthY = baseY
 
-        // Air: above food (when underwater)
+        // Armor (trên health)
+        val armorX = healthX
+        val armorY = healthY - bar.iconSize - bar.barHeight - 2
+
+        // Food (phải)
+        val foodX = centerX + 91 - bar.barWidth
+        val foodY = baseY
+
+        // Air (trên food)
         val airX = foodX
-        val airY = foodY - modernHud_render.iconSize - modernHud_render.barHeight - 2
+        val airY = foodY - bar.iconSize - bar.barHeight - 2
+
+        // Exp (trên armor)
+        val expX = armorX
+        val expY = armorY - bar.iconSize - bar.barHeight - 2
 
         if (modernHud) {
-            modernHud_render.drawHealthBar(healthX, healthY)
-            modernHud_render.drawArmorBar(armorX, armorY)
-            modernHud_render.drawFoodBar(foodX, foodY)
-            modernHud_render.drawExpBar(expX, expY)
-            modernHud_render.drawAirBar(airX, airY)
+            bar.drawHealthBar(healthX, healthY)
+            bar.drawArmorBar(armorX, armorY)
+            bar.drawFoodBar(foodX, foodY)
+            bar.drawExpBar(expX, expY)
+            bar.drawAirBar(airX, airY)
         } else {
             hud.render(false)
         }
