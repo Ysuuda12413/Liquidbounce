@@ -14,6 +14,9 @@ import net.minecraft.client.gui.GuiChat
 import net.minecraft.util.ResourceLocation
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.ScaledResolution
+import net.minecraftforge.client.event.RenderGameOverlayEvent
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.common.eventhandler.EventPriority
 
 object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState = true, defaultHidden = true) {
     val customHotbar by boolean("CustomHotbar", true)
@@ -106,8 +109,28 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
             bar.drawFoodBar(foodX, foodY)
             bar.drawExpBar(expX, expY)
             bar.drawAirBar(airX, airY)
+
+            // render arraylist, watermark, target, v.v.
+            hud.render(true)
         } else {
             hud.render(false)
+        }
+    }
+
+    // Hủy thanh HUD mặc định nếu dùng ModernHUD
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    fun onRenderOverlay(event: RenderGameOverlayEvent.Pre) {
+        if (!modernHud) return
+
+        when (event.type) {
+            RenderGameOverlayEvent.ElementType.HEALTH,
+            RenderGameOverlayEvent.ElementType.ARMOR,
+            RenderGameOverlayEvent.ElementType.FOOD,
+            RenderGameOverlayEvent.ElementType.EXPERIENCE,
+            RenderGameOverlayEvent.ElementType.AIR -> {
+                event.isCanceled = true
+            }
+            else -> {}
         }
     }
 
