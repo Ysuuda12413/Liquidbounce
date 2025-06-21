@@ -5,7 +5,7 @@ import net.ccbluex.liquidbounce.event.WorldEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.ui.utils.kotlin.StringUtils.contains
+import net.ccbluex.liquidbounce.utils.kotlin.StringUtils.contains
 import net.minecraft.entity.boss.IBossDisplayData
 import net.minecraft.entity.item.EntityArmorStand
 import net.minecraft.init.Items

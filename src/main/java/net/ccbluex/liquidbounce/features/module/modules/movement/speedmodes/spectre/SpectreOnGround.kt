@@ -7,8 +7,8 @@ package net.ccbluex.liquidbounce.features.module.modules.movement.speedmodes.spe
 
 import net.ccbluex.liquidbounce.event.MoveEvent
 import net.ccbluex.liquidbounce.features.module.modules.movement.speedmodes.SpeedMode
-import net.ccbluex.liquidbounce.ui.utils.extensions.isMoving
-import net.ccbluex.liquidbounce.ui.utils.extensions.toRadians
+import net.ccbluex.liquidbounce.utils.extensions.isMoving
+import net.ccbluex.liquidbounce.utils.extensions.toRadians
 import kotlin.math.cos
 import kotlin.math.sin
 

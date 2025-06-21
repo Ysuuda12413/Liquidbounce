@@ -13,10 +13,10 @@ import net.ccbluex.liquidbounce.lang.translationButton
 import net.ccbluex.liquidbounce.lang.translationText
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer.Companion.assumeNonVolatile
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
-import net.ccbluex.liquidbounce.ui.utils.io.MiscUtils
-import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawLoadingCircle
-import net.ccbluex.liquidbounce.ui.utils.ui.AbstractScreen
+import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.utils.io.MiscUtils
+import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawLoadingCircle
+import net.ccbluex.liquidbounce.utils.ui.AbstractScreen
 import net.minecraft.client.gui.GuiButton
 import java.net.BindException
 

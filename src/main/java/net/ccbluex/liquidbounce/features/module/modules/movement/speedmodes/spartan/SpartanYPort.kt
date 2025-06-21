@@ -6,8 +6,8 @@
 package net.ccbluex.liquidbounce.features.module.modules.movement.speedmodes.spartan
 
 import net.ccbluex.liquidbounce.features.module.modules.movement.speedmodes.SpeedMode
-import net.ccbluex.liquidbounce.ui.utils.extensions.tryJump
-import net.ccbluex.liquidbounce.ui.utils.kotlin.RandomUtils.nextDouble
+import net.ccbluex.liquidbounce.utils.extensions.tryJump
+import net.ccbluex.liquidbounce.utils.kotlin.RandomUtils.nextDouble
 
 object SpartanYPort : SpeedMode("SpartanYPort") {
     private var airMoves = 0

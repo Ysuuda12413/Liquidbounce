@@ -10,11 +10,11 @@ import net.ccbluex.liquidbounce.event.WorldEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.ui.utils.extensions.*
-import net.ccbluex.liquidbounce.ui.utils.kotlin.removeEach
-import net.ccbluex.liquidbounce.ui.utils.render.ColorSettingsInteger
-import net.ccbluex.liquidbounce.ui.utils.render.ColorUtils.withAlpha
-import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.glColor
+import net.ccbluex.liquidbounce.utils.extensions.*
+import net.ccbluex.liquidbounce.utils.kotlin.removeEach
+import net.ccbluex.liquidbounce.utils.render.ColorSettingsInteger
+import net.ccbluex.liquidbounce.utils.render.ColorUtils.withAlpha
+import net.ccbluex.liquidbounce.utils.render.RenderUtils.glColor
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color
 

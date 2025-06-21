@@ -12,10 +12,10 @@ import net.ccbluex.liquidbounce.LiquidBounce.MINECRAFT_VERSION
 import net.ccbluex.liquidbounce.LiquidBounce.background
 import net.ccbluex.liquidbounce.LiquidBounce.isStarting
 import net.ccbluex.liquidbounce.file.configs.*
-import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
-import net.ccbluex.liquidbounce.ui.utils.client.MinecraftInstance
-import net.ccbluex.liquidbounce.ui.utils.io.zipFilesTo
-import net.ccbluex.liquidbounce.ui.utils.render.shader.Background
+import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.utils.client.MinecraftInstance
+import net.ccbluex.liquidbounce.utils.io.zipFilesTo
+import net.ccbluex.liquidbounce.utils.render.shader.Background
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import java.io.File

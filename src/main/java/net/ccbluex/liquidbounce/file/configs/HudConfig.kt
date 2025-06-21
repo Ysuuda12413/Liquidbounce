@@ -11,11 +11,11 @@ import net.ccbluex.liquidbounce.config.FontValue
 import net.ccbluex.liquidbounce.file.FileConfig
 import net.ccbluex.liquidbounce.ui.client.hud.HUD
 import net.ccbluex.liquidbounce.ui.client.hud.element.Side
-import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils
-import net.ccbluex.liquidbounce.ui.utils.io.json
-import net.ccbluex.liquidbounce.ui.utils.io.jsonArray
-import net.ccbluex.liquidbounce.ui.utils.io.readJson
-import net.ccbluex.liquidbounce.ui.utils.io.writeJson
+import net.ccbluex.liquidbounce.utils.client.ClientUtils
+import net.ccbluex.liquidbounce.utils.io.json
+import net.ccbluex.liquidbounce.utils.io.jsonArray
+import net.ccbluex.liquidbounce.utils.io.readJson
+import net.ccbluex.liquidbounce.utils.io.writeJson
 import java.io.File
 import java.io.IOException
 

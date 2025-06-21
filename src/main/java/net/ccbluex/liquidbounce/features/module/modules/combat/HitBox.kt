@@ -9,9 +9,9 @@ import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.modules.misc.AntiBot.isBot
 import net.ccbluex.liquidbounce.features.module.modules.misc.Teams
-import net.ccbluex.liquidbounce.ui.utils.extensions.isAnimal
-import net.ccbluex.liquidbounce.ui.utils.extensions.isClientFriend
-import net.ccbluex.liquidbounce.ui.utils.extensions.isMob
+import net.ccbluex.liquidbounce.utils.extensions.isAnimal
+import net.ccbluex.liquidbounce.utils.extensions.isClientFriend
+import net.ccbluex.liquidbounce.utils.extensions.isMob
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 

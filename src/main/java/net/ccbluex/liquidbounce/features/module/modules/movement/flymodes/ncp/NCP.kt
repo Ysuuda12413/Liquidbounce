@@ -8,12 +8,12 @@ package net.ccbluex.liquidbounce.features.module.modules.movement.flymodes.ncp
 import net.ccbluex.liquidbounce.event.PacketEvent
 import net.ccbluex.liquidbounce.features.module.modules.movement.Fly.ncpMotion
 import net.ccbluex.liquidbounce.features.module.modules.movement.flymodes.FlyMode
-import net.ccbluex.liquidbounce.ui.utils.client.PacketUtils.sendPacket
-import net.ccbluex.liquidbounce.ui.utils.client.PacketUtils.sendPackets
-import net.ccbluex.liquidbounce.ui.utils.extensions.component1
-import net.ccbluex.liquidbounce.ui.utils.extensions.component2
-import net.ccbluex.liquidbounce.ui.utils.extensions.component3
-import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils.strafe
+import net.ccbluex.liquidbounce.utils.client.PacketUtils.sendPacket
+import net.ccbluex.liquidbounce.utils.client.PacketUtils.sendPackets
+import net.ccbluex.liquidbounce.utils.extensions.component1
+import net.ccbluex.liquidbounce.utils.extensions.component2
+import net.ccbluex.liquidbounce.utils.extensions.component3
+import net.ccbluex.liquidbounce.utils.movement.MovementUtils.strafe
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 

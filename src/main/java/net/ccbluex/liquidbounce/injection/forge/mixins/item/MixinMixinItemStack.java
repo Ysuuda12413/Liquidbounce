@@ -8,7 +8,7 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.item;
 import net.ccbluex.liquidbounce.features.module.modules.combat.KillAura;
 import net.ccbluex.liquidbounce.features.module.modules.movement.NoSlow;
 import net.ccbluex.liquidbounce.injection.implementations.IMixinItemStack;
-import net.ccbluex.liquidbounce.ui.utils.client.ClassUtils;
+import net.ccbluex.liquidbounce.utils.client.ClassUtils;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.ccbluex.liquidbounce.ui.utils.client.MinecraftInstance.mc;
+import static net.ccbluex.liquidbounce.utils.client.MinecraftInstance.mc;
 
 @Mixin(ItemStack.class)
 public class MixinMixinItemStack implements IMixinItemStack {

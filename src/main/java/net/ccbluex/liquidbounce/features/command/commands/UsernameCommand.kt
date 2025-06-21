@@ -6,7 +6,7 @@
 package net.ccbluex.liquidbounce.features.command.commands
 
 import net.ccbluex.liquidbounce.features.command.Command
-import net.ccbluex.liquidbounce.ui.utils.io.MiscUtils
+import net.ccbluex.liquidbounce.utils.io.MiscUtils
 
 object UsernameCommand : Command("username", "ign") {
     /**

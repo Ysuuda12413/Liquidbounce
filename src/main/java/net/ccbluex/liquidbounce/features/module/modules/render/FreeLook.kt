@@ -9,9 +9,9 @@ import net.ccbluex.liquidbounce.event.RotationSetEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.ui.utils.extensions.prevRotation
-import net.ccbluex.liquidbounce.ui.utils.extensions.rotation
-import net.ccbluex.liquidbounce.ui.utils.rotation.Rotation
+import net.ccbluex.liquidbounce.utils.extensions.prevRotation
+import net.ccbluex.liquidbounce.utils.extensions.rotation
+import net.ccbluex.liquidbounce.utils.rotation.Rotation
 import org.lwjgl.opengl.Display
 
 object FreeLook : Module("FreeLook", Category.RENDER) {

@@ -8,10 +8,10 @@ package net.ccbluex.liquidbounce.script.remapper
 import kotlinx.coroutines.runBlocking
 import net.ccbluex.liquidbounce.LiquidBounce.CLIENT_CLOUD
 import net.ccbluex.liquidbounce.file.FileManager.dir
-import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
-import net.ccbluex.liquidbounce.ui.utils.io.Downloader
-import net.ccbluex.liquidbounce.ui.utils.io.isEmpty
-import net.ccbluex.liquidbounce.ui.utils.io.sha256
+import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.utils.io.Downloader
+import net.ccbluex.liquidbounce.utils.io.isEmpty
+import net.ccbluex.liquidbounce.utils.io.sha256
 import java.io.File
 
 /**

@@ -6,7 +6,7 @@
 package net.ccbluex.liquidbounce.features.command.commands
 
 import net.ccbluex.liquidbounce.features.command.Command
-import net.ccbluex.liquidbounce.ui.utils.attack.EntityUtils.Targets
+import net.ccbluex.liquidbounce.utils.attack.EntityUtils.Targets
 
 object TargetCommand : Command("target") {
     /**

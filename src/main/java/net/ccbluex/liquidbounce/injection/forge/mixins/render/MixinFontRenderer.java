@@ -6,8 +6,8 @@
 package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
 import net.ccbluex.liquidbounce.features.module.modules.misc.NameProtect;
-import net.ccbluex.liquidbounce.ui.utils.render.shader.shaders.GradientFontShader;
-import net.ccbluex.liquidbounce.ui.utils.render.shader.shaders.RainbowFontShader;
+import net.ccbluex.liquidbounce.utils.render.shader.shaders.GradientFontShader;
+import net.ccbluex.liquidbounce.utils.render.shader.shaders.RainbowFontShader;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

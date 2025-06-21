@@ -9,8 +9,8 @@ import me.liuli.elixir.account.MinecraftAccount
 import net.ccbluex.liquidbounce.lang.translationText
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager.Companion.login
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer.Companion.assumeNonVolatile
-import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawLoadingCircle
-import net.ccbluex.liquidbounce.ui.utils.ui.AbstractScreen
+import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawLoadingCircle
+import net.ccbluex.liquidbounce.utils.ui.AbstractScreen
 
 class GuiLoginProgress(
     minecraftAccount: MinecraftAccount,

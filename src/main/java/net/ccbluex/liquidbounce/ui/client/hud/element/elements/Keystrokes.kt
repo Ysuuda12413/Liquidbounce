@@ -10,12 +10,12 @@ import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.ui.font.GameFontRenderer
-import net.ccbluex.liquidbounce.ui.utils.extensions.lerpWith
-import net.ccbluex.liquidbounce.ui.utils.extensions.safeDiv
-import net.ccbluex.liquidbounce.ui.utils.render.ColorSettingsInteger
-import net.ccbluex.liquidbounce.ui.utils.render.ColorUtils
-import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils
-import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.withOutline
+import net.ccbluex.liquidbounce.utils.extensions.lerpWith
+import net.ccbluex.liquidbounce.utils.extensions.safeDiv
+import net.ccbluex.liquidbounce.utils.render.ColorSettingsInteger
+import net.ccbluex.liquidbounce.utils.render.ColorUtils
+import net.ccbluex.liquidbounce.utils.render.RenderUtils
+import net.ccbluex.liquidbounce.utils.render.RenderUtils.withOutline
 import java.awt.Color
 import kotlin.math.nextDown
 

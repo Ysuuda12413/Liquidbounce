@@ -11,12 +11,12 @@ import net.ccbluex.liquidbounce.event.Render3DEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.runTimeTicks
-import net.ccbluex.liquidbounce.ui.utils.extensions.currPos
-import net.ccbluex.liquidbounce.ui.utils.extensions.lerpWith
-import net.ccbluex.liquidbounce.ui.utils.render.ColorUtils.shiftHue
-import net.ccbluex.liquidbounce.ui.utils.render.ColorUtils.withAlpha
-import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawHueCircle
+import net.ccbluex.liquidbounce.utils.client.ClientUtils.runTimeTicks
+import net.ccbluex.liquidbounce.utils.extensions.currPos
+import net.ccbluex.liquidbounce.utils.extensions.lerpWith
+import net.ccbluex.liquidbounce.utils.render.ColorUtils.shiftHue
+import net.ccbluex.liquidbounce.utils.render.ColorUtils.withAlpha
+import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawHueCircle
 import net.minecraft.util.Vec3
 import java.awt.Color
 

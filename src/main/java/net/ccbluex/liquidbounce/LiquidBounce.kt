@@ -39,25 +39,25 @@ import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager.Companion.loa
 import net.ccbluex.liquidbounce.ui.client.clickgui.ClickGui
 import net.ccbluex.liquidbounce.ui.client.hud.HUD
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.ui.utils.client.BlinkUtils
-import net.ccbluex.liquidbounce.ui.utils.client.ClassUtils.hasForge
-import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
-import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.disableFastRender
-import net.ccbluex.liquidbounce.ui.utils.client.PacketUtils
-import net.ccbluex.liquidbounce.ui.utils.inventory.InventoryManager
-import net.ccbluex.liquidbounce.ui.utils.inventory.InventoryUtils
-import net.ccbluex.liquidbounce.ui.utils.inventory.SilentHotbar
-import net.ccbluex.liquidbounce.ui.utils.io.MiscUtils
-import net.ccbluex.liquidbounce.ui.utils.io.MiscUtils.showErrorPopup
-import net.ccbluex.liquidbounce.ui.utils.kotlin.SharedScopes
-import net.ccbluex.liquidbounce.ui.utils.movement.BPSUtils
-import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils
-import net.ccbluex.liquidbounce.ui.utils.movement.TimerBalanceUtils
-import net.ccbluex.liquidbounce.ui.utils.render.MiniMapRegister
-import net.ccbluex.liquidbounce.ui.utils.render.shader.Background
-import net.ccbluex.liquidbounce.ui.utils.rotation.RotationUtils
-import net.ccbluex.liquidbounce.ui.utils.timing.TickedActions
-import net.ccbluex.liquidbounce.ui.utils.timing.WaitTickUtils
+import net.ccbluex.liquidbounce.utils.client.BlinkUtils
+import net.ccbluex.liquidbounce.utils.client.ClassUtils.hasForge
+import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.utils.client.ClientUtils.disableFastRender
+import net.ccbluex.liquidbounce.utils.client.PacketUtils
+import net.ccbluex.liquidbounce.utils.inventory.InventoryManager
+import net.ccbluex.liquidbounce.utils.inventory.InventoryUtils
+import net.ccbluex.liquidbounce.utils.inventory.SilentHotbar
+import net.ccbluex.liquidbounce.utils.io.MiscUtils
+import net.ccbluex.liquidbounce.utils.io.MiscUtils.showErrorPopup
+import net.ccbluex.liquidbounce.utils.kotlin.SharedScopes
+import net.ccbluex.liquidbounce.utils.movement.BPSUtils
+import net.ccbluex.liquidbounce.utils.movement.MovementUtils
+import net.ccbluex.liquidbounce.utils.movement.TimerBalanceUtils
+import net.ccbluex.liquidbounce.utils.render.MiniMapRegister
+import net.ccbluex.liquidbounce.utils.render.shader.Background
+import net.ccbluex.liquidbounce.utils.rotation.RotationUtils
+import net.ccbluex.liquidbounce.utils.timing.TickedActions
+import net.ccbluex.liquidbounce.utils.timing.WaitTickUtils
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Future
 import javax.swing.UIManager
@@ -117,7 +117,7 @@ object LiquidBounce {
      */
     fun preload(): Future<*> {
 
-        net.ccbluex.liquidbounce.ui.utils.client.javaVersion
+        net.ccbluex.liquidbounce.utils.client.javaVersion
 
         // Change theme of Swing
         UIManager.setLookAndFeel(FlatMacLightLaf())

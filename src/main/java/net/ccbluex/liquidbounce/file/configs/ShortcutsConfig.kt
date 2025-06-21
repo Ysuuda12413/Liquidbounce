@@ -12,7 +12,7 @@ import net.ccbluex.liquidbounce.features.command.Command
 import net.ccbluex.liquidbounce.features.command.shortcuts.Shortcut
 import net.ccbluex.liquidbounce.file.FileConfig
 import net.ccbluex.liquidbounce.file.FileManager.PRETTY_GSON
-import net.ccbluex.liquidbounce.ui.utils.io.readJson
+import net.ccbluex.liquidbounce.utils.io.readJson
 import java.io.File
 import java.io.IOException
 

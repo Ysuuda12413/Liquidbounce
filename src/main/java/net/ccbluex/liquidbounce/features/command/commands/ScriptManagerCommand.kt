@@ -19,10 +19,10 @@ import net.ccbluex.liquidbounce.file.FileManager.valuesConfig
 import net.ccbluex.liquidbounce.script.ScriptManager
 import net.ccbluex.liquidbounce.script.ScriptManager.reloadScripts
 import net.ccbluex.liquidbounce.script.ScriptManager.scriptsFolder
-import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
-import net.ccbluex.liquidbounce.ui.utils.io.FileFilters
-import net.ccbluex.liquidbounce.ui.utils.io.MiscUtils
-import net.ccbluex.liquidbounce.ui.utils.io.extractZipTo
+import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.utils.io.FileFilters
+import net.ccbluex.liquidbounce.utils.io.MiscUtils
+import net.ccbluex.liquidbounce.utils.io.extractZipTo
 import java.awt.Desktop
 
 object ScriptManagerCommand : Command("scriptmanager", "scripts") {

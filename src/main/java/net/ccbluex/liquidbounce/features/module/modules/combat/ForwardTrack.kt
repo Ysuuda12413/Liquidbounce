@@ -10,11 +10,11 @@ import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.injection.implementations.IMixinEntity
-import net.ccbluex.liquidbounce.ui.utils.attack.EntityUtils.isSelected
-import net.ccbluex.liquidbounce.ui.utils.extensions.*
-import net.ccbluex.liquidbounce.ui.utils.render.ColorSettingsInteger
-import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawBacktrackBox
-import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.glColor
+import net.ccbluex.liquidbounce.utils.attack.EntityUtils.isSelected
+import net.ccbluex.liquidbounce.utils.extensions.*
+import net.ccbluex.liquidbounce.utils.render.ColorSettingsInteger
+import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawBacktrackBox
+import net.ccbluex.liquidbounce.utils.render.RenderUtils.glColor
 import net.minecraft.client.renderer.GlStateManager.color
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase

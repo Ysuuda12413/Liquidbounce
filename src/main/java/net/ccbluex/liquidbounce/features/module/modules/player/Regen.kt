@@ -9,10 +9,10 @@ import net.ccbluex.liquidbounce.event.UpdateEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.ui.utils.client.PacketUtils.sendPacket
-import net.ccbluex.liquidbounce.ui.utils.extensions.isMoving
-import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils.serverOnGround
-import net.ccbluex.liquidbounce.ui.utils.timing.MSTimer
+import net.ccbluex.liquidbounce.utils.client.PacketUtils.sendPacket
+import net.ccbluex.liquidbounce.utils.extensions.isMoving
+import net.ccbluex.liquidbounce.utils.movement.MovementUtils.serverOnGround
+import net.ccbluex.liquidbounce.utils.timing.MSTimer
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.potion.Potion
 

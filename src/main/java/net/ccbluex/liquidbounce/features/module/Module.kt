@@ -18,14 +18,14 @@ import net.ccbluex.liquidbounce.ui.client.hud.HUD.addNotification
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Arraylist
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notifications
-import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
-import net.ccbluex.liquidbounce.ui.utils.client.MinecraftInstance
-import net.ccbluex.liquidbounce.ui.utils.client.asResourceLocation
-import net.ccbluex.liquidbounce.ui.utils.client.chat
-import net.ccbluex.liquidbounce.ui.utils.client.playSound
-import net.ccbluex.liquidbounce.ui.utils.extensions.toLowerCamelCase
-import net.ccbluex.liquidbounce.ui.utils.kotlin.RandomUtils.nextFloat
-import net.ccbluex.liquidbounce.ui.utils.timing.TickedActions.clearTicked
+import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.utils.client.MinecraftInstance
+import net.ccbluex.liquidbounce.utils.client.asResourceLocation
+import net.ccbluex.liquidbounce.utils.client.chat
+import net.ccbluex.liquidbounce.utils.client.playSound
+import net.ccbluex.liquidbounce.utils.extensions.toLowerCamelCase
+import net.ccbluex.liquidbounce.utils.kotlin.RandomUtils.nextFloat
+import net.ccbluex.liquidbounce.utils.timing.TickedActions.clearTicked
 import org.lwjgl.input.Keyboard
 
 private val SPLIT_REGEX = "(?<=[a-z])(?=[A-Z])".toRegex()

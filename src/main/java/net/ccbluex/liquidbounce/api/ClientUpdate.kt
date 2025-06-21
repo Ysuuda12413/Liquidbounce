@@ -8,7 +8,7 @@ package net.ccbluex.liquidbounce.api
 import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.LiquidBounce.IN_DEV
 import net.ccbluex.liquidbounce.LiquidBounce.clientVersionNumber
-import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
 import java.text.SimpleDateFormat
 import java.util.*
 

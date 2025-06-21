@@ -6,11 +6,11 @@
 package net.ccbluex.liquidbounce.features.module.modules.movement.speedmodes.verus
 
 import net.ccbluex.liquidbounce.features.module.modules.movement.speedmodes.SpeedMode
-import net.ccbluex.liquidbounce.ui.utils.extensions.airTicks
-import net.ccbluex.liquidbounce.ui.utils.extensions.isInLiquid
-import net.ccbluex.liquidbounce.ui.utils.extensions.isMoving
-import net.ccbluex.liquidbounce.ui.utils.extensions.tryJump
-import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils.strafe
+import net.ccbluex.liquidbounce.utils.extensions.airTicks
+import net.ccbluex.liquidbounce.utils.extensions.isInLiquid
+import net.ccbluex.liquidbounce.utils.extensions.isMoving
+import net.ccbluex.liquidbounce.utils.extensions.tryJump
+import net.ccbluex.liquidbounce.utils.movement.MovementUtils.strafe
 import net.minecraft.potion.Potion
 
 object VerusLowHop : SpeedMode("VerusLowHop") {

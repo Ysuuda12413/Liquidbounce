@@ -9,9 +9,9 @@ import net.ccbluex.liquidbounce.event.GameTickEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.ui.utils.inventory.InventoryUtils
-import net.ccbluex.liquidbounce.ui.utils.inventory.SilentHotbar
-import net.ccbluex.liquidbounce.ui.utils.inventory.hotBarSlot
+import net.ccbluex.liquidbounce.utils.inventory.InventoryUtils
+import net.ccbluex.liquidbounce.utils.inventory.SilentHotbar
+import net.ccbluex.liquidbounce.utils.inventory.hotBarSlot
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 

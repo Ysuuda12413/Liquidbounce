@@ -10,11 +10,11 @@ import net.ccbluex.liquidbounce.event.UpdateEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.ui.utils.block.block
-import net.ccbluex.liquidbounce.ui.utils.extensions.isMoving
-import net.ccbluex.liquidbounce.ui.utils.extensions.tryJump
-import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils
-import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils.strafe
+import net.ccbluex.liquidbounce.utils.block.block
+import net.ccbluex.liquidbounce.utils.extensions.isMoving
+import net.ccbluex.liquidbounce.utils.extensions.tryJump
+import net.ccbluex.liquidbounce.utils.movement.MovementUtils
+import net.ccbluex.liquidbounce.utils.movement.MovementUtils.strafe
 import net.minecraft.block.BlockSlab
 import net.minecraft.block.BlockSlime
 import net.minecraft.block.BlockStairs

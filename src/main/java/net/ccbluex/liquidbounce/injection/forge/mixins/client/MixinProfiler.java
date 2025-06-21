@@ -7,8 +7,8 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.client;
 
 import net.ccbluex.liquidbounce.event.EventManager;
 import net.ccbluex.liquidbounce.event.Render2DEvent;
-import net.ccbluex.liquidbounce.ui.utils.client.ClassUtils;
-import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils;
+import net.ccbluex.liquidbounce.utils.client.ClassUtils;
+import net.ccbluex.liquidbounce.utils.client.ClientUtils;
 import net.minecraft.profiler.Profiler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

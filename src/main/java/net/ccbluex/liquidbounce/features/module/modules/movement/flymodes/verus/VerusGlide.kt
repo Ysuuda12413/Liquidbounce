@@ -6,8 +6,8 @@
 package net.ccbluex.liquidbounce.features.module.modules.movement.flymodes.verus
 
 import net.ccbluex.liquidbounce.features.module.modules.movement.flymodes.FlyMode
-import net.ccbluex.liquidbounce.ui.utils.extensions.isInLiquid
-import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils.strafe
+import net.ccbluex.liquidbounce.utils.extensions.isInLiquid
+import net.ccbluex.liquidbounce.utils.movement.MovementUtils.strafe
 
 /*
 * Working on Verus: b3896/b3901

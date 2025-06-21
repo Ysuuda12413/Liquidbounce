@@ -10,9 +10,9 @@ import net.ccbluex.liquidbounce.LiquidBounce.CLIENT_NAME
 import net.ccbluex.liquidbounce.event.async.loopSequence
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.ui.utils.kotlin.RandomUtils.nextFloat
-import net.ccbluex.liquidbounce.ui.utils.kotlin.RandomUtils.nextInt
-import net.ccbluex.liquidbounce.ui.utils.kotlin.RandomUtils.randomString
+import net.ccbluex.liquidbounce.utils.kotlin.RandomUtils.nextFloat
+import net.ccbluex.liquidbounce.utils.kotlin.RandomUtils.nextInt
+import net.ccbluex.liquidbounce.utils.kotlin.RandomUtils.randomString
 
 object Spammer : Module("Spammer", Category.MISC, subjective = true) {
 

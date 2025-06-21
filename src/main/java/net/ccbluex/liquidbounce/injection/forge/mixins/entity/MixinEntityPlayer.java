@@ -9,9 +9,9 @@ import com.mojang.authlib.GameProfile;
 import net.ccbluex.liquidbounce.features.module.modules.combat.KeepSprint;
 import net.ccbluex.liquidbounce.features.module.modules.combat.KillAura;
 import net.ccbluex.liquidbounce.features.module.modules.movement.NoSlow;
-import net.ccbluex.liquidbounce.ui.utils.attack.CooldownHelper;
-import net.ccbluex.liquidbounce.ui.utils.client.ClassUtils;
-import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils;
+import net.ccbluex.liquidbounce.utils.attack.CooldownHelper;
+import net.ccbluex.liquidbounce.utils.client.ClassUtils;
+import net.ccbluex.liquidbounce.utils.movement.MovementUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import static net.ccbluex.liquidbounce.ui.utils.client.MinecraftInstance.mc;
+import static net.ccbluex.liquidbounce.utils.client.MinecraftInstance.mc;
 
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends MixinEntityLivingBase {

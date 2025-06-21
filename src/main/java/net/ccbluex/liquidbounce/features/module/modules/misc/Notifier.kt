@@ -12,7 +12,7 @@ import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.modules.misc.AntiBot.isBot
-import net.ccbluex.liquidbounce.ui.utils.client.chat
+import net.ccbluex.liquidbounce.utils.client.chat
 import net.minecraft.block.BlockTNT
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemFireball

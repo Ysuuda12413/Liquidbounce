@@ -8,8 +8,8 @@ package net.ccbluex.liquidbounce.features.module.modules.movement.flymodes.hypix
 import net.ccbluex.liquidbounce.event.MoveEvent
 import net.ccbluex.liquidbounce.features.module.modules.movement.Fly.startY
 import net.ccbluex.liquidbounce.features.module.modules.movement.flymodes.FlyMode
-import net.ccbluex.liquidbounce.ui.utils.extensions.stop
-import net.ccbluex.liquidbounce.ui.utils.timing.TickTimer
+import net.ccbluex.liquidbounce.utils.extensions.stop
+import net.ccbluex.liquidbounce.utils.timing.TickTimer
 import java.math.BigDecimal
 import java.math.RoundingMode
 

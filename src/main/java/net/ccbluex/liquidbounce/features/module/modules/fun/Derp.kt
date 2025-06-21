@@ -7,11 +7,11 @@ package net.ccbluex.liquidbounce.features.module.modules.`fun`
 
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.ui.utils.kotlin.RandomUtils.nextFloat
-import net.ccbluex.liquidbounce.ui.utils.rotation.Rotation
-import net.ccbluex.liquidbounce.ui.utils.rotation.RotationUtils.currentRotation
-import net.ccbluex.liquidbounce.ui.utils.rotation.RotationUtils.serverRotation
-import net.ccbluex.liquidbounce.ui.utils.rotation.RotationUtils.syncSpecialModuleRotations
+import net.ccbluex.liquidbounce.utils.kotlin.RandomUtils.nextFloat
+import net.ccbluex.liquidbounce.utils.rotation.Rotation
+import net.ccbluex.liquidbounce.utils.rotation.RotationUtils.currentRotation
+import net.ccbluex.liquidbounce.utils.rotation.RotationUtils.serverRotation
+import net.ccbluex.liquidbounce.utils.rotation.RotationUtils.syncSpecialModuleRotations
 
 object Derp : Module("Derp", Category.FUN, subjective = true) {
 

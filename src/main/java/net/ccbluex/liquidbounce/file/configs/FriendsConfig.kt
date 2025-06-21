@@ -7,9 +7,9 @@ package net.ccbluex.liquidbounce.file.configs
 
 import com.google.gson.*
 import net.ccbluex.liquidbounce.file.FileConfig
-import net.ccbluex.liquidbounce.ui.utils.io.decode
-import net.ccbluex.liquidbounce.ui.utils.io.readJson
-import net.ccbluex.liquidbounce.ui.utils.io.writeJson
+import net.ccbluex.liquidbounce.utils.io.decode
+import net.ccbluex.liquidbounce.utils.io.readJson
+import net.ccbluex.liquidbounce.utils.io.writeJson
 import java.io.*
 
 class FriendsConfig(file: File) : FileConfig(file) {

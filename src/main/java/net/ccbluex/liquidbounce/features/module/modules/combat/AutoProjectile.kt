@@ -9,11 +9,11 @@ import net.ccbluex.liquidbounce.event.UpdateEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.ui.utils.attack.EntityUtils.isSelected
-import net.ccbluex.liquidbounce.ui.utils.inventory.InventoryUtils
-import net.ccbluex.liquidbounce.ui.utils.inventory.hotBarSlot
-import net.ccbluex.liquidbounce.ui.utils.rotation.RaycastUtils.raycastEntity
-import net.ccbluex.liquidbounce.ui.utils.timing.MSTimer
+import net.ccbluex.liquidbounce.utils.attack.EntityUtils.isSelected
+import net.ccbluex.liquidbounce.utils.inventory.InventoryUtils
+import net.ccbluex.liquidbounce.utils.inventory.hotBarSlot
+import net.ccbluex.liquidbounce.utils.rotation.RaycastUtils.raycastEntity
+import net.ccbluex.liquidbounce.utils.timing.MSTimer
 import net.minecraft.init.Items.egg
 import net.minecraft.init.Items.snowball
 

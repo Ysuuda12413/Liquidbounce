@@ -8,7 +8,7 @@ package net.ccbluex.liquidbounce.config
 import com.google.gson.JsonElement
 import net.ccbluex.liquidbounce.file.FileManager.saveConfig
 import net.ccbluex.liquidbounce.file.FileManager.valuesConfig
-import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 

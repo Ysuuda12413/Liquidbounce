@@ -7,8 +7,8 @@ package net.ccbluex.liquidbounce.features.module.modules.player.nofallmodes.othe
 
 import net.ccbluex.liquidbounce.event.PacketEvent
 import net.ccbluex.liquidbounce.features.module.modules.player.nofallmodes.NoFallMode
-import net.ccbluex.liquidbounce.ui.utils.extensions.stopXZ
-import net.ccbluex.liquidbounce.ui.utils.movement.FallingPlayer
+import net.ccbluex.liquidbounce.utils.extensions.stopXZ
+import net.ccbluex.liquidbounce.utils.movement.FallingPlayer
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 
 /*

@@ -7,7 +7,7 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.render;
 
 import net.ccbluex.liquidbounce.features.module.modules.render.FreeCam;
 import net.ccbluex.liquidbounce.injection.implementations.IMixinEntity;
-import net.ccbluex.liquidbounce.ui.utils.client.PacketUtilsKt;
+import net.ccbluex.liquidbounce.utils.client.PacketUtilsKt;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.entity.RenderManager;

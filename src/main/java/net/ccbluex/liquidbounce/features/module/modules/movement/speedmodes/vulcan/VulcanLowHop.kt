@@ -6,10 +6,10 @@
 package net.ccbluex.liquidbounce.features.module.modules.movement.speedmodes.vulcan
 
 import net.ccbluex.liquidbounce.features.module.modules.movement.speedmodes.SpeedMode
-import net.ccbluex.liquidbounce.ui.utils.extensions.isInLiquid
-import net.ccbluex.liquidbounce.ui.utils.extensions.isMoving
-import net.ccbluex.liquidbounce.ui.utils.extensions.tryJump
-import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils.strafe
+import net.ccbluex.liquidbounce.utils.extensions.isInLiquid
+import net.ccbluex.liquidbounce.utils.extensions.isMoving
+import net.ccbluex.liquidbounce.utils.extensions.tryJump
+import net.ccbluex.liquidbounce.utils.movement.MovementUtils.strafe
 
 object VulcanLowHop : SpeedMode("VulcanLowHop") {
     override fun onUpdate() {

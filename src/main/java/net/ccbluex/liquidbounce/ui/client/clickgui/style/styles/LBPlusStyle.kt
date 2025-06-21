@@ -6,7 +6,7 @@ import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ButtonElement
 import net.ccbluex.liquidbounce.ui.client.clickgui.elements.ModuleElement
 import net.ccbluex.liquidbounce.ui.client.clickgui.style.Style
 import net.minecraft.client.Minecraft
-import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils
+import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.vitox.particle.util.RenderUtils as ParticleRenderUtils
 import java.awt.Color
 
@@ -21,7 +21,7 @@ object LBPlusStyle : Style() {
 
     // Helper: vẽ rect thường vì không có drawRoundedRect
     private fun drawRect(x1: Int, y1: Int, x2: Int, y2: Int, color: Int) {
-        net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawRect(x1, y1, x2, y2, color)
+        net.ccbluex.liquidbounce.utils.render.RenderUtils.drawRect(x1, y1, x2, y2, color)
     }
 
     // Option: vẽ bo góc thô sơ 4 góc

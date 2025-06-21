@@ -2,8 +2,8 @@ package net.ccbluex.liquidbounce.file.configs.models
 
 import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.config.Configurable
-import net.ccbluex.liquidbounce.ui.utils.client.MinecraftInstance
-import net.ccbluex.liquidbounce.ui.utils.render.IconUtils
+import net.ccbluex.liquidbounce.utils.client.MinecraftInstance
+import net.ccbluex.liquidbounce.utils.render.IconUtils
 import org.lwjgl.opengl.Display
 
 object ClientConfiguration : Configurable("ClientConfiguration"), MinecraftInstance {

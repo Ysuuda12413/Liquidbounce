@@ -9,9 +9,9 @@ import jdk.nashorn.api.scripting.JSObject
 import net.ccbluex.liquidbounce.event.*
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
 import net.ccbluex.liquidbounce.config.Value
-import net.ccbluex.liquidbounce.ui.utils.extensions.toLowerCamelCase
+import net.ccbluex.liquidbounce.utils.extensions.toLowerCamelCase
 
 class ScriptModule(name: String, category: Category, description: String, private val moduleObject: JSObject)
     : Module(name, category, forcedDescription = description) {

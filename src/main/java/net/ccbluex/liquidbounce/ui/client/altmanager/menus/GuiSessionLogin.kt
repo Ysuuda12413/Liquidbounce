@@ -11,11 +11,11 @@ import net.ccbluex.liquidbounce.lang.translationButton
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
 import net.ccbluex.liquidbounce.ui.font.AWTFontRenderer.Companion.assumeNonVolatile
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
-import net.ccbluex.liquidbounce.ui.utils.kotlin.SharedScopes
-import net.ccbluex.liquidbounce.ui.utils.login.LoginUtils
-import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawRect
-import net.ccbluex.liquidbounce.ui.utils.ui.AbstractScreen
+import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.utils.kotlin.SharedScopes
+import net.ccbluex.liquidbounce.utils.login.LoginUtils
+import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawRect
+import net.ccbluex.liquidbounce.utils.ui.AbstractScreen
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiTextField
 import org.lwjgl.input.Keyboard

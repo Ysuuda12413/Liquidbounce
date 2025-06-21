@@ -8,11 +8,11 @@ package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
-import net.ccbluex.liquidbounce.ui.utils.io.FileFilters
-import net.ccbluex.liquidbounce.ui.utils.io.MiscUtils
-import net.ccbluex.liquidbounce.ui.utils.kotlin.RandomUtils.randomNumber
-import net.ccbluex.liquidbounce.ui.utils.render.ColorUtils.withAlpha
-import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawImage
+import net.ccbluex.liquidbounce.utils.io.FileFilters
+import net.ccbluex.liquidbounce.utils.io.MiscUtils
+import net.ccbluex.liquidbounce.utils.kotlin.RandomUtils.randomNumber
+import net.ccbluex.liquidbounce.utils.render.ColorUtils.withAlpha
+import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawImage
 import net.minecraft.client.renderer.texture.DynamicTexture
 import net.minecraft.util.ResourceLocation
 import java.awt.Color
