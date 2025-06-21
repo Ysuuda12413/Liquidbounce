@@ -569,23 +569,13 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                     }
                 }
                 "3fmc2" -> {
-                    if (event.packet is S12PacketEntityVelocity && event.packet.entityID == mc.thePlayer?.entityId) {
-                        when (fmcStage) {
-                            0, 2 -> {
-                                event.packet.motionX = 0
-                                event.packet.motionY = 0
-                                event.packet.motionZ = 0
-                            }
-                            1 -> {
-                                val reduceHorizontal = 0.5
-                                val reduceVertical = 0.4
-
-                                event.packet.motionX = (event.packet.motionX * reduceHorizontal).toInt()
-                                event.packet.motionY = (event.packet.motionY * reduceVertical).toInt()
-                                event.packet.motionZ = (event.packet.motionZ * reduceHorizontal).toInt()
-                            }
-                        }
-                        fmcStage = (fmcStage + 1) % 3
+                    if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId) {
+                        val rand = (0.01f..0.05f).random()
+                        packet.motionX = (rand * 8000).toInt()
+                        packet.motionY = (rand * 8000).toInt()
+                        packet.motionZ = (rand * 8000).toInt()
+                        hasReceivedVelocity = true
+                        event.cancelEvent()
                     }
                 }
                 "glitch" -> {
