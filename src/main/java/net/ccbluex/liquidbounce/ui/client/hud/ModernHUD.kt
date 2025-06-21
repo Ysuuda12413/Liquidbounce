@@ -45,7 +45,7 @@ class ModernHUD(
         if (player.absorptionAmount <= 0f) return
         displayAbsorption = lerp(displayAbsorption, player.absorptionAmount, 0.15f)
         drawRoundedBar(x, y, barWidth, barHeight, (displayAbsorption / player.maxHealth).coerceIn(0f, 1f), Color(212, 175, 55, barAlpha), barRadius)
-        drawIcon(ICON_HEART, x + 2, y + (barHeight - iconSize) / 2, iconSize, iconSize, Color(212, 175, 55, barAlpha))
+        drawIcon(ICON_HEART, x + 2, y + (barHeight - iconSize) / 2, iconSize, iconSize)
         if (detail) {
             val text = "${displayAbsorption.toInt()}/${player.maxHealth.toInt()}"
             val textWidth = mc.fontRendererObj.getStringWidth(text)
