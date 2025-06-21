@@ -7,12 +7,12 @@ package net.ccbluex.liquidbounce.features.module.modules.misc
 
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.utils.extensions.rotation
-import net.ccbluex.liquidbounce.utils.rotation.AlwaysRotationSettings
-import net.ccbluex.liquidbounce.utils.rotation.Rotation
-import net.ccbluex.liquidbounce.utils.rotation.RotationUtils.currentRotation
-import net.ccbluex.liquidbounce.utils.rotation.RotationUtils.setTargetRotation
-import net.ccbluex.liquidbounce.utils.timing.WaitTickUtils
+import net.ccbluex.liquidbounce.ui.utils.extensions.rotation
+import net.ccbluex.liquidbounce.ui.utils.rotation.AlwaysRotationSettings
+import net.ccbluex.liquidbounce.ui.utils.rotation.Rotation
+import net.ccbluex.liquidbounce.ui.utils.rotation.RotationUtils.currentRotation
+import net.ccbluex.liquidbounce.ui.utils.rotation.RotationUtils.setTargetRotation
+import net.ccbluex.liquidbounce.ui.utils.timing.WaitTickUtils
 import net.minecraft.entity.player.EntityPlayer
 
 object NoRotateSet : Module("NoRotateSet", Category.MISC, gameDetecting = false) {

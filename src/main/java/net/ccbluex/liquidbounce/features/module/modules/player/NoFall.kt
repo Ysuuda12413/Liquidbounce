@@ -14,8 +14,8 @@ import net.ccbluex.liquidbounce.features.module.modules.player.nofallmodes.aac.A
 import net.ccbluex.liquidbounce.features.module.modules.player.nofallmodes.aac.LAAC
 import net.ccbluex.liquidbounce.features.module.modules.player.nofallmodes.other.*
 import net.ccbluex.liquidbounce.features.module.modules.player.nofallmodes.other.Blink
-import net.ccbluex.liquidbounce.utils.block.BlockUtils.collideBlock
-import net.ccbluex.liquidbounce.utils.rotation.AlwaysRotationSettings
+import net.ccbluex.liquidbounce.ui.utils.block.BlockUtils.collideBlock
+import net.ccbluex.liquidbounce.ui.utils.rotation.AlwaysRotationSettings
 import net.minecraft.block.BlockLiquid
 import net.minecraft.util.AxisAlignedBB.fromBounds
 import net.minecraft.util.BlockPos

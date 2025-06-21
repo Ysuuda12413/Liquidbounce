@@ -11,11 +11,11 @@ import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.modules.combat.SuperKnockback
 import net.ccbluex.liquidbounce.features.module.modules.world.scaffolds.Scaffold
-import net.ccbluex.liquidbounce.utils.extensions.isMoving
-import net.ccbluex.liquidbounce.utils.extensions.setSprintSafely
-import net.ccbluex.liquidbounce.utils.inventory.InventoryUtils.serverOpenInventory
-import net.ccbluex.liquidbounce.utils.rotation.RotationUtils.activeSettings
-import net.ccbluex.liquidbounce.utils.rotation.RotationUtils.currentRotation
+import net.ccbluex.liquidbounce.ui.utils.extensions.isMoving
+import net.ccbluex.liquidbounce.ui.utils.extensions.setSprintSafely
+import net.ccbluex.liquidbounce.ui.utils.inventory.InventoryUtils.serverOpenInventory
+import net.ccbluex.liquidbounce.ui.utils.rotation.RotationUtils.activeSettings
+import net.ccbluex.liquidbounce.ui.utils.rotation.RotationUtils.currentRotation
 import net.minecraft.network.play.client.C0BPacketEntityAction
 import net.minecraft.potion.Potion
 import net.minecraft.util.MovementInput

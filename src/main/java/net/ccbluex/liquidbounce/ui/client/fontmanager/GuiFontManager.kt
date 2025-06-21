@@ -9,9 +9,9 @@ import net.ccbluex.liquidbounce.ui.font.CustomFontInfo
 import net.ccbluex.liquidbounce.ui.font.FontInfo
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.ui.font.drawCenteredString
-import net.ccbluex.liquidbounce.utils.io.FileFilters
-import net.ccbluex.liquidbounce.utils.io.MiscUtils
-import net.ccbluex.liquidbounce.utils.ui.AbstractScreen
+import net.ccbluex.liquidbounce.ui.utils.io.FileFilters
+import net.ccbluex.liquidbounce.ui.utils.io.MiscUtils
+import net.ccbluex.liquidbounce.ui.utils.ui.AbstractScreen
 import net.minecraft.client.gui.*
 import org.lwjgl.input.Keyboard
 import java.awt.Color

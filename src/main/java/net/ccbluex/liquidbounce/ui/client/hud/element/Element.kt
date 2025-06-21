@@ -6,8 +6,8 @@
 package net.ccbluex.liquidbounce.ui.client.hud.element
 
 import net.ccbluex.liquidbounce.config.Configurable
-import net.ccbluex.liquidbounce.utils.client.MinecraftInstance
-import net.ccbluex.liquidbounce.utils.render.RenderUtils.drawBorderedRect
+import net.ccbluex.liquidbounce.ui.utils.client.MinecraftInstance
+import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.drawBorderedRect
 import net.minecraft.client.gui.ScaledResolution
 import java.awt.Color
 import kotlin.math.max

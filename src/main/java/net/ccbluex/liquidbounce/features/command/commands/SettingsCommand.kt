@@ -18,10 +18,10 @@ import net.ccbluex.liquidbounce.config.SettingsUtils
 import net.ccbluex.liquidbounce.features.command.Command
 import net.ccbluex.liquidbounce.ui.client.hud.HUD.addNotification
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
-import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
-import net.ccbluex.liquidbounce.utils.io.MiscUtils
-import net.ccbluex.liquidbounce.utils.kotlin.SharedScopes
-import net.ccbluex.liquidbounce.utils.kotlin.StringUtils
+import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.ui.utils.io.MiscUtils
+import net.ccbluex.liquidbounce.ui.utils.kotlin.SharedScopes
+import net.ccbluex.liquidbounce.ui.utils.kotlin.StringUtils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody

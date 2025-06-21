@@ -8,9 +8,9 @@ package net.ccbluex.liquidbounce.ui.font
 import net.ccbluex.liquidbounce.event.Listenable
 import net.ccbluex.liquidbounce.event.Render2DEvent
 import net.ccbluex.liquidbounce.event.handler
-import net.ccbluex.liquidbounce.utils.client.MinecraftInstance
-import net.ccbluex.liquidbounce.utils.kotlin.LruCache
-import net.ccbluex.liquidbounce.utils.render.ColorUtils
+import net.ccbluex.liquidbounce.ui.utils.client.MinecraftInstance
+import net.ccbluex.liquidbounce.ui.utils.kotlin.LruCache
+import net.ccbluex.liquidbounce.ui.utils.render.ColorUtils
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.GlStateManager.bindTexture
 import net.minecraft.client.renderer.texture.TextureUtil

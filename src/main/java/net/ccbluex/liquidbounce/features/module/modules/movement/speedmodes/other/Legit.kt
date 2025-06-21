@@ -6,8 +6,8 @@
 package net.ccbluex.liquidbounce.features.module.modules.movement.speedmodes.other
 
 import net.ccbluex.liquidbounce.features.module.modules.movement.speedmodes.SpeedMode
-import net.ccbluex.liquidbounce.utils.extensions.isMoving
-import net.ccbluex.liquidbounce.utils.extensions.tryJump
+import net.ccbluex.liquidbounce.ui.utils.extensions.isMoving
+import net.ccbluex.liquidbounce.ui.utils.extensions.tryJump
 
 object Legit : SpeedMode("Legit") {
     override fun onStrafe() {

@@ -10,8 +10,8 @@ import net.ccbluex.liquidbounce.features.command.commands.TacoCommand.tacoToggle
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
-import net.ccbluex.liquidbounce.utils.render.RenderUtils.deltaTime
+import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils
+import net.ccbluex.liquidbounce.ui.utils.render.RenderUtils.deltaTime
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.util.ResourceLocation
 

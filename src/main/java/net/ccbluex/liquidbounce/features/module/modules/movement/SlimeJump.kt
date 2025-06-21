@@ -9,7 +9,7 @@ import net.ccbluex.liquidbounce.event.JumpEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.utils.block.block
+import net.ccbluex.liquidbounce.ui.utils.block.block
 import net.minecraft.block.BlockSlime
 
 object SlimeJump : Module("SlimeJump", Category.MOVEMENT) {

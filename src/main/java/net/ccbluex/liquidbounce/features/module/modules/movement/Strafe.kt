@@ -6,12 +6,12 @@ import net.ccbluex.liquidbounce.event.UpdateEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.utils.extensions.isInLiquid
-import net.ccbluex.liquidbounce.utils.extensions.isMoving
-import net.ccbluex.liquidbounce.utils.extensions.toDegreesF
-import net.ccbluex.liquidbounce.utils.extensions.tryJump
-import net.ccbluex.liquidbounce.utils.movement.MovementUtils.direction
-import net.ccbluex.liquidbounce.utils.movement.MovementUtils.speed
+import net.ccbluex.liquidbounce.ui.utils.extensions.isInLiquid
+import net.ccbluex.liquidbounce.ui.utils.extensions.isMoving
+import net.ccbluex.liquidbounce.ui.utils.extensions.toDegreesF
+import net.ccbluex.liquidbounce.ui.utils.extensions.tryJump
+import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils.direction
+import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils.speed
 import kotlin.math.cos
 import kotlin.math.sin
 

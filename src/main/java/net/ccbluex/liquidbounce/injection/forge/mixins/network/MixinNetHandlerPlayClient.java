@@ -14,12 +14,12 @@ import net.ccbluex.liquidbounce.features.module.modules.player.Blink;
 import net.ccbluex.liquidbounce.features.special.ClientFixes;
 import net.ccbluex.liquidbounce.ui.client.hud.HUD;
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification;
-import net.ccbluex.liquidbounce.utils.client.ClientUtils;
-import net.ccbluex.liquidbounce.utils.client.PacketUtils;
-import net.ccbluex.liquidbounce.utils.rotation.Rotation;
-import net.ccbluex.liquidbounce.utils.rotation.RotationUtils;
-import net.ccbluex.liquidbounce.utils.extensions.PlayerExtensionKt;
-import net.ccbluex.liquidbounce.utils.kotlin.RandomUtils;
+import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils;
+import net.ccbluex.liquidbounce.ui.utils.client.PacketUtils;
+import net.ccbluex.liquidbounce.ui.utils.rotation.Rotation;
+import net.ccbluex.liquidbounce.ui.utils.rotation.RotationUtils;
+import net.ccbluex.liquidbounce.ui.utils.extensions.PlayerExtensionKt;
+import net.ccbluex.liquidbounce.ui.utils.kotlin.RandomUtils;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -48,8 +48,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static net.ccbluex.liquidbounce.utils.client.ClientUtilsKt.chat;
-import static net.ccbluex.liquidbounce.utils.client.MinecraftInstance.mc;
+import static net.ccbluex.liquidbounce.ui.utils.client.ClientUtilsKt.chat;
+import static net.ccbluex.liquidbounce.ui.utils.client.MinecraftInstance.mc;
 import static net.minecraft.network.play.client.C19PacketResourcePackStatus.Action.FAILED_DOWNLOAD;
 
 @Mixin(NetHandlerPlayClient.class)

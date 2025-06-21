@@ -9,10 +9,10 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.client.TabUtils
-import net.ccbluex.liquidbounce.utils.kotlin.SharedScopes
-import net.ccbluex.liquidbounce.utils.io.MiscUtils
-import net.ccbluex.liquidbounce.utils.ui.AbstractScreen
+import net.ccbluex.liquidbounce.ui.utils.client.TabUtils
+import net.ccbluex.liquidbounce.ui.utils.kotlin.SharedScopes
+import net.ccbluex.liquidbounce.ui.utils.io.MiscUtils
+import net.ccbluex.liquidbounce.ui.utils.ui.AbstractScreen
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.GuiTextField

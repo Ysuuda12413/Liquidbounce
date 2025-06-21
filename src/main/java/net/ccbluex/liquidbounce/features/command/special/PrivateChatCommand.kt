@@ -2,7 +2,7 @@ package net.ccbluex.liquidbounce.features.command.special
 
 import net.ccbluex.liquidbounce.features.command.Command
 import net.ccbluex.liquidbounce.features.module.modules.misc.LiquidChat
-import net.ccbluex.liquidbounce.utils.kotlin.StringUtils
+import net.ccbluex.liquidbounce.ui.utils.kotlin.StringUtils
 
 object PrivateChatCommand : Command("pchat", "privatechat", "lcpm") {
 

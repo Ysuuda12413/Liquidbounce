@@ -1,10 +1,10 @@
 package net.ccbluex.liquidbounce.api
 
-import net.ccbluex.liquidbounce.utils.io.applyBypassHttps
-import net.ccbluex.liquidbounce.utils.io.decodeJson
-import net.ccbluex.liquidbounce.utils.io.get
-import net.ccbluex.liquidbounce.utils.io.post
-import net.ccbluex.liquidbounce.utils.kotlin.RandomUtils
+import net.ccbluex.liquidbounce.ui.utils.io.applyBypassHttps
+import net.ccbluex.liquidbounce.ui.utils.io.decodeJson
+import net.ccbluex.liquidbounce.ui.utils.io.get
+import net.ccbluex.liquidbounce.ui.utils.io.post
+import net.ccbluex.liquidbounce.ui.utils.kotlin.RandomUtils
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request

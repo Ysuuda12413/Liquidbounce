@@ -10,9 +10,9 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withTimeoutOrNull
-import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
-import net.ccbluex.liquidbounce.utils.client.chat
-import net.ccbluex.liquidbounce.utils.kotlin.SharedScopes
+import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.ui.utils.client.chat
+import net.ccbluex.liquidbounce.ui.utils.kotlin.SharedScopes
 import java.text.SimpleDateFormat
 
 // Define a loadingLock object to synchronize access to the settings loading code

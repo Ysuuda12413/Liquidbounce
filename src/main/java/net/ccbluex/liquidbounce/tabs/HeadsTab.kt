@@ -7,12 +7,12 @@ package net.ccbluex.liquidbounce.tabs
 
 import kotlinx.coroutines.*
 import net.ccbluex.liquidbounce.LiquidBounce.CLIENT_CLOUD
-import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
-import net.ccbluex.liquidbounce.utils.kotlin.SharedScopes
-import net.ccbluex.liquidbounce.utils.inventory.ItemUtils
-import net.ccbluex.liquidbounce.utils.io.HttpClient
-import net.ccbluex.liquidbounce.utils.io.get
-import net.ccbluex.liquidbounce.utils.io.jsonBody
+import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.ui.utils.kotlin.SharedScopes
+import net.ccbluex.liquidbounce.ui.utils.inventory.ItemUtils
+import net.ccbluex.liquidbounce.ui.utils.io.HttpClient
+import net.ccbluex.liquidbounce.ui.utils.io.get
+import net.ccbluex.liquidbounce.ui.utils.io.jsonBody
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Items
 import net.minecraft.item.Item

@@ -11,9 +11,9 @@ import net.ccbluex.liquidbounce.event.WorldEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.utils.client.PacketUtils.sendPacket
-import net.ccbluex.liquidbounce.utils.client.PacketUtils.sendPackets
-import net.ccbluex.liquidbounce.utils.extensions.isMoving
+import net.ccbluex.liquidbounce.ui.utils.client.PacketUtils.sendPacket
+import net.ccbluex.liquidbounce.ui.utils.client.PacketUtils.sendPackets
+import net.ccbluex.liquidbounce.ui.utils.extensions.isMoving
 import net.minecraft.client.settings.GameSettings
 import net.minecraft.network.play.client.C0BPacketEntityAction
 import net.minecraft.network.play.client.C0BPacketEntityAction.Action.START_SNEAKING

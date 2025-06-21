@@ -10,7 +10,7 @@ import net.ccbluex.liquidbounce.event.GameTickEvent
 import net.ccbluex.liquidbounce.event.Listenable
 import net.ccbluex.liquidbounce.event.PacketEvent
 import net.ccbluex.liquidbounce.event.handler
-import net.ccbluex.liquidbounce.utils.client.MinecraftInstance
+import net.ccbluex.liquidbounce.ui.utils.client.MinecraftInstance
 import java.util.function.BooleanSupplier
 import kotlin.coroutines.RestrictsSuspension
 

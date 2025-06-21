@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.script.api.global
 
-import net.ccbluex.liquidbounce.utils.inventory.ItemUtils
+import net.ccbluex.liquidbounce.ui.utils.inventory.ItemUtils
 import net.minecraft.item.ItemStack
 
 /**

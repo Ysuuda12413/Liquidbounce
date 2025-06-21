@@ -9,8 +9,8 @@ import net.ccbluex.liquidbounce.event.MovementInputEvent
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.utils.extensions.isMoving
-import net.ccbluex.liquidbounce.utils.simulation.SimulatedPlayer
+import net.ccbluex.liquidbounce.ui.utils.extensions.isMoving
+import net.ccbluex.liquidbounce.ui.utils.simulation.SimulatedPlayer
 
 object Parkour : Module("Parkour", Category.MOVEMENT, subjective = true, gameDetecting = false) {
 

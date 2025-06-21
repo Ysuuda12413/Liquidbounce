@@ -16,9 +16,9 @@ import net.ccbluex.liquidbounce.event.async.loopSequence
 import net.ccbluex.liquidbounce.event.handler
 import net.ccbluex.liquidbounce.features.module.Category
 import net.ccbluex.liquidbounce.features.module.Module
-import net.ccbluex.liquidbounce.utils.client.ClientUtils.LOGGER
-import net.ccbluex.liquidbounce.utils.client.chat
-import net.ccbluex.liquidbounce.utils.login.UserUtils
+import net.ccbluex.liquidbounce.ui.utils.client.ClientUtils.LOGGER
+import net.ccbluex.liquidbounce.ui.utils.client.chat
+import net.ccbluex.liquidbounce.ui.utils.login.UserUtils
 import net.minecraft.event.ClickEvent
 import net.minecraft.util.ChatComponentText
 import net.minecraft.util.EnumChatFormatting

@@ -6,9 +6,9 @@
 package net.ccbluex.liquidbounce.features.command.commands
 
 import net.ccbluex.liquidbounce.features.command.Command
-import net.ccbluex.liquidbounce.utils.client.PacketUtils.sendPacket
-import net.ccbluex.liquidbounce.utils.kotlin.StringUtils
-import net.ccbluex.liquidbounce.utils.render.ColorUtils
+import net.ccbluex.liquidbounce.ui.utils.client.PacketUtils.sendPacket
+import net.ccbluex.liquidbounce.ui.utils.kotlin.StringUtils
+import net.ccbluex.liquidbounce.ui.utils.render.ColorUtils
 import net.minecraft.network.play.client.C10PacketCreativeInventoryAction
 
 object RenameCommand : Command("rename") {

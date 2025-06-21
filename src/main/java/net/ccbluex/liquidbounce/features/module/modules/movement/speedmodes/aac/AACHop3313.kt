@@ -9,11 +9,11 @@ import net.ccbluex.liquidbounce.event.EventManager.call
 import net.ccbluex.liquidbounce.event.EventState
 import net.ccbluex.liquidbounce.event.JumpEvent
 import net.ccbluex.liquidbounce.features.module.modules.movement.speedmodes.SpeedMode
-import net.ccbluex.liquidbounce.utils.block.block
-import net.ccbluex.liquidbounce.utils.extensions.isInLiquid
-import net.ccbluex.liquidbounce.utils.extensions.isMoving
-import net.ccbluex.liquidbounce.utils.extensions.toRadians
-import net.ccbluex.liquidbounce.utils.movement.MovementUtils.strafe
+import net.ccbluex.liquidbounce.ui.utils.block.block
+import net.ccbluex.liquidbounce.ui.utils.extensions.isInLiquid
+import net.ccbluex.liquidbounce.ui.utils.extensions.isMoving
+import net.ccbluex.liquidbounce.ui.utils.extensions.toRadians
+import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils.strafe
 import net.minecraft.block.BlockCarpet
 import kotlin.math.cos
 import kotlin.math.sin

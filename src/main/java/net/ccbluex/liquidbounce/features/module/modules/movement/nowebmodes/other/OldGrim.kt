@@ -6,8 +6,8 @@
 package net.ccbluex.liquidbounce.features.module.modules.movement.nowebmodes.other
 
 import net.ccbluex.liquidbounce.features.module.modules.movement.nowebmodes.NoWebMode
-import net.ccbluex.liquidbounce.utils.block.BlockUtils
-import net.ccbluex.liquidbounce.utils.client.PacketUtils.sendPacket
+import net.ccbluex.liquidbounce.ui.utils.block.BlockUtils
+import net.ccbluex.liquidbounce.ui.utils.client.PacketUtils.sendPacket
 import net.minecraft.init.Blocks.web
 import net.minecraft.network.play.client.C07PacketPlayerDigging
 import net.minecraft.network.play.client.C07PacketPlayerDigging.Action

@@ -8,7 +8,7 @@ package net.ccbluex.liquidbounce.features.command.commands
 import net.ccbluex.liquidbounce.features.command.Command
 import net.ccbluex.liquidbounce.file.FileManager.friendsConfig
 import net.ccbluex.liquidbounce.file.FileManager.saveConfig
-import net.ccbluex.liquidbounce.utils.kotlin.StringUtils
+import net.ccbluex.liquidbounce.ui.utils.kotlin.StringUtils
 
 object FriendCommand : Command("friend", "friends") {
     /**

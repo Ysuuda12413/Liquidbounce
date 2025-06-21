@@ -8,8 +8,8 @@ package net.ccbluex.liquidbounce.features.special
 import net.ccbluex.liquidbounce.event.Listenable
 import net.ccbluex.liquidbounce.event.PacketEvent
 import net.ccbluex.liquidbounce.event.handler
-import net.ccbluex.liquidbounce.utils.client.MinecraftInstance
-import net.ccbluex.liquidbounce.utils.kotlin.RandomUtils.nextInt
+import net.ccbluex.liquidbounce.ui.utils.client.MinecraftInstance
+import net.ccbluex.liquidbounce.ui.utils.kotlin.RandomUtils.nextInt
 import net.minecraft.network.EnumConnectionState
 import net.minecraft.network.handshake.client.C00Handshake
 
