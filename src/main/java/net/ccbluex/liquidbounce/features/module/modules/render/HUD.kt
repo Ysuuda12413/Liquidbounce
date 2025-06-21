@@ -15,14 +15,14 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraftforge.client.event.RenderGameOverlayEvent
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState = true, defaultHidden = true) {
     val customHotbar by boolean("CustomHotbar", true)
     val smoothHotbarSlot by boolean("SmoothHotbarSlot", true) { customHotbar }
-    val modernHud by boolean("ModernHud", false)
-    val modernHudDetail by boolean("ModernHud-Detail", false) { modernHud }
+    val modernHud by boolean("ModernHud", true)
+    val modernHudDetail by boolean("ModernHud-Detail", true) { modernHud } // Setting mới
 
     val roundedHotbarRadius by float("RoundedHotbar-Radius", 3F, 0F..5F) { customHotbar }
 
@@ -57,7 +57,7 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     val barHeight by int("BarHeight", 9, 4..30) { modernHud }
     val barRadius by float("BarRadius", 5f, 0f..20f) { modernHud }
     val barAlpha by int("BarAlpha", 180, 0..255) { modernHud }
-    val iconSize by int("IconSize", 13, 8..40) { modernHud }
+    val iconSize by int("IconSize", 11, 8..40) { modernHud }
 
     private val modernHud_render: ModernHUD
         get() = ModernHUD(
@@ -72,52 +72,45 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     val onRender2D = handler<Render2DEvent> {
         if (mc.currentScreen is GuiHudDesigner)
             return@handler
-
         val mc = Minecraft.getMinecraft()
         val sr = ScaledResolution(mc)
         val screenWidth = sr.scaledWidth
         val screenHeight = sr.scaledHeight
+        val margin = 10
+        // Health: bottom left
+        val healthX = margin
+        val healthY = screenHeight - margin - modernHud_render.iconSize - modernHud_render.barHeight
 
-        val bar = modernHud_render
+        // Armor: just above health
+        val armorX = margin
+        val armorY = healthY - modernHud_render.iconSize - modernHud_render.barHeight - 2
 
-        val centerX = screenWidth / 2
-        val baseY = screenHeight - 39 // đúng vị trí mặc định của thanh máu trong Minecraft gốc
+        // Food: bottom right
+        val foodX = screenWidth - margin - modernHud_render.barWidth
+        val foodY = screenHeight - margin - modernHud_render.iconSize - modernHud_render.barHeight
 
-        // Health (trái)
-        val healthX = centerX - 91
-        val healthY = baseY
+        // Exp: above armor
+        val expX = margin
+        val expY = armorY - modernHud_render.iconSize - modernHud_render.barHeight - 2
 
-        // Armor (trên health)
-        val armorX = healthX
-        val armorY = healthY - bar.iconSize - bar.barHeight - 2
-
-        // Food (phải)
-        val foodX = centerX + 91 - bar.barWidth
-        val foodY = baseY
-
-        // Air (trên food)
+        // Air: above food (when underwater)
         val airX = foodX
-        val airY = foodY - bar.iconSize - bar.barHeight - 2
-
-        // Exp (trên armor)
-        val expX = armorX
-        val expY = armorY - bar.iconSize - bar.barHeight - 2
+        val airY = foodY - modernHud_render.iconSize - modernHud_render.barHeight - 2
 
         if (modernHud) {
-            bar.drawHealthBar(healthX, healthY)
-            bar.drawArmorBar(armorX, armorY)
-            bar.drawFoodBar(foodX, foodY)
-            bar.drawExpBar(expX, expY)
-            bar.drawAirBar(airX, airY)
+            modernHud_render.drawHealthBar(healthX, healthY)
+            modernHud_render.drawAbsorptionBar(
+                healthX,
+                healthY - modernHud_render.barHeight - 2
+            )
 
-            // render arraylist, watermark, target, v.v.
-            hud.render(true)
-        } else {
-            hud.render(false)
+            modernHud_render.drawArmorBar(armorX, armorY)
+            modernHud_render.drawFoodBar(foodX, foodY)
+            modernHud_render.drawExpBar(expX, expY)
+            modernHud_render.drawAirBar(airX, airY)
         }
-    }
 
-    // Hủy thanh HUD mặc định nếu dùng ModernHUD
+    }
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun onRenderOverlay(event: RenderGameOverlayEvent.Pre) {
         if (!modernHud) return
@@ -133,7 +126,6 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
             else -> {}
         }
     }
-
     val onUpdate = handler<UpdateEvent> {
         val hud = LiquidBounce.hud
         hud.update()

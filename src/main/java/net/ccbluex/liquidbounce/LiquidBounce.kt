@@ -268,10 +268,10 @@ object LiquidBounce {
                     MiscUtils.showMessageDialog("Warning: backup triggered", "Client update detected! Please check the config folder.")
                 }
             }
-
             EventManager.call(StartupEvent)
             LOGGER.info("Successfully started client")
         }
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(net.ccbluex.liquidbounce.features.module.modules.render.HUD)
     }
 
     /**
