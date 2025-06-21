@@ -1,8 +1,3 @@
-/*
- * LiquidBounce Hacked Client
- * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
- * https://github.com/CCBlueX/LiquidBounce/
- */
 package net.ccbluex.liquidbounce.features.module.modules.render
 
 import net.ccbluex.liquidbounce.LiquidBounce
@@ -24,6 +19,8 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     val customHotbar by boolean("CustomHotbar", true)
     val smoothHotbarSlot by boolean("SmoothHotbarSlot", true) { customHotbar }
     val modernHud by boolean("ModernHud", false)
+    val modernHudDetail by boolean("ModernHud-Detail", false) { modernHud } // Setting mới
+
     val roundedHotbarRadius by float("RoundedHotbar-Radius", 3F, 0F..5F) { customHotbar }
 
     val hotbarMode by choices("Hotbar-Color", arrayOf("Custom", "Rainbow", "Gradient"), "Custom") { customHotbar }
@@ -59,14 +56,14 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     val barAlpha by int("BarAlpha", 180, 0..255) { modernHud }
     val iconSize by int("IconSize", 13, 8..40) { modernHud }
 
-    // Khi tạo ModernHUD, truyền setting động
     private val modernHud_render: ModernHUD
         get() = ModernHUD(
             barWidth = barWidth,
             barHeight = barHeight,
             barRadius = barRadius,
             barAlpha = barAlpha,
-            iconSize = iconSize
+            iconSize = iconSize,
+            detail = modernHudDetail
         )
 
     val onRender2D = handler<Render2DEvent> {
@@ -96,14 +93,16 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
         // Air: above food (when underwater)
         val airX = foodX
         val airY = foodY - modernHud_render.iconSize - modernHud_render.barHeight - 2
+
         if (modernHud) {
             modernHud_render.drawHealthBar(healthX, healthY)
             modernHud_render.drawArmorBar(armorX, armorY)
             modernHud_render.drawFoodBar(foodX, foodY)
             modernHud_render.drawExpBar(expX, expY)
             modernHud_render.drawAirBar(airX, airY)
+        } else {
+            hud.render(false)
         }
-        hud.render(false)
     }
 
     val onUpdate = handler<UpdateEvent> {

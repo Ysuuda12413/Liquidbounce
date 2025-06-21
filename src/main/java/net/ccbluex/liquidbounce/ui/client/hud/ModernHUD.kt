@@ -12,6 +12,7 @@ class ModernHUD(
     var barRadius: Float = 5f,
     var barAlpha: Int = 180,
     var iconSize: Int = 13,
+    var detail: Boolean = false
 ) {
     private val mc: Minecraft
         get() = Minecraft.getMinecraft()
@@ -41,6 +42,15 @@ class ModernHUD(
             Color(252, 65, 48, barAlpha),
             barRadius
         )
+        if (detail) {
+            val text = "${displayHealth.toInt()}/${player.maxHealth.toInt()}"
+            mc.fontRendererObj.drawStringWithShadow(
+                text,
+                (x + barWidth + 10).toFloat(),
+                (y + iconSize + 4).toFloat(),
+                Color(252, 65, 48).rgb
+            )
+        }
     }
 
     fun drawAbsorptionBar(x: Int, y: Int) {
@@ -57,6 +67,15 @@ class ModernHUD(
             Color(212, 175, 55, barAlpha),
             barRadius
         )
+        if (detail) {
+            val text = "${displayAbsorption.toInt()}/${player.maxHealth.toInt()}"
+            mc.fontRendererObj.drawStringWithShadow(
+                text,
+                (x + barWidth + 10).toFloat(),
+                (y + iconSize + 4).toFloat(),
+                Color(212, 175, 55).rgb
+            )
+        }
     }
 
     fun drawArmorBar(x: Int, y: Int) {
@@ -73,6 +92,15 @@ class ModernHUD(
             Color(73, 234, 214, barAlpha),
             barRadius
         )
+        if (detail) {
+            val text = "${displayArmor.toInt()}/20"
+            mc.fontRendererObj.drawStringWithShadow(
+                text,
+                (x + barWidth + 10).toFloat(),
+                (y + iconSize + 4).toFloat(),
+                Color(73, 234, 214).rgb
+            )
+        }
     }
 
     fun drawExpBar(x: Int, y: Int) {
@@ -89,12 +117,22 @@ class ModernHUD(
             Color(136, 198, 87, barAlpha),
             barRadius
         )
-        mc.fontRendererObj.drawStringWithShadow(
-            player.experienceLevel.toString(),
-            (x + barWidth + 10).toFloat(),
-            (y + iconSize + 4).toFloat(),
-            Color(136, 198, 87).rgb
-        )
+        if (detail) {
+            val text = "${(displayExp * 100).toInt()}% | Lv.${player.experienceLevel}"
+            mc.fontRendererObj.drawStringWithShadow(
+                text,
+                (x + barWidth + 10).toFloat(),
+                (y + iconSize + 4).toFloat(),
+                Color(136, 198, 87).rgb
+            )
+        } else {
+            mc.fontRendererObj.drawStringWithShadow(
+                player.experienceLevel.toString(),
+                (x + barWidth + 10).toFloat(),
+                (y + iconSize + 4).toFloat(),
+                Color(136, 198, 87).rgb
+            )
+        }
     }
 
     fun drawFoodBar(x: Int, y: Int) {
@@ -110,6 +148,15 @@ class ModernHUD(
             Color(184, 132, 88, barAlpha),
             barRadius
         )
+        if (detail) {
+            val text = "${displayFood.toInt()}/20"
+            mc.fontRendererObj.drawStringWithShadow(
+                text,
+                (x + barWidth + 10).toFloat(),
+                (y + iconSize + 4).toFloat(),
+                Color(184, 132, 88).rgb
+            )
+        }
     }
 
     fun drawAirBar(x: Int, y: Int) {
@@ -126,6 +173,15 @@ class ModernHUD(
             Color(170, 193, 227, barAlpha),
             barRadius
         )
+        if (detail) {
+            val text = "${displayAir.toInt()}/300"
+            mc.fontRendererObj.drawStringWithShadow(
+                text,
+                (x + barWidth + 10).toFloat(),
+                (y + iconSize + 4).toFloat(),
+                Color(170, 193, 227).rgb
+            )
+        }
     }
 
     // --- Helper functions ---
