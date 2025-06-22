@@ -28,10 +28,11 @@ class ModernHUD(
     private val ICON_HEART = ResourceLocation("liquidbounce/hud/icon-heart.png")
     private val ICON_SHIELD = ResourceLocation("liquidbounce/hud/icon-shield.png")
     private val ICON_FOOD = ResourceLocation("liquidbounce/hud/icon-food.png")
-
+    private val ICON_AIR = ResourceLocation("liquidbounce/hud/icon-air.png")
     fun drawHealthBar(x: Int, y: Int) {
         val player = mc.thePlayer ?: return
         displayHealth = lerp(displayHealth, player.health, HUD.smoothSpeed)
+        if (displayHealth <= 0f) return
         val yOffset = y + 2
         drawRoundedBar(x, yOffset, barWidth, barHeight, (displayHealth / player.maxHealth).coerceIn(0f, 1f), Color(252, 65, 48, barAlpha), barRadius)
         drawIcon(ICON_HEART, x + 4, yOffset + (barHeight - iconSize) / 2, iconSize, iconSize)
@@ -47,6 +48,7 @@ class ModernHUD(
         if (player.absorptionAmount <= 0f) return
         displayAbsorption = lerp(displayAbsorption, player.absorptionAmount, HUD.smoothSpeed)
         val yOffset = y + 2
+        if (displayAbsorption <= 0f) return
         drawRoundedBar(x, yOffset, barWidth, barHeight, (displayAbsorption / player.maxHealth).coerceIn(0f, 1f), Color(212, 175, 55, barAlpha), barRadius)
         drawIcon(ICON_HEART, x + 4, yOffset + (barHeight - iconSize) / 2, iconSize, iconSize)
         if (detail) {
@@ -63,6 +65,7 @@ class ModernHUD(
         val yOffset = y + 2
         drawRoundedBar(x, yOffset, barWidth, barHeight, (displayArmor / 20f).coerceIn(0f, 1f), Color(73, 234, 214, barAlpha), barRadius)
         drawIcon(ICON_SHIELD, x + 4, yOffset + (barHeight - iconSize) / 2, iconSize, iconSize)
+        if (displayArmor <= 0f) return
         if (detail) {
             val text = "${displayArmor.toInt()}/20"
             val textWidth = mc.fontRendererObj.getStringWidth(text)
@@ -70,36 +73,8 @@ class ModernHUD(
         }
     }
 
-    fun drawFoodBar(x: Int, y: Int) {
-        val player = mc.thePlayer ?: return
-        displayFood = lerp(displayFood, player.foodStats.foodLevel.toFloat(), HUD.smoothSpeed)
-        val yOffset = y + 2
-        drawRoundedBar(x, yOffset, barWidth, barHeight, (displayFood / 20f).coerceIn(0f, 1f), Color(184, 132, 88, barAlpha), barRadius)
-        drawIcon(ICON_FOOD, x + 4, yOffset + (barHeight - iconSize) / 2, iconSize, iconSize)
-        if (detail) {
-            val text = "${displayFood.toInt()}/20"
-            val textWidth = mc.fontRendererObj.getStringWidth(text)
-            mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (yOffset + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
-        }
-    }
-
-    fun drawAirBar(x: Int, y: Int) {
-        val player = mc.thePlayer ?: return
-        if (player.air >= 300) return
-        displayAir = lerp(displayAir, player.air.toFloat(), HUD.smoothSpeed)
-        val yOffset = y + 2
-        drawRoundedBar(x, yOffset, barWidth, barHeight, (displayAir / 300f).coerceIn(0f, 1f), Color(170, 193, 227, barAlpha), barRadius)
-        drawIcon(ICON_FOOD, x + 2, yOffset + (barHeight - iconSize) / 2, iconSize, iconSize, Color(170, 193, 227, barAlpha))
-        if (detail) {
-            val text = "${displayAir.toInt()}/300"
-            val textWidth = mc.fontRendererObj.getStringWidth(text)
-            mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (yOffset + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
-        }
-    }
-
     fun drawExpBar(x: Int, y: Int, width: Int) {
         val player = mc.thePlayer ?: return
-        if (player.experienceLevel <= 0) return
         displayExp = lerp(displayExp, player.experience, HUD.smoothSpeed)
         drawRoundedBar(x, y, width, barHeight, displayExp.coerceIn(0f, 1f), Color(136, 198, 87, barAlpha), barRadius)
         drawIcon(ICON_SHIELD, x + 4, y + (barHeight - iconSize) / 2, iconSize, iconSize, Color(136, 198, 87, barAlpha))
@@ -114,11 +89,33 @@ class ModernHUD(
         }
     }
 
-    private fun lerp(current: Float, target: Float, smoothing: Float): Float {
-        if (current < 0f) return target
-        val fps = Minecraft.getDebugFPS().coerceAtLeast(1)
-        val t = 1f - Math.exp((-smoothing * 10 / fps).toDouble()).toFloat()
-        return current + (target - current) * t
+    fun drawFoodBar(x: Int, y: Int) {
+        val player = mc.thePlayer ?: return
+        displayFood = lerp(displayFood, player.foodStats.foodLevel.toFloat(), HUD.smoothSpeed)
+        drawRoundedBar(x, y, barWidth, barHeight, (displayFood / 20f).coerceIn(0f, 1f), Color(184, 132, 88, barAlpha), barRadius)
+        drawIcon(ICON_FOOD, x + 4, y + (barHeight - iconSize) / 2, iconSize, iconSize)
+        if (detail) {
+            val text = "${displayFood.toInt()}/20"
+            val textWidth = mc.fontRendererObj.getStringWidth(text)
+            mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
+        }
+    }
+
+    fun drawAirBar(x: Int, y: Int) {
+        val player = mc.thePlayer ?: return
+        if (player.air >= 300) return
+        displayAir = lerp(displayAir, player.air.toFloat(), HUD.smoothSpeed)
+        if (displayAir <= 0f) return
+        drawRoundedBar(x, y, barWidth, barHeight, (displayAir / 300f).coerceIn(0f, 1f), Color(170, 193, 227, barAlpha), barRadius)
+        drawIcon(ICON_FOOD, x + 2, y + (barHeight - iconSize) / 2, iconSize, iconSize, Color(170, 193, 227, barAlpha))
+        if (detail) {
+            val text = "${displayAir.toInt().coerceAtLeast(0)}/300"
+            val textWidth = mc.fontRendererObj.getStringWidth(text)
+            mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
+        }
+    }
+    private fun lerp(current: Float, target: Float, speed: Float): Float {
+        return current + (target - current) * speed.coerceIn(0.01f, 1.0f)
     }
 
     private fun drawRoundedBar(x: Int, y: Int, width: Int, height: Int, percent: Float, color: Color, radius: Float) {
@@ -126,7 +123,7 @@ class ModernHUD(
         RenderUtils.drawRoundedRect2(x.toFloat(), y.toFloat(), x + (width * percent).toFloat(), y + height.toFloat(), color, radius)
     }
 
-    private fun drawIcon(resource: ResourceLocation, x: Int, y: Int, w: Int, h: Int, color: Color = Color(255, 255, 255, 255)) {
+    private fun drawIcon(resource: ResourceLocation, x: Int, y: Int, w: Int, h: Int, color: Color = Color(255,255,255,255)) {
         GlStateManager.enableBlend()
         GlStateManager.enableAlpha()
         GlStateManager.color(color.red / 255.0f, color.green / 255.0f, color.blue / 255.0f, color.alpha / 255.0f)
