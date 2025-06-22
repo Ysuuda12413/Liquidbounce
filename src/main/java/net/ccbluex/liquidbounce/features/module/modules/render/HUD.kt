@@ -82,30 +82,33 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
         val bar = modernHud_render
 
         val centerX = screenWidth / 2
-        val baseY = screenHeight - 39
+
+        // --- Đẩy HUD lên cao hơn ---
+        val baseY = screenHeight - 42 // Sửa từ -39 thành -85 (bạn chỉnh to nhỏ cho phù hợp)
+        // ---------------------------
 
         val healthX = centerX - 91
         val foodX = centerX + 91 - bar.barWidth
 
-        // EXP (luôn ở dưới)
+        // EXP (luôn ở dưới, nhưng cao hơn cũ)
         val expBarY = baseY + bar.barHeight + barSpacing + 4
         val expBarX = healthX
         val expBarWidth = (foodX + bar.barWidth) - healthX
         bar.drawExpBar(expBarX, expBarY, expBarWidth)
 
-        // Trái: Absorption → Health → Armor
+        // Trái: Health (dưới cùng) -> Absorption (nếu có) -> Armor (nếu có)
         var leftY = baseY
+        bar.drawHealthBar(healthX, leftY)
+        leftY -= bar.barHeight + barSpacing
         if (player.absorptionAmount > 0f) {
             bar.drawAbsorptionBar(healthX, leftY)
             leftY -= bar.barHeight + barSpacing
         }
-        bar.drawHealthBar(healthX, leftY)
-        leftY -= bar.barHeight + barSpacing
         if (player.totalArmorValue > 0) {
             bar.drawArmorBar(healthX, leftY)
         }
 
-        // Phải: Food → Air
+        // Phải: Food -> Air
         var rightY = baseY
         bar.drawFoodBar(foodX, rightY)
         rightY -= bar.barHeight + barSpacing
