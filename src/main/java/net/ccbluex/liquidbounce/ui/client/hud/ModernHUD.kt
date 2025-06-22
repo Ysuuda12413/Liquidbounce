@@ -32,12 +32,13 @@ class ModernHUD(
     fun drawHealthBar(x: Int, y: Int) {
         val player = mc.thePlayer ?: return
         displayHealth = lerp(displayHealth, player.health, HUD.smoothSpeed)
-        drawRoundedBar(x, y + 2, barWidth, barHeight, (displayHealth / player.maxHealth).coerceIn(0f, 1f), Color(252, 65, 48, barAlpha), barRadius)
-        drawIcon(ICON_HEART, x + 2, y + (barHeight - iconSize) / 2, iconSize, iconSize)
+        val barY = y + 2
+        drawRoundedBar(x, barY, barWidth, barHeight, (displayHealth / player.maxHealth).coerceIn(0f, 1f), Color(252, 65, 48, barAlpha), barRadius)
+        drawIcon(ICON_HEART, x + 4, barY + (barHeight - iconSize) / 2, iconSize, iconSize)
         if (detail) {
             val text = "${displayHealth.toInt()}/${player.maxHealth.toInt()}"
             val textWidth = mc.fontRendererObj.getStringWidth(text)
-            mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
+            mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (barY + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
         }
     }
 
@@ -45,12 +46,13 @@ class ModernHUD(
         val player = mc.thePlayer ?: return
         if (player.absorptionAmount <= 0f) return
         displayAbsorption = lerp(displayAbsorption, player.absorptionAmount, HUD.smoothSpeed)
-        drawRoundedBar(x, y + 2, barWidth, barHeight, (displayAbsorption / player.maxHealth).coerceIn(0f, 1f), Color(212, 175, 55, barAlpha), barRadius)
-        drawIcon(ICON_HEART, x + 2, y + (barHeight - iconSize) / 2, iconSize, iconSize)
+        val barY = y + 2
+        drawRoundedBar(x, barY, barWidth, barHeight, (displayAbsorption / player.maxHealth).coerceIn(0f, 1f), Color(212, 175, 55, barAlpha), barRadius)
+        drawIcon(ICON_HEART, x + 4, barY + (barHeight - iconSize) / 2, iconSize, iconSize)
         if (detail) {
             val text = "${displayAbsorption.toInt()}/${player.maxHealth.toInt()}"
             val textWidth = mc.fontRendererObj.getStringWidth(text)
-            mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
+            mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (barY + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
         }
     }
 
@@ -76,11 +78,11 @@ class ModernHUD(
         if (detail) {
             val text = "${(displayExp * 100).toInt()}% | Lv.${player.experienceLevel}"
             val textWidth = mc.fontRendererObj.getStringWidth(text)
-            mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
+            mc.fontRendererObj.drawStringWithShadow(text, (x + width - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
         } else {
             val text = player.experienceLevel.toString()
             val textWidth = mc.fontRendererObj.getStringWidth(text)
-            mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
+            mc.fontRendererObj.drawStringWithShadow(text, (x + width - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
         }
     }
 
