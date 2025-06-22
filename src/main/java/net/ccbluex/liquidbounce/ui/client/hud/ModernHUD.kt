@@ -86,11 +86,11 @@ class ModernHUD(
         if (displayFood <= 0f) return
         val yOffset = y + 2
         drawRoundedBar(x, yOffset, barWidth, barHeight, (displayFood / 20f).coerceIn(0f, 1f), Color(184, 132, 88, barAlpha), barRadius)
-        drawIcon(ICON_FOOD, x + 4, y + (barHeight - iconSize) / 2, iconSize, iconSize)
+        drawIcon(ICON_FOOD, x + 4, yOffset + (barHeight - iconSize) / 2, iconSize, iconSize)
         if (detail) {
             val text = "${displayFood.toInt()}/20"
             val textWidth = mc.fontRendererObj.getStringWidth(text)
-            mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
+            mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (yOffset + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
         }
     }
 
@@ -102,11 +102,11 @@ class ModernHUD(
         if (displayAir <= 0f) return
         val yOffset = y + 2
         drawRoundedBar(x, yOffset, barWidth, barHeight, (displayAir / 300f).coerceIn(0f, 1f), Color(170, 193, 227, barAlpha), barRadius)
-        drawIcon(ICON_AIR, x + 2, y + (barHeight - iconSize) / 2, iconSize, iconSize)
+        drawIcon(ICON_AIR, x + 2, yOffset + (barHeight - iconSize) / 2, iconSize, iconSize)
         if (detail) {
             val text = "${displayAir.toInt().coerceAtLeast(0)}/300"
             val textWidth = mc.fontRendererObj.getStringWidth(text)
-            mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
+            mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (yOffset + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
         }
     }
     fun drawExpBar(x: Int, y: Int, width: Int) {
