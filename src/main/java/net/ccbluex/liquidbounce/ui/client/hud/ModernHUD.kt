@@ -79,24 +79,6 @@ class ModernHUD(
             mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (yOffset + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
         }
     }
-
-    fun drawExpBar(x: Int, y: Int, width: Int) {
-        val player = mc.thePlayer ?: return
-        if (displayExp < 0f || abs(player.experience - displayExp) > 1f) displayExp = player.experience
-        displayExp = lerp(displayExp, player.experience, HUD.smoothSpeed)
-        drawRoundedBar(x, y, width, barHeight, displayExp.coerceIn(0f, 1f), Color(136, 198, 87, barAlpha), barRadius)
-        drawIcon(ICON_SHIELD, x + 4, y + (barHeight - iconSize) / 2, iconSize, iconSize, Color(136, 198, 87, barAlpha))
-        if (detail) {
-            val text = "${(displayExp * 100).toInt()}% | Lv.${player.experienceLevel}"
-            val textWidth = mc.fontRendererObj.getStringWidth(text)
-            mc.fontRendererObj.drawStringWithShadow(text, (x + width - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
-        } else {
-            val text = player.experienceLevel.toString()
-            val textWidth = mc.fontRendererObj.getStringWidth(text)
-            mc.fontRendererObj.drawStringWithShadow(text, (x + width - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
-        }
-    }
-
     fun drawFoodBar(x: Int, y: Int) {
         val player = mc.thePlayer ?: return
         if (displayFood < 0f || abs(player.foodStats.foodLevel.toFloat() - displayFood) > 20f) displayFood = player.foodStats.foodLevel.toFloat()
@@ -125,6 +107,23 @@ class ModernHUD(
             mc.fontRendererObj.drawStringWithShadow(text, (x + barWidth - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
         }
     }
+    fun drawExpBar(x: Int, y: Int, width: Int) {
+        val player = mc.thePlayer ?: return
+        if (displayExp < 0f || abs(player.experience - displayExp) > 1f) displayExp = player.experience
+        displayExp = lerp(displayExp, player.experience, HUD.smoothSpeed)
+        drawRoundedBar(x, y, width, barHeight, displayExp.coerceIn(0f, 1f), Color(136, 198, 87, barAlpha), barRadius)
+        drawIcon(ICON_SHIELD, x + 4, y + (barHeight - iconSize) / 2, iconSize, iconSize, Color(136, 198, 87, barAlpha))
+        if (detail) {
+            val text = "${(displayExp * 100).toInt()}% | Lv.${player.experienceLevel}"
+            val textWidth = mc.fontRendererObj.getStringWidth(text)
+            mc.fontRendererObj.drawStringWithShadow(text, (x + width - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
+        } else {
+            val text = player.experienceLevel.toString()
+            val textWidth = mc.fontRendererObj.getStringWidth(text)
+            mc.fontRendererObj.drawStringWithShadow(text, (x + width - textWidth - 4).toFloat(), (y + (barHeight - mc.fontRendererObj.FONT_HEIGHT) / 2).toFloat(), Color.WHITE.rgb)
+        }
+    }
+
 
     private fun lerp(current: Float, target: Float, speed: Float): Float {
         if (current.isNaN() || target.isNaN()) return target
