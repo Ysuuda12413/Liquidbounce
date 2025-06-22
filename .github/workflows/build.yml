@@ -132,6 +132,10 @@ jobs:
           git tag "$TAG"
           git push origin "$TAG"
 
+      - name: Ensure tag is synced before release
+        run: |
+          git fetch origin --tags
+
       - name: Create or Replace GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -143,6 +147,7 @@ jobs:
           fi
 
           gh release create "$TAG" \
+            --target main \
             ./artifacts/liquidbounce-${{ needs.build.outputs.lb_version }}-mc1.8.9.jar \
             --title "LiquidBounce $TAG" \
             --notes "${{ steps.changelog.outputs.CHANGELOG }}"
