@@ -102,7 +102,8 @@ class ModernHUD(
         if (displayFood < 0f || abs(player.foodStats.foodLevel.toFloat() - displayFood) > 20f) displayFood = player.foodStats.foodLevel.toFloat()
         displayFood = lerp(displayFood, player.foodStats.foodLevel.toFloat(), HUD.smoothSpeed)
         if (displayFood <= 0f) return
-        drawRoundedBar(x, y, barWidth, barHeight, (displayFood / 20f).coerceIn(0f, 1f), Color(184, 132, 88, barAlpha), barRadius)
+        val yOffset = y + 2
+        drawRoundedBar(x, yOffset, barWidth, barHeight, (displayFood / 20f).coerceIn(0f, 1f), Color(184, 132, 88, barAlpha), barRadius)
         drawIcon(ICON_FOOD, x + 4, y + (barHeight - iconSize) / 2, iconSize, iconSize)
         if (detail) {
             val text = "${displayFood.toInt()}/20"
@@ -117,7 +118,8 @@ class ModernHUD(
         if (displayAir < 0f || abs(player.air.toFloat() - displayAir) > 300f) displayAir = player.air.toFloat()
         displayAir = lerp(displayAir, player.air.toFloat(), HUD.smoothSpeed).coerceAtLeast(0f)
         if (displayAir <= 0f) return
-        drawRoundedBar(x, y, barWidth, barHeight, (displayAir / 300f).coerceIn(0f, 1f), Color(170, 193, 227, barAlpha), barRadius)
+        val yOffset = y + 2
+        drawRoundedBar(x, yOffset, barWidth, barHeight, (displayAir / 300f).coerceIn(0f, 1f), Color(170, 193, 227, barAlpha), barRadius)
         drawIcon(ICON_AIR, x + 2, y + (barHeight - iconSize) / 2, iconSize, iconSize)
         if (detail) {
             val text = "${displayAir.toInt().coerceAtLeast(0)}/300"
