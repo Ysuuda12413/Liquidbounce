@@ -68,8 +68,6 @@ class ModernHUD(
         drawRoundedBar(x, yOffset, barWidth, barHeight, (displayArmor / 20f).coerceIn(0f, 1f), Color(73, 234, 214, barAlpha), barRadius)
         drawIcon(ICON_SHIELD, x + 4, yOffset + (barHeight - iconSize) / 2, iconSize, iconSize)
         if (displayArmor <= 0f) return
-        drawRoundedBar(x, y, barWidth, barHeight, (displayArmor / 20f).coerceIn(0f, 1f), Color(73, 234, 214, barAlpha), barRadius)
-        drawIcon(ICON_SHIELD, x + 4, y + (barHeight - iconSize) / 2, iconSize, iconSize)
         if (detail) {
             val text = "${displayArmor.toInt()}/20"
             val textWidth = mc.fontRendererObj.getStringWidth(text)
