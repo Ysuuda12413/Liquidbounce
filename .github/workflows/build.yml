@@ -33,8 +33,10 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
+
       - name: Delete old build JARs
         run: rm -f ./build/libs/*.jar || true
+
       - name: Build (no tests, parallel, daemon)
         run: ./gradlew build --stacktrace
 
@@ -112,13 +114,21 @@ jobs:
           CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
           echo "CHANGELOG=$CHANGELOG" >> $GITHUB_OUTPUT
 
-      - name: Recreate Git tag
+      - name: Delete and recreate tag, then push
         run: |
           TAG=${{ needs.build.outputs.lb_version }}
-          if git rev-parse "$TAG" >/dev/null 2>&1; then
+
+          # Delete local tag if exists
+          if git tag | grep -q "^$TAG$"; then
             git tag -d "$TAG"
+          fi
+
+          # Delete remote tag if exists
+          if git ls-remote --tags origin | grep -q "refs/tags/$TAG$"; then
             git push origin :refs/tags/$TAG
           fi
+
+          # Create and push new tag
           git tag "$TAG"
           git push origin "$TAG"
 
