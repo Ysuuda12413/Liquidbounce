@@ -109,9 +109,11 @@ class ModernHUD(
         }
     }
 
-    private fun lerp(current: Float, target: Float, speed: Float): Float {
+    private fun lerp(current: Float, target: Float, smoothing: Float): Float {
         if (current < 0f) return target
-        return current + (target - current) * speed
+        val fps = Minecraft.getDebugFPS().coerceAtLeast(1)
+        val t = 1f - Math.exp((-smoothing * 10 / fps).toDouble()).toFloat()
+        return current + (target - current) * t
     }
 
     private fun drawRoundedBar(x: Int, y: Int, width: Int, height: Int, percent: Float, color: Color, radius: Float) {

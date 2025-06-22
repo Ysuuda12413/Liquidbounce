@@ -83,7 +83,7 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
         val centerX = screenWidth / 2
 
         // --- Đẩy HUD lên cao hơn ---
-        val baseY = screenHeight - 42 // Sửa từ -39 thành -85 (bạn chỉnh to nhỏ cho phù hợp)
+        val baseY = screenHeight - 52
         // ---------------------------
 
         val healthX = centerX - 91
