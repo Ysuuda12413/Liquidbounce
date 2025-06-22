@@ -25,7 +25,6 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
     val modernHudDetail by boolean("ModernHud-Detail", true) { modernHud }
     val barSpacing by int("BarSpacing", 4, 0..20) { modernHud }
     val smoothSpeed by float("SmoothSpeed", 0.15f, 0.01f..1.0f) { modernHud }
-
     val roundedHotbarRadius by float("RoundedHotbar-Radius", 3F, 0F..5F) { customHotbar }
 
     val hotbarMode by choices("Hotbar-Color", arrayOf("Custom", "Rainbow", "Gradient"), "Custom") { customHotbar }
