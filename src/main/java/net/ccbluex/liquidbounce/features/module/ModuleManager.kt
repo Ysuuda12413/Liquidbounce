@@ -215,7 +215,8 @@ object ModuleManager : Listenable, Collection<Module> by MODULE_REGISTRY {
             ClickRecorder,
             ChineseHat,
             SnakeGame,
-            IntaveDisabler
+            IntaveDisabler,
+            LegitReach
         )
 
         registerModules(modules = modules)
