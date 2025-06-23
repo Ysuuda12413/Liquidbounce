@@ -96,22 +96,22 @@ object HUD : Module("HUD", Category.RENDER, gameDetecting = false, defaultState 
         bar.drawExpBar(expBarX, expBarY, expBarWidth)
 
         // Trái: Health (dưới cùng) -> Absorption (nếu có) -> Armor (nếu có)
-        var leftY = baseY
+        var leftY = expBarY - bar.barHeight - barSpacing
         bar.drawHealthBar(healthX, leftY)
-        leftY -= bar.barHeight + barSpacing
         if (player.absorptionAmount > 0f) {
-            bar.drawAbsorptionBar(healthX, leftY)
             leftY -= bar.barHeight + barSpacing
+            bar.drawAbsorptionBar(healthX, leftY)
         }
         if (player.totalArmorValue > 0) {
+            leftY -= bar.barHeight + barSpacing
             bar.drawArmorBar(healthX, leftY)
         }
 
-        // Phải: Food -> Air
-        var rightY = baseY
+            // Phải: Food -> Air
+        var rightY = expBarY - bar.barHeight - barSpacing
         bar.drawFoodBar(foodX, rightY)
-        rightY -= bar.barHeight + barSpacing
         if (player.air < 300) {
+            rightY -= bar.barHeight + barSpacing
             bar.drawAirBar(foodX, rightY)
         }
 
