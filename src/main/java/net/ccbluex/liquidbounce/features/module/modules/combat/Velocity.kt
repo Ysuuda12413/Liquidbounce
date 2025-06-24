@@ -568,10 +568,10 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                 }
                 "3fmc2" -> {
                     if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId && thePlayer.onGround) {
+                        event.cancelEvent()
                         thePlayer.motionX = 0.0
                         thePlayer.motionZ = 0.0
                         thePlayer.motionY = packet.realMotionY
-                        event.cancelEvent()
                     }
                 }
                 "glitch" -> {
