@@ -548,7 +548,6 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                             }
                             if (!waitingDelayCancel && thePlayer.onGround && thePlayer.isBlocking) {
                                 packet.motionX = 0
-                                packet.motionY = 0
                                 packet.motionZ = 0
                                 waitingDelayCancel = true
                                 delayCancelTimer.reset()
