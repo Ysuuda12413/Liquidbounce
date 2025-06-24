@@ -521,7 +521,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                 }
                 "3fmc" -> {
                     if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId) {
-                        val isZeroMotion = packet.motionX == 0 && packet.motionY == 0 && packet.motionZ == 0
+                        val isZeroMotion = packet.motionX == 0 && packet.motionZ == 0
                         if (isZeroMotion) {
                             zeroMotionS12Count++
                             if (zeroMotionS12Count >= 2) {
@@ -546,7 +546,7 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                                     waitingDelayCancel = false
                                 }
                             }
-                            if (!waitingDelayCancel && thePlayer.onGround && thePlayer.isBlocking) {
+                            if (!waitingDelayCancel && thePlayer.onGround) {
                                 packet.motionX = 0
                                 packet.motionZ = 0
                                 waitingDelayCancel = true
@@ -556,9 +556,8 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                                 }
                             }
                         } else {
-                            if (thePlayer.onGround && thePlayer.isBlocking) {
+                            if (thePlayer.onGround) {
                                 packet.motionX = 0
-                                packet.motionY = 0
                                 packet.motionZ = 0
                                 if (debug3FMC) {
                                     ClientUtils.displayChatMessage("[DEBUG] Đặt motionXYZ = 0")
