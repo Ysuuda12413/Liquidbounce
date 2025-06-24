@@ -567,12 +567,10 @@ object Velocity : Module("Velocity", Category.COMBAT) {
                     }
                 }
                 "3fmc2" -> {
-                    if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId) {
-                        val rand = (0.01f..0.05f).random()
-                        packet.motionX = (rand * 8000).toInt()
-                        packet.motionY = (rand * 8000).toInt()
-                        packet.motionZ = (rand * 8000).toInt()
-                        hasReceivedVelocity = true
+                    if (packet is S12PacketEntityVelocity && packet.entityID == thePlayer.entityId && thePlayer.onGround) {
+                        thePlayer.motionX = 0.0
+                        thePlayer.motionZ = 0.0
+                        thePlayer.motionY = packet.realMotionY
                         event.cancelEvent()
                     }
                 }
