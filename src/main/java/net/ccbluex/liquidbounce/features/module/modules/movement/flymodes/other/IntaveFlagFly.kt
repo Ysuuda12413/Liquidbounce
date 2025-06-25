@@ -10,8 +10,6 @@ import net.ccbluex.liquidbounce.ui.utils.movement.MovementUtils
 import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.server.S27PacketExplosion
 import net.ccbluex.liquidbounce.event.PacketEvent
-import net.ccbluex.liquidbounce.event.EventTarget
-
 object IntaveFlagFly : FlyMode("IntaveFlagFly") {
     private var tickCount = 0
     private var boosting = false
@@ -23,8 +21,7 @@ object IntaveFlagFly : FlyMode("IntaveFlagFly") {
         boostTicks = 0
     }
 
-    @EventTarget
-    fun onPacket(event: PacketEvent) {
+    override fun onPacket(event: PacketEvent) {
         if (event.packet is S27PacketExplosion) {
             boosting = true
             boostTicks = 0
